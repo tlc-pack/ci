@@ -1,0 +1,4 @@
+- hosts: jenkins_head_node
+  roles:
+  - ansible/roles/deploy_docker
+  become: yes

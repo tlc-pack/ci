@@ -1,0 +1,23 @@
+[Unit]
+Description="TVM Jenkins Docs Agent Service"
+After=docker.service
+BindsTo=docker.service
+ReloadPropagatedFrom=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/usr/bin/docker run --rm --name %N \
+                              --mount type=bind,source=/var/jenkins/docs_home,target=/var/jenkins_home \
+                              --mount type=bind,source=/var/jenkins/persistent_data/userContent/docs,target=/var/docs \
+                              --mount type=bind,source=/var/jenkins/persistent_data/userContent/relay-docs,target=/var/relay-docs \
+                              --mount type=bind,source=/var/jenkins/persistent_data/userContent/vta-docs,target=/var/vta-docs \
+                              --network=jenkins \
+                              jenkins/ssh-agent \
+"{{ lookup('env', 'JENKINS_PUB_KEY') }}"
+
+ExecStop=docker stop -t 2 %N
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=default.target

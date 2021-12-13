@@ -1,0 +1,150 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "doc"
+      launcher:
+        ssh:
+          credentialsId: "jenkins"
+          host: "jenkins-agent"
+          port: 22
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      name: "docs"
+      numExecutors: 1
+      remoteFS: "/var/jenkins_home"
+      retentionStrategy: "always"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+  authorizationStrategy:
+    projectMatrix:
+      permissions:
+      - "USER:Job/Read:anonymous"
+      - "GROUP:Job/Read:authenticated"
+      - "USER:Overall/Administer:konturn"
+      - "USER:Overall/Administer:lunderberg"
+      - "USER:Overall/Administer:tvm-bot"
+      - "GROUP:Overall/Administer:octoml"
+      - "GROUP:Overall/Administer:tlc-pack"
+      - "USER:Overall/Read:anonymous"
+      - "GROUP:Overall/Read:authenticated"
+  securityRealm:
+    github:
+      githubWebUri: "https://github.com"
+      githubApiUri: "https://api.github.com"
+      clientID: "${OAUTH_CLIENT_ID}"
+      clientSecret: "${OAUTH_CLIENT_SECRET}"
+      oauthScopes: "read:org,user:email,repo:public_repo"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+unclassified:
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildStepOperation:
+    enabled: false
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://ci.tlcpack.ai/github-webhook/"
+  gitSCM:
+    createAccountBasedOnEmail: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  githubPullRequests:
+    actualiseOnFactory: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "tianqi.tchen@gmail.com"
+    url: "https://ci.tlcpack.ai"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: SYSTEM
+              id: jenkins
+              username: jenkins
+              description: "SSH private key file used to execute jobs on executors."
+              privateKeySource:
+                directEntry:
+                  privateKey: "${readFile:/key/jenkins_tvm_key}" # Path to file loaded from Environment Variable
+          - usernamePassword:
+              description: "tvmci"
+              id: "tqchen-ci"
+              password: "${readFile:/key/tqchen_ci}"
+              scope: GLOBAL
+              username: "tqchen"
+          - gitHubApp:
+              appID: "132847"
+              id: "jenkins-reader-apache"
+              owner: "octoml"
+              description: "Github App credentials used to access Apache TVM"
+              privateKey: "${readFile:/key/github_app_key}" # Path to file loaded from Environment Variable
+          - gitHubApp:
+              appID: "132847"
+              id: "jenkins-reader-tlcpack"
+              owner: "tlc-pack"
+              description: "Github App credentials used to access tlcpack repo for Docker daily builds"
+              privateKey: "${readFile:/key/github_app_key}" # Path to file loaded from Environment Variable
+          - string:
+              id: "discord-webhook-url"
+              description: "Discord webhook URL to send messages to #staging."
+              secret: "${readFile:/key/discord_webhook_url}"
+          - string:
+              id: "dockerhub-tlcpackstaging-key"
+              description: "Dockerhub key to push/pull images."
+              secret: "${readFile:/key/dockerhub_tlcpackstaging_key}"
+          - string:
+              id: "tvm-bot-jenkins-reader"
+              description: "PAT for the tvm-bot user"
+              secret: "${readFile:/key/tvm_bot_token}"

@@ -1,0 +1,11 @@
+- name: Set authorized keys for jenkins user from file
+  ansible.posix.authorized_key:
+    user: jenkins
+    key: "{{ lookup('file', public_keys) }}"
+    state: present
+
+- name: Set authorized keys for root user from file
+  ansible.posix.authorized_key:
+    user: root
+    key: "{{ lookup('file', public_keys) }}"
+    state: present
