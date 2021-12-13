@@ -1,0 +1,79 @@
+- job:
+    name: docker-images-ci
+    project-type: folder
+- job:
+    name: docker-images-ci/daily-docker-image-rebuild
+    project-type: pipeline
+    description: 'Daily build of docker images'
+    disabled: false
+    concurrent: true
+    parameters:
+      - string:
+          name: TVM_GIT_REV
+          default: main
+      - string:
+          name: TVM_GIT_REPO_URL
+          default: https://github.com/apache/tvm
+      - string:
+          name: DOCKERHUB_USER
+          default: tlcpackstagingoctoml
+    triggers:
+      - timed: "@daily"
+    pipeline-scm:
+      scm:
+        - git:
+            url: 'https://github.com/tlc-pack/tlcpack.git'
+            credentials-id: 'jenkins-reader-tlcpack'
+            branches:
+                - main
+            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+      script-path: jenkins/JenkinsFile-rebuild-docker-images
+    days-to-keep: 10
+    number-to-keep: 100
+
+- job:
+    name: docker-images-ci/daily-docker-image-validate
+    project-type: pipeline
+    disabled: false
+    concurrent: true
+    parameters:
+      - string:
+          name: dockerhub-tlcpackstaging-key
+          description: "Required. Key for dockerhub user."
+    pipeline-scm:
+      scm:
+        - git:
+            url: 'https://github.com/tlc-pack/tlcpack.git'
+            credentials-id: 'jenkins-reader-tlcpack'
+            branches:
+                - main
+            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+      script-path: jenkins/JenkinsFile-validate-docker-images
+    days-to-keep: 10
+    number-to-keep: 100
+
+- job:
+    name: docker-images-ci/docker-image-run-tests
+    project-type: pipeline
+    disabled: false
+    concurrent: true
+    parameters:
+      - string:
+          name: ci_lint_param
+          name: ci_cpu_param
+          name: ci_gpu_param
+          name: ci_wasm_param
+          name: ci_i386_param
+          name: ci_qemu_param
+          name: ci_arm_param
+    pipeline-scm:
+      scm:
+        - git:
+            url: 'https://github.com/apache/tvm.git'
+            credentials-id: 'jenkins-reader-apache'
+            branches:
+                - "*/main"
+            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+      script-path: Jenkinsfile
+    days-to-keep: 10
+    number-to-keep: 100

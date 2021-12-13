@@ -1,0 +1,27 @@
+- name: Log into DockerHub
+  docker_login:
+    registry: "registry.hub.docker.com"
+    username: "{{ lookup('env', 'DOCKERHUB_USERNAME') }}"
+    password: "{{ lookup('env', 'DOCKERHUB_TOKEN') }}"
+
+- name: Pull latest Jenkins build
+  docker_image:
+    source: pull
+    name: registry.hub.docker.com/{{ lookup('env', 'DOCKERHUB_USERNAME') }}/jenkins:{{ lookup('env', 'GITHUB_SHA') }}
+
+- name: remove old Jenkins container
+  docker_container:
+    name: jenkins
+    state: absent
+
+- name: Restart the jenkins systemd service to use new docker image/configuration
+  ansible.builtin.systemd:
+    state: restarted
+    enabled: yes
+    name: jenkins
+
+- name: Restart the jenkins agent systemd service to use new docker image/configuration
+  ansible.builtin.systemd:
+    state: restarted
+    enabled: yes
+    name: jenkins-agent

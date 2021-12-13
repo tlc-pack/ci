@@ -1,0 +1,28 @@
+- job:
+    name: tvm
+    project-type: multibranch
+    description: 'Apache TVM'
+    disabled: false
+    concurrent: true
+    periodic-folder-trigger: "1h"
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
+            branch-discovery: all
+            discover-pr-origin: merge-current
+            discover-pr-forks-strategy: merge-current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-ci-staging
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            disable-pr-notifications: true
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+    days-to-keep: 10
+    number-to-keep: 10
+    script-path: Jenkinsfile

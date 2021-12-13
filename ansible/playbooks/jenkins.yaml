@@ -1,0 +1,6 @@
+---
+- hosts: jenkins_head_node
+  roles:
+  - ansible/roles/setup_jenkins_head
+  - ansible/roles/run_jjb
+  become: yes

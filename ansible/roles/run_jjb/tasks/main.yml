@@ -1,0 +1,25 @@
+- name: Recursively remove old JJB directory
+  ansible.builtin.file:
+    path: /home/ubuntu/jenkins-jobs
+    state: absent
+
+- name: Populate JJB Directory
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/jenkins-jobs' }}"
+    dest: "/home/ubuntu"
+    owner: 1000
+    group: 1000
+    mode: 0700
+
+- name: Recursively remove old jenkins-job-builder repo
+  ansible.builtin.file:
+    path: "/home/ubuntu/jenkins-job-builder"
+    state: absent
+
+- name: Run JJB
+  ansible.builtin.command: 
+    argv:
+      - /home/ubuntu/jenkins-jobs/update.sh
+      - "{{ lookup('env', 'JENKINS_TOKEN') }}"
+      - "{{ lookup('env', 'ENVIRONMENT') }}"
+  ignore_errors: yes

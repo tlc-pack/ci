@@ -1,0 +1,96 @@
+name: jenkins
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Pull repository
+        uses: actions/checkout@v2
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/jenkins:${{ github.sha }}
+          context: docker
+  prepare_head_node:
+    needs: docker
+    runs-on: ubuntu-latest
+    env:
+      OAUTH_CLIENT_ID_PROD: ${{ secrets.OAUTH_CLIENT_ID_PROD }}
+      OAUTH_CLIENT_SECRET_PROD: ${{ secrets.OAUTH_CLIENT_SECRET_PROD }}
+      JENKINS_READER_APP_KEY: ${{ secrets.JENKINS_READER_APP_KEY }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      JENKINS_PRIV_KEY_PROD: ${{ secrets.JENKINS_PRIV_KEY_PROD }}
+      JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TQCHEN_CI_PAT: ${{ secrets.TQCHEN_CI_PAT }}
+    steps:
+      -
+        name: Pull repository
+        uses: actions/checkout@v2
+      -
+        name: Source common environment variables to be used in ansible playbook
+        run: source ./scripts/common.sh
+      -
+        name: Pull Terraform state
+        run: ./scripts/pull_terraform_backend.sh
+      -
+        name: Write ansible key to file
+        run: echo "${{ secrets.GLOBAL_NODE_ACCESS_PRIVATE_KEY }}" > global_node_access_private_key
+      -
+        name: Set permissions on key file
+        run: chmod 600 global_node_access_private_key
+      -
+        name: Run Ansible playbook
+        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/jenkins.yaml
+
+
+  deploy_docker:
+    needs: prepare_head_node
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      JENKINS_PRIV_KEY_PROD: "${{ secrets.JENKINS_PRIV_KEY_PROD }}"
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      -
+        name: Pull repository
+        uses: actions/checkout@v2
+      -
+        name: Source common environment variables to be used in ansible playbook
+        run: source ./scripts/common.sh
+      -
+        name: Pull Terraform state
+        run: ./scripts/pull_terraform_backend.sh
+      -
+        name: Write ansible key to file
+        run: echo "${{ secrets.GLOBAL_NODE_ACCESS_PRIVATE_KEY }}" > global_node_access_private_key
+      -
+        name: Set permissions on key file
+        run: chmod 600 global_node_access_private_key
+      - 
+        name: Deploy docker images to head node
+        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/deploy_docker.yaml

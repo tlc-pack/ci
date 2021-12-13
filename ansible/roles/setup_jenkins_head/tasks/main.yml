@@ -1,0 +1,130 @@
+### Copy over Secrets
+- name: secrets used by the Jenkins program - Github Client ID
+  ansible.builtin.lineinfile:
+    line: "OAUTH_CLIENT_ID={{ lookup('env', 'OAUTH_CLIENT_ID') }}"
+    path: "/var/jenkins/.env"
+    regexp: '^OAUTH_CLIENT_ID'
+    owner: root
+    group: root
+    create: yes
+    mode: 0600
+
+- name: secrets used by the Jenkins program - Github Client Secret
+  ansible.builtin.lineinfile:
+    line: "OAUTH_CLIENT_SECRET={{ lookup('env', 'OAUTH_CLIENT_SECRET') }}"
+    path: "/var/jenkins/.env"
+    regexp: '^OAUTH_CLIENT_SECRET'
+    owner: root
+    group: root
+    create: yes
+    mode: 0600
+
+- name: Jenkins Pub/priv Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'JENKINS_PRIV_KEY') }}"
+    dest: "/var/jenkins/keys/jenkins_tvm_key"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Github App Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'JENKINS_READER_APP_KEY') }}"
+    dest: "/var/jenkins/keys/github_app_key"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Discord Webhook URL
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
+    dest: "/var/jenkins/keys/discord_webhook_url"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Dockerhub Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'DOCKERHUB_TOKEN') }}"
+    dest: "/var/jenkins/keys/dockerhub_tlcpackstaging_key"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Dockerhub Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'JENKINS_TOKEN') }}"
+    dest: "/var/jenkins/keys/tvm_bot_token"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Apache Tqchen PAT CI creds
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'TQCHEN_CI_PAT') }}"
+    dest: "/var/jenkins/keys/tqchen_ci"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Base configuration for Jenkins
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/docker/' + lookup('env', 'ENVIRONMENT') + '/base_config.yaml' }}"
+    dest: "/var/jenkins/casc/base_config.yaml"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Fleet configuration for Jenkins
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/fleet_config.yaml' }}"
+    dest: "/var/jenkins/casc/fleet_config.yaml"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Persistent Agent configuration for Jenkins
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/persistent_agent_config.yaml' }}"
+    dest: "/var/jenkins/casc/persistent_agent_config.yaml"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: Template a file for Jenkins service
+  ansible.builtin.template:
+    src: jenkins.service.j2
+    dest: /etc/systemd/system/jenkins.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Template a file for Jenkins agent service
+  ansible.builtin.template:
+    src: jenkins-agent.service.j2
+    dest: /etc/systemd/system/jenkins-agent.service
+    owner: root
+    group: root
+    mode: '0644'
+
+
+- name: Reload systemd when we change definition
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: create Jenkins Docker network
+  command: docker network create jenkins
+  ignore_errors: yes
+
+- name: Make sure the jenkins systemd service is running
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    name: jenkins
+
+- name: Make sure the jenkins agent systemd service is running
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    name: jenkins-agent
+
