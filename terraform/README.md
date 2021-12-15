@@ -1,2 +1,2 @@
 # tvm-ci-terraform
-Terraform configuration for TVM Jenkins Infrastructure
+This repository handles the Terraform configuration for TVM Jenkins Infrastructure. The root module is located in environments/aws/tvm-ci, which invokes modules located in modules/aws/tvm-ci. Certain aspects of the repository have yet to be open-sourced--namely, the CI configuration used to deploy this code in AWS--but this will be done over the coming months, at which point the community will be able to contribute to this repository as well.
