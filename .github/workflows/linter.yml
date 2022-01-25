@@ -51,3 +51,6 @@ jobs:
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
+          VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_ANSIBLE: false
+          VALIDATE_BASH: false
