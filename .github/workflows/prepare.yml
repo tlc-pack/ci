@@ -1,11 +1,11 @@
-name: jenkins
+name: prepare_jenkins
 on:
   push:
     branches:
       - 'main'
 
 jobs:
-  docker:
+  build_docker:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -66,31 +66,3 @@ jobs:
         run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/jenkins.yaml
 
 
-  deploy_docker:
-    needs: prepare_head_node
-    runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      JENKINS_PRIV_KEY_PROD: "${{ secrets.JENKINS_PRIV_KEY_PROD }}"
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-    steps:
-      -
-        name: Pull repository
-        uses: actions/checkout@v2
-      -
-        name: Source common environment variables to be used in ansible playbook
-        run: source ./scripts/common.sh
-      -
-        name: Pull Terraform state
-        run: ./scripts/pull_terraform_backend.sh
-      -
-        name: Write ansible key to file
-        run: echo "${{ secrets.GLOBAL_NODE_ACCESS_PRIVATE_KEY }}" > global_node_access_private_key
-      -
-        name: Set permissions on key file
-        run: chmod 600 global_node_access_private_key
-      - 
-        name: Deploy docker images to head node
-        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/deploy_docker.yaml
