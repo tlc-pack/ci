@@ -4,7 +4,6 @@
     description: 'Apache TVM'
     disabled: false
     concurrent: true
-    periodic-folder-trigger: "1h"
     scm:
         - github:
             repo: tvm
