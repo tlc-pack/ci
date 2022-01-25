@@ -7,6 +7,7 @@ configuration-as-code
 disable-github-multibranch-status
 discord-notifier
 ec2-fleet
+embeddable-build-status
 folder-auth
 github-oauth
 github-scm-trait-notification-context
