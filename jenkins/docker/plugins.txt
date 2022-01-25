@@ -1,5 +1,6 @@
 authorize-project
 basic-branch-build-strategies
+block-queued-job
 blueocean
 build-timeout
 configuration-as-code

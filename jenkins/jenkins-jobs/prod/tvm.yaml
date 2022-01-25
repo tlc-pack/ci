@@ -14,10 +14,9 @@
             discover-pr-origin: merge-current
             discover-pr-forks-strategy: merge-current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-ci-staging
+            notification-context: tvm-ci
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
-            disable-pr-notifications: true
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
