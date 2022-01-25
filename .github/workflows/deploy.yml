@@ -6,7 +6,6 @@ concurrency:
   cancel-in-progress: true
 jobs: 
   deploy_docker:
-    needs: prepare_head_node
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     env:
