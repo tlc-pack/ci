@@ -25,7 +25,7 @@
             url: 'https://github.com/tlc-pack/tlcpack.git'
             credentials-id: 'jenkins-reader-tlcpack'
             branches:
-                - main
+              - main
             refspec: +refs/heads/*:refs/remotes/@{remote}/*
       script-path: jenkins/JenkinsFile-rebuild-docker-images
     days-to-keep: 10
@@ -46,7 +46,7 @@
             url: 'https://github.com/tlc-pack/tlcpack.git'
             credentials-id: 'jenkins-reader-tlcpack'
             branches:
-                - main
+              - main
             refspec: +refs/heads/*:refs/remotes/@{remote}/*
       script-path: jenkins/JenkinsFile-validate-docker-images
     days-to-keep: 10
@@ -60,11 +60,17 @@
     parameters:
       - string:
           name: ci_lint_param
+      - string:
           name: ci_cpu_param
+      - string:
           name: ci_gpu_param
+      - string:
           name: ci_wasm_param
+      - string:
           name: ci_i386_param
+      - string:
           name: ci_qemu_param
+      - string:
           name: ci_arm_param
     pipeline-scm:
       scm:
@@ -72,7 +78,7 @@
             url: 'https://github.com/apache/tvm.git'
             credentials-id: 'jenkins-reader-apache'
             branches:
-                - "*/main"
+              - "*/main"
             refspec: +refs/heads/*:refs/remotes/@{remote}/*
       script-path: Jenkinsfile
     days-to-keep: 10

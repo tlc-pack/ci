@@ -31,7 +31,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/jenkins:${{ github.sha }}
           context: docker
   prepare_head_node:
-    needs: docker
+    needs: build_docker
     runs-on: ubuntu-latest
     env:
       OAUTH_CLIENT_ID_PROD: ${{ secrets.OAUTH_CLIENT_ID_PROD }}
