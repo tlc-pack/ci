@@ -17,7 +17,7 @@
     state: absent
 
 - name: Run JJB
-  ansible.builtin.command: 
+  ansible.builtin.command:
     argv:
       - /home/ubuntu/jenkins-jobs/update.sh
       - "{{ lookup('env', 'JENKINS_TOKEN') }}"
