@@ -36,6 +36,9 @@ resource "aws_launch_template" "autoscaler" {
       volume_size = 250
     }
   }
+  iam_instance_profile {
+    name = var.jenkins_instance_profile
+  }
   vpc_security_group_ids = var.security_groups
   instance_type          = var.agent_instance_type
 }

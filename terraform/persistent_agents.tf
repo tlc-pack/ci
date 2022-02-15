@@ -32,14 +32,15 @@ resource "aws_iam_role_policy" "persistent_agents" {
    "Version": "2012-10-17",
    "Statement": [
      {
-       "Sid": "DescribeTags",
+       "Sid": "SccacheAccess",
        "Effect": "Allow",
        "Action": [
-         "ec2:DescribeTags"
+         "s3:DeleteObject",
+         "s3:GetObject",
+         "s3:ListBucket",
+         "s3:PutObject"
        ],
-      "Resource": [
-        "*"
-      ]
+       "Resource": "arn:aws:s3:::tvm-sccache-${var.environment}/*"
      }
    ]
  }
