@@ -17,6 +17,7 @@ matrix-auth
 sshd
 ssh-slaves
 strict-crumb-issuer
+timestamper
 workflow-aggregator
 workflow-multibranch
 ws-cleanup
