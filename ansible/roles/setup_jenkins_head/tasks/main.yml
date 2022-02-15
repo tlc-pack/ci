@@ -43,7 +43,7 @@
     group: 1000
     mode: 0600
 
-- name: Dockerhub Tlcpackstaging Key
+- name: Dockerhub tlcpackstaging Key
   ansible.builtin.copy:
     content: "{{ lookup('env', 'DOCKERHUB_TOKEN_TLCPACKSTAGING') }}"
     dest: "/var/jenkins/keys/dockerhub_tlcpackstaging_key"
@@ -51,7 +51,7 @@
     group: 1000
     mode: 0600
 
-- name: Dockerhub Tlcpackstagingoctoml Key
+- name: Dockerhub tlcpackstagingoctoml Key
   ansible.builtin.copy:
     content: "{{ lookup('env', 'DOCKERHUB_TOKEN') }}"
     dest: "/var/jenkins/keys/dockerhub_tlcpackstagingoctoml_key"
