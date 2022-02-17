@@ -37,3 +37,7 @@ variable "min_size" {
 variable "max_size" {
   type = number
 }
+
+variable "jenkins_instance_profile" {
+  type = string
+}
