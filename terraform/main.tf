@@ -5,6 +5,10 @@ locals {
 }
 
 terraform {
+  required_providers {
+    aws  = "~> 3.73.0"
+  }
+
   backend "s3" {
     bucket = "tvm-ci-terraform-state"
     key    = "tfstate"
