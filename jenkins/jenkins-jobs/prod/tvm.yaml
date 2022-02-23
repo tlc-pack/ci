@@ -21,6 +21,9 @@
                     ignore-target-only-changes: true
                 - regular-branches: true
                 - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
     days-to-keep: 10
     number-to-keep: 10
     script-path: Jenkinsfile
