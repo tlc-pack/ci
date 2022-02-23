@@ -148,3 +148,7 @@ credentials:
               id: "tvm-bot-jenkins-reader"
               description: "PAT for the tvm-bot user"
               secret: "${readFile:/key/tvm_bot_token}"
+          - string:
+              id: "tvm-sccache-bucket"
+              description: "Sccache S3 bucket name"
+              secret: "${readFile:/key/sccache_bucket}"
