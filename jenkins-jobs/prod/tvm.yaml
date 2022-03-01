@@ -16,6 +16,9 @@
             notification-context: tvm-ci
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
+            property-strategies:
+                all-branches:
+                    - suppress-scm-triggering: true
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
