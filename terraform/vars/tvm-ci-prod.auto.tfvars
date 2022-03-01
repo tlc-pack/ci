@@ -38,37 +38,6 @@ persistent_agent_types = {
     replicas          = 5
     template_versions = ["8", "8", "8", "8", "8"]
   }
-  "Production-Jenkins-GPU" = {
-    image_family        = "jenkins-gpu-agent"
-    agent_instance_type = "g4dn.xlarge"
-    agent_attributes = [
-      {
-        labels    = "TensorCore GPU Linux"
-        executors = "1"
-        prefix    = "octo.aws.g4dn"
-      },
-    ]
-    replicas          = 8
-    template_versions = ["8", "8", "8", "8", "8", "8", "8", "8"]
-  }
-  "Production-Jenkins-CUDA" = {
-    image_family        = "jenkins-gpu-agent"
-    agent_instance_type = "g4dn.4xlarge"
-    agent_attributes = [
-      {
-        labels    = "TensorCore GPU Linux"
-        executors = "2"
-        prefix    = "octo.aws.g4dn"
-      },
-      {
-        labels    = "GPUBUILD"
-        executors = "4"
-        prefix    = "octo.aws.g4dn.cudabuild"
-      },
-    ]
-    replicas          = 2
-    template_versions = ["8", "8"]
-  }
   "Production-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
     agent_instance_type = "m6g.4xlarge"
