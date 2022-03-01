@@ -42,21 +42,6 @@ variable "ebs_vol_size" {
   default = "500"
 }
 
-variable "persistent_agent_types" {
-  type = map(object({
-    image_family        = string
-    agent_instance_type = string
-    agent_attributes = list(object({
-      labels    = string
-      executors = string
-      prefix    = string
-    }))
-    replicas          = number
-    template_versions = list(string)
-  }))
-  default = {}
-}
-
 variable "autoscaler_types" {
   type = map(object({
     image_family        = string

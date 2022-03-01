@@ -24,42 +24,13 @@ global_access_pub_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCPEfKqi1qHT6P3oTM
 
 jenkins_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZvGmyspz5yaZ2n0H2U2XG8xULm2GYoT8Fo3qebI34v"
 
-persistent_agent_types = {
-  "Production-Jenkins-CPU" = {
-    image_family        = "jenkins-stock-agent"
-    agent_instance_type = "c4.4xlarge"
-    agent_attributes = [
-      {
-        labels    = "CPU"
-        executors = "4"
-        prefix    = "octo.aws.c4"
-      },
-    ]
-    replicas          = 5
-    template_versions = ["8", "8", "8", "8", "8"]
-  }
-  "Production-Jenkins-ARM" = {
-    image_family        = "jenkins-stock-agent-arm"
-    agent_instance_type = "m6g.4xlarge"
-    agent_attributes = [
-      {
-        labels    = "ARM"
-        executors = "4"
-        prefix    = "octo.aws.arm"
-      },
-    ]
-    replicas          = 2
-    template_versions = ["9", "9"]
-  }
-}
-
 autoscaler_types = {
   "Prod-Autoscaler-Jenkins-CPU" = {
     image_family        = "jenkins-stock-agent"
     agent_instance_type = "c4.4xlarge"
     labels              = "CPU CPU-DOCKER CPU-docker-build"
     min_size            = 0
-    max_size            = 30
+    max_size            = 45
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family        = "jenkins-gpu-agent"
