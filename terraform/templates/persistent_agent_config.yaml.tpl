@@ -27,29 +27,3 @@ jenkins:
       remoteFS: "${attributes.remote_fs}"
       retentionStrategy: "always"
   %{~ endfor ~}
-
-  %{~ for name,agent in persistent_agents ~}
-  %{~ for attributes in agent.agent_attributes ~}
-  %{~ for index, ip in agent.executor_ips ~}
-  - permanent:
-      labelString: "${attributes.labels}"
-      launcher:
-        ssh:
-          credentialsId: "jenkins"
-          host: "${ip}"
-          port: 22
-          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
-      name: "${attributes.prefix}.${ip}" 
-      nodeDescription: "This agent lives on the VM ${name}-${index} and correspondingly\
-        \ has index ${index}"
-      nodeProperties:
-      - envVars:
-          env:
-          - key: "CI_NUM_EXECUTORS"
-            value: "${attributes.executors}"
-      numExecutors: ${attributes.executors}
-      remoteFS: "/home/${attributes.prefix}"
-      retentionStrategy: "always"
-  %{~ endfor ~}
-  %{~ endfor ~}
-  %{~ endfor ~}

@@ -13,7 +13,6 @@ output "fleet_config" {
 
 output "persistent_agent_config" {
   value = templatefile("${path.module}/templates/persistent_agent_config.yaml.tpl", {
-    persistent_agents = local.persistent_agents
     additional_agents = var.additional_agents
   })
 }
