@@ -37,7 +37,7 @@ autoscaler_types = {
     agent_instance_type = "g4dn.xlarge"
     labels              = "TensorCore GPU Linux GPU-DOCKER GPUBUILD"
     min_size            = 0
-    max_size            = 15
+    max_size            = 45
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
