@@ -42,8 +42,8 @@ jobs:
           WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_source_image_family: jenkins-stock-agent
           PKR_VAR_image_prefix: jenkins-gpu-agent
-          PKR_VAR_nvidia_driver_version: "460.80"
-          PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/XFree86/Linux-x86_64"
+          PKR_VAR_nvidia_driver_version: "460.106.00"
+          PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
         with:
           command: build
           target: jenkins-agents/gpu

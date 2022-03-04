@@ -1,3 +1,4 @@
+set -eux
 # install Nvidia drivers and dependencies
 curl -fSsl -O $BASE_URL/$NVIDIA_DRIVER_VERSION/NVIDIA-Linux-x86_64-$NVIDIA_DRIVER_VERSION.run
 sh NVIDIA-Linux-x86_64-$NVIDIA_DRIVER_VERSION.run -s
