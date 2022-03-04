@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - 'main'
+  schedule:
+  - cron: "0 0 * * 0"
 
 jobs:
   build:
@@ -10,8 +12,6 @@ jobs:
     env:
       PKR_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
       PKR_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #Targets AWS accounts for Jenkins AMI's--in this case tvm-ci-prod and terraform-tvm
-      PKR_VAR_target_accounts: '["477529581014", "649843420731"]'
     steps:
       -
         name: Pull repository
@@ -47,4 +47,3 @@ jobs:
         with:
           command: build
           target: jenkins-agents/gpu
-

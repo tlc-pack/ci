@@ -11,7 +11,3 @@ variable "image_prefix" {
 
 variable "source_image_family" {
 }
-
-variable "target_accounts" {
-  type = list(string)
-}

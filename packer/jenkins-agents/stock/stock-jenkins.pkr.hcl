@@ -7,7 +7,7 @@ source "amazon-ebs" "jenkins_stock_image" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-v${var.buildtime}"
-  ami_users = var.target_accounts
+  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}"
   }
@@ -30,7 +30,7 @@ source "amazon-ebs" "jenkins_stock_image_arm" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-arm-v${var.buildtime}"
-  ami_users = var.target_accounts
+  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-arm"
   }
