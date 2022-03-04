@@ -17,7 +17,3 @@ variable "nvidia_driver_version" {
 
 variable "nvidia_driver_base_url"{
 }
-
-variable "target_accounts" {
-  type = list(string)
-}

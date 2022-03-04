@@ -7,8 +7,8 @@ source "amazon-ebs" "jenkins_gpu_image" {
   access_key = var.aws_access_key  
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
+  ami_groups = ["all"]
   ami_name          = "${var.image_prefix}-v${var.buildtime}"
-  ami_users = var.target_accounts
   tags = {
     image_family = "${var.image_prefix}"
   }

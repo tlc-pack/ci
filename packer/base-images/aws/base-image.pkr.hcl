@@ -7,6 +7,7 @@ source "amazon-ebs" "aws_base_image" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-v${var.buildtime}"
+  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}"
   }
@@ -29,6 +30,7 @@ source "amazon-ebs" "aws_base_image_arm" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-arm-v${var.buildtime}"
+  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-arm"
   }
