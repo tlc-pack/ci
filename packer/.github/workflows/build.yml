@@ -42,8 +42,9 @@ jobs:
           WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_source_image_family: jenkins-stock-agent
           PKR_VAR_image_prefix: jenkins-gpu-agent
-          PKR_VAR_nvidia_driver_version: "460.80"
-          PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/XFree86/Linux-x86_64"
+          #This driver version below is the latest recommended given our requirements (T4 GPU, CUDA 11.2, Linux X86). Furthermore, the corresponding run script is compatible with Linux kernel version 5.13.
+          PKR_VAR_nvidia_driver_version: "460.106.00"
+          PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
         with:
           command: build
           target: jenkins-agents/gpu
