@@ -144,3 +144,16 @@
     enabled: yes
     name: jenkins-agent
 
+- name: Copy over reload script
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'CI_PROJECT_DIR') + '/scripts/reload.sh' }}"
+    dest: "/home/ubuntu"
+    owner: 1000
+    group: 1000
+    mode: 0700
+
+- name: Reload Jenkins base configuration from disk
+  ansible.builtin.command: 
+    argv:
+      - /home/ubuntu/reload.sh
+      - "{{ lookup('env', 'JENKINS_TOKEN') }}"
