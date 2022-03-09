@@ -144,3 +144,21 @@
     enabled: yes
     name: jenkins-agent
 
+- name: Reload Jenkins Configuration as Code from disk
+  ansible.builtin.shell: |
+  CRUMB=$(curl -u "tvm-bot:${JENKINS_TOKEN}" -X GET http://localhost:8080/crumbIssuer/api/json | jq --raw-output .crumb)
+  curl -u "tvm-bot:${JENKINS_TOKEN}" -X POST http://localhost:8080/re -H "Jenkins-Crumb: ${CRUMB}"
+
+- name: Copy over reload script
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'CI_PROJECT_DIR') + '/scripts/reload.sh' }}"
+    dest: "/home/ubuntu"
+    owner: 1000
+    group: 1000
+    mode: 0700
+
+- name: Reload Jenkins base configuration from disk
+  ansible.builtin.command: 
+    argv:
+      - /home/ubuntu/reload.sh
+      - "{{ lookup('env', 'JENKINS_TOKEN') }}"
