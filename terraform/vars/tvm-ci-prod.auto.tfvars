@@ -44,7 +44,7 @@ autoscaler_types = {
     agent_instance_type = "m6g.4xlarge"
     labels              = "ARM"
     min_size            = 0
-    max_size            = 4
+    max_size            = 45
   }
 }
 
