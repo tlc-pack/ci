@@ -24,7 +24,7 @@ jenkins:
       maxTotalUses: -1
       minSize: ${attributes.min_size}
       name: "${name}"
-      noDelayProvision: true
+      noDelayProvision: false
       numExecutors: 1
       oldId: "803939ae-c6f8-4c7a-8386-0d1a9af631ad"
       privateIpUsed: true
