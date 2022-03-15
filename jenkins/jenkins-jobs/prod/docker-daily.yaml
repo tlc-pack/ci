@@ -16,7 +16,7 @@
           default: https://github.com/apache/tvm
       - string:
           name: DOCKERHUB_USER
-          default: tlcpackstagingoctoml
+          default: tlcpackstaging
     triggers:
       - timed: "@daily"
     pipeline-scm:
