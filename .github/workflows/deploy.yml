@@ -14,6 +14,7 @@ jobs:
       JENKINS_PRIV_KEY_PROD: "${{ secrets.JENKINS_PRIV_KEY_PROD }}"
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_TOKEN_TLCPACKSTAGING: ${{ secrets.DOCKERHUB_TOKEN_TLCPACKSTAGING }}
     steps:
       -
         name: Pull repository
