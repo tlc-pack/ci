@@ -47,6 +47,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TQCHEN_CI_PAT: ${{ secrets.TQCHEN_CI_PAT }}
       SCCACHE_BUCKET: ${{ secrets.SCCACHE_BUCKET }}
+      DOCS_PUSH_TOKEN: ${{ secrets.DOCS_PUSH_TOKEN }}
     steps:
       -
         name: Pull repository

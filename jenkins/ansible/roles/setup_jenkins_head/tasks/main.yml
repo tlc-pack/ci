@@ -83,6 +83,14 @@
     group: 1000
     mode: 0600
 
+- name: docs push token
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'DOCS_PUSH_TOKEN') }}"
+    dest: "/var/jenkins/keys/docs-push-token"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
 - name: Base configuration for Jenkins
   ansible.builtin.copy:
     src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/docker/' + lookup('env', 'ENVIRONMENT') + '/base_config.yaml' }}"
