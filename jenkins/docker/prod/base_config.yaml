@@ -152,3 +152,7 @@ credentials:
               id: "tvm-sccache-bucket"
               description: "Sccache S3 bucket name"
               secret: "${readFile:/key/sccache_bucket}"
+          - string:
+              id: "docs-push-token"
+              description: "docs push token"
+              secret: "${readFile:/key/docs-push-token}"
