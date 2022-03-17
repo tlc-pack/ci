@@ -49,6 +49,17 @@ autoscaler_types = {
   }
 }
 
+ecr_repositories = [
+  "ci_arm",
+  "ci_cpu",
+  "ci_gpu",
+  "ci_hexagon",
+  "ci_i386",
+  "ci_lint",
+  "ci_qemu",
+  "ci_wasm"
+]
+
 domain_name               = "ci.tlcpack.ai"
 subject_alternative_names = ["docs.staging.tlcpack.ai"]
 ebs_volume_size           = 500
