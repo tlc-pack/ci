@@ -7,7 +7,7 @@ jenkins:
       checkSessionMatch: false
   disableRememberMe: false
   markupFormatter: "plainText"
-  mode: NORMAL
+  mode: EXCLUSIVE
   myViewsTabBar: "standard"
   nodes:
   - permanent:
@@ -18,6 +18,7 @@ jenkins:
           host: "jenkins-agent"
           port: 22
           sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      mode: EXCLUSIVE
       name: "docs"
       numExecutors: 1
       remoteFS: "/var/jenkins_home"
