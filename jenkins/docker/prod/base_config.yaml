@@ -60,6 +60,13 @@ jenkins:
       clientID: "${OAUTH_CLIENT_ID}"
       clientSecret: "${OAUTH_CLIENT_SECRET}"
       oauthScopes: "read:org,user:email,repo:public_repo"
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "DOCS_DEPLOY_BRANCH"
+        value: "asf-site"
+      - key: "DOCS_DEPLOY_ENABLED"
+        value: "yes"
 security:
   apiToken:
     creationOfLegacyTokenEnabled: false
