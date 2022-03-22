@@ -164,3 +164,7 @@ credentials:
               id: "docs-push-token"
               description: "docs push token"
               secret: "${readFile:/key/docs-push-token}"
+          - string:
+              id: "aws-account-id"
+              description: "aws account id"
+              secret: "${readFile:/key/aws-account-id}"
