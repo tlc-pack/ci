@@ -10,8 +10,8 @@
             repo-owner: apache
             credentials-id: 'tqchen-ci'
             branch-discovery: all
-            discover-pr-origin: merge-current
-            discover-pr-forks-strategy: merge-current
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
             notification-context: tvm-ci
             refspecs:
