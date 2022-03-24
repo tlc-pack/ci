@@ -31,21 +31,21 @@ autoscaler_types = {
     agent_instance_type = "c4.4xlarge"
     labels              = "CPU CPU-DOCKER CPU-docker-build"
     min_size            = 0
-    max_size            = 45
+    max_size            = 90
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family        = "jenkins-gpu-agent"
     agent_instance_type = "g4dn.xlarge"
     labels              = "TensorCore GPU Linux GPU-DOCKER GPUBUILD"
     min_size            = 0
-    max_size            = 45
+    max_size            = 90
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
     agent_instance_type = "m6g.4xlarge"
     labels              = "ARM"
     min_size            = 0
-    max_size            = 45
+    max_size            = 90
   }
 }
 
