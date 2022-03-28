@@ -1,0 +1,4 @@
+*.pem
+monitoring/vars.yml
+*.tar.gz
+

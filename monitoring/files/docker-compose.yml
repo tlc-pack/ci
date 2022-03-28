@@ -1,0 +1,109 @@
+version: '3.7'
+
+services:
+  grafana:
+    image: grafana/grafana:8.4.4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    networks:
+      - monitoring
+    volumes:
+      - /etc/tvm/grafana:/var/lib/grafana
+      - /etc/tvm/grafana-provisioning/:/etc/grafana/provisioning
+      - /etc/tvm/grafana.ini:/etc/grafana/grafana.ini
+      - /etc/tvm/dashboards:/var/lib/grafana/dashboards
+
+  loki:
+    image: grafana/loki:main-52f9df4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    networks:
+      - monitoring
+    volumes:
+      - /etc/tvm/loki-config.yml:/etc/loki/loki-config.yaml
+      - /etc/tvm/loki_data:/data/loki
+    command: -config.file=/etc/loki/loki-config.yaml
+
+  postgres:
+    image: postgres:12.10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    networks:
+      - monitoring
+    environment:
+      - POSTGRES_USER={{ passwords.postgres_user }}
+      - POSTGRES_PASSWORD={{ passwords.postgres_password }}
+    volumes:
+      - /etc/tvm/postgres_data:/var/lib/postgresql/data
+
+  prometheus:
+    image: prom/prometheus:v2.34.0
+    volumes:
+      - /etc/tvm/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /etc/tvm/prometheus/:/etc/prometheus/
+      - /etc/tvm/prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - monitoring
+
+  fetcher:
+    image: jenkins_fetcher:local
+    environment:
+      db_host: postgres:5432
+      db_user: {{ passwords.postgres_user }}
+      db_password: {{ passwords.postgres_password }}
+      loki_host: loki:3100
+    volumes:
+      - /etc/tvm/fetcher_data:/opt/fetcher/.httpcache
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+
+  testfetcher:
+    image: jenkins_testfetcher:local
+    environment:
+      db_host: postgres:5432
+      db_user: {{ passwords.postgres_user }}
+      db_password: {{ passwords.postgres_password }}
+      loki_host: loki:3100
+    volumes:
+      - /etc/tvm/fetcher_data:/opt/fetcher/.httpcache
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:1.21.0
+    ports:
+      - "80:80"
+      - "443:443"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    networks:
+      - monitoring
+    volumes:
+      - "/etc/tvm/http.conf:/etc/nginx/conf.d/default.conf"
+      - "/etc/tvm/certificate.pem:/etc/nginx/fullchain.pem"
+      - "/etc/tvm/key.pem:/etc/nginx/privkey.pem"
+
+networks:
+  monitoring:
+    external: false
