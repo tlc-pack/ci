@@ -69,6 +69,7 @@ build {
       "${path.root}/../scripts/update.sh",
       "${path.root}/../scripts/tools.sh",
       "${path.root}/../scripts/datadog.sh",
+      "${path.root}/../scripts/coredumps.sh",
       "${path.root}/../scripts/fail2ban.sh",
       "${path.root}/../scripts/aws-extras.sh"
     ]
