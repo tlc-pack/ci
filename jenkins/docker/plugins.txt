@@ -22,3 +22,5 @@ workflow-aggregator
 workflow-multibranch
 ws-cleanup
 pipeline-github-lib
+prometheus
+
