@@ -62,6 +62,11 @@ variable "subject_alternative_names" {
   default = []
 }
 
+variable "ecr_repositories" {
+  type    = list(string)
+  default = []
+}
+
 variable "is_private" {
   type    = bool
   default = false

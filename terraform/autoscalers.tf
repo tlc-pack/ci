@@ -34,17 +34,44 @@ resource "aws_iam_role_policy" "autoscalers" {
  {
    "Version": "2012-10-17",
    "Statement": [
-     {
-       "Sid": "SccacheAccess",
-       "Effect": "Allow",
-       "Action": [
+      {
+        "Sid": "SccacheAccess",
+        "Effect": "Allow",
+        "Action": [
          "s3:DeleteObject",
          "s3:GetObject",
          "s3:ListBucket",
          "s3:PutObject"
-       ],
-       "Resource": "arn:aws:s3:::tvm-sccache-${var.environment}/*"
-     }
+        ],
+        "Resource": "arn:aws:s3:::tvm-sccache-${var.environment}/*"
+      },
+      {
+          "Sid": "ECRAccess1",
+          "Effect": "Allow",
+          "Action": [
+              "ecr:BatchCheckLayerAvailability",
+              "ecr:BatchGetImage",
+              "ecr:CompleteLayerUpload",
+              "ecr:DescribeImages",
+              "ecr:DescribeRepositories",
+              "ecr:GetDownloadUrlForLayer",
+              "ecr:InitiateLayerUpload",
+              "ecr:ListImages",
+              "ecr:PutImage",
+              "ecr:TagResource",
+              "ecr:UploadLayerPart"
+          ],
+          "Resource": "arn:aws:ecr:us-west-2:*"
+      },
+      {
+          "Sid": "ECRAccess2",
+          "Effect": "Allow",
+          "Action": [
+              "ecr:DescribeRegistry",
+              "ecr:GetAuthorizationToken"
+          ],
+          "Resource": "*"
+      }
    ]
  }
 EOF
