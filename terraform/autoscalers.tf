@@ -95,4 +95,6 @@ module "Jenkins-Autoscalers" {
   executor_access_pub_keys = var.executor_access_pub_keys
   min_size                 = each.value.min_size
   max_size                 = each.value.max_size
+  on_demand_base_capacity                  = each.value.on_demand_base_capacity
+  on_demand_percentage_above_base_capacity = each.value.on_demand_percentage_above_base_capacity
 }

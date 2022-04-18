@@ -32,6 +32,8 @@ autoscaler_types = {
     labels              = "CPU CPU-DOCKER CPU-docker-build"
     min_size            = 0
     max_size            = 90
+    on_demand_percentage_above_base_capacity = 50
+    on_demand_base_capacity = 6
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family        = "jenkins-gpu-agent"
@@ -39,6 +41,8 @@ autoscaler_types = {
     labels              = "TensorCore GPU Linux GPU-DOCKER GPUBUILD"
     min_size            = 0
     max_size            = 90
+    on_demand_percentage_above_base_capacity = 50
+    on_demand_base_capacity = 8
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
@@ -46,6 +50,8 @@ autoscaler_types = {
     labels              = "ARM"
     min_size            = 0
     max_size            = 90
+    on_demand_percentage_above_base_capacity = 50
+    on_demand_base_capacity = 2
   }
 }
 

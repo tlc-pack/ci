@@ -50,9 +50,19 @@ resource "aws_autoscaling_group" "agents" {
   vpc_zone_identifier   = var.subnet_ids
   protect_from_scale_in = false
 
-  launch_template {
-    id      = aws_launch_template.autoscaler.id
-    version = aws_launch_template.autoscaler.latest_version
+  mixed_instances_policy {
+    instances_distribution {
+      on_demand_base_capacity                  = var.on_demand_base_capacity
+      on_demand_percentage_above_base_capacity = var.on_demand_percentage_above_base_capacity
+      spot_allocation_strategy                 = "capacity-optimized"
+    }
+
+    launch_template {
+      launch_template_specification {
+        launch_template_id = aws_launch_template.autoscaler.id
+        version            = aws_launch_template.autoscaler.latest_version
+      }
+    }
   }
   lifecycle {
     ignore_changes = [
