@@ -1,13 +1,12 @@
 resource "aws_ecr_repository" "ci_ecr" {
-  count                = "${length(var.ecr_repositories)}"
-  name                 = "${var.ecr_repositories[count.index]}"
+  for_each                = toset(var.ecr_repositories)
+  name                 = each.value
   image_tag_mutability = "IMMUTABLE"
 }
 
 resource "aws_ecr_lifecycle_policy" "untagged_removal_policy" {
-  count      = "${length(var.ecr_repositories)}"
-  depends_on = [ "aws_ecr_repository.ci_ecr" ]
-  repository = "${aws_ecr_repository.ci_ecr[count.index].name}"
+  for_each      = toset(var.ecr_repositories)
+  repository = aws_ecr_repository.ci_ecr[each.value].name
 
   policy = <<EOF
 {
