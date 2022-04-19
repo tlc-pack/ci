@@ -49,6 +49,8 @@ variable "autoscaler_types" {
     labels              = string
     min_size            = number
     max_size            = number
+    on_demand_percentage_above_base_capacity = number
+    on_demand_base_capacity                  = number
   }))
   default = {}
 }

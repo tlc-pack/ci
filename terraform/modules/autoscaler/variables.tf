@@ -41,3 +41,11 @@ variable "max_size" {
 variable "jenkins_instance_profile" {
   type = string
 }
+
+variable "on_demand_base_capacity" {
+  type = number
+}
+
+variable "on_demand_percentage_above_base_capacity" {
+  type = number
+}
