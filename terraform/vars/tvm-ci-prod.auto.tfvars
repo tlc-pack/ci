@@ -32,8 +32,8 @@ autoscaler_types = {
     labels              = "CPU"
     min_size            = 0
     max_size            = 90
-    on_demand_percentage_above_base_capacity = 50
-    on_demand_base_capacity = 6
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family        = "jenkins-gpu-agent"
@@ -41,8 +41,8 @@ autoscaler_types = {
     labels              = "GPU"
     min_size            = 0
     max_size            = 90
-    on_demand_percentage_above_base_capacity = 50
-    on_demand_base_capacity = 8
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity = 0
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
@@ -50,8 +50,8 @@ autoscaler_types = {
     labels              = "ARM"
     min_size            = 0
     max_size            = 90
-    on_demand_percentage_above_base_capacity = 50
-    on_demand_base_capacity = 2
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity = 0
   }
 }
 
