@@ -25,12 +25,15 @@ global_access_pub_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCPEfKqi1qHT6P3oTM
 
 jenkins_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZvGmyspz5yaZ2n0H2U2XG8xULm2GYoT8Fo3qebI34v"
 
+# For min_size, this should be set to the number of reserved instances on the
+# AWS account since they're being paid for either way we can avoid node spin-up
+# time by always keeping at least the reserved instance capacity around
 autoscaler_types = {
   "Prod-Autoscaler-Jenkins-CPU" = {
     image_family        = "jenkins-stock-agent"
     agent_instance_type = "c4.4xlarge"
     labels              = "CPU"
-    min_size            = 0
+    min_size            = 6
     max_size            = 90
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity = 0
@@ -46,7 +49,7 @@ autoscaler_types = {
     image_family        = "jenkins-gpu-agent"
     agent_instance_type = "g4dn.xlarge"
     labels              = "GPU"
-    min_size            = 0
+    min_size            = 8
     max_size            = 90
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity = 0
@@ -62,7 +65,7 @@ autoscaler_types = {
     image_family        = "jenkins-stock-agent-arm"
     agent_instance_type = "m6g.4xlarge"
     labels              = "ARM"
-    min_size            = 0
+    min_size            = 2
     max_size            = 90
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity = 0
