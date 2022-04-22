@@ -51,6 +51,13 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity = 0
   }
+  "Prod-Autoscaler-Jenkins-GPU-4x" = {
+    image_family        = "jenkins-gpu-agent"
+    agent_instance_type = "g4dn.4xlarge"
+    labels              = "GPU"
+    min_size            = 2
+    max_size            = 2
+  }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family        = "jenkins-stock-agent-arm"
     agent_instance_type = "m6g.4xlarge"
