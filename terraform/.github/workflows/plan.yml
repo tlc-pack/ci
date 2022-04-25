@@ -2,15 +2,14 @@ name: terraform
 on:
   pull_request:
     branches: [main]
-  push:
-    branches: [main]
 
 jobs:
-  build:
+  plan:
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Terraform fmt
@@ -23,16 +22,7 @@ jobs:
       - name: Terraform Plan
         uses: dflook/terraform-plan@v1
         id: plan
-        continue-on-error: ${{ github.event_name == 'pull_request' }}
         with:
           var_file: |
             vars/tvm-ci-prod.auto.tfvars
           workspace: tvm-ci-prod
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        uses: dflook/terraform-apply@v1
-        with:
-          var_file: |
-            vars/tvm-ci-prod.auto.tfvars
-          workspace: tvm-ci-prod
-          auto_approve: true

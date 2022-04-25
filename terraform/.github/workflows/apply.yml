@@ -1,0 +1,22 @@
+name: terraform
+on:
+  push:
+    branches: [main]
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        uses: dflook/terraform-apply@v1
+        with:
+          var_file: |
+            vars/tvm-ci-prod.auto.tfvars
+          workspace: tvm-ci-prod
