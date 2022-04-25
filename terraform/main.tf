@@ -6,7 +6,7 @@ locals {
 
 terraform {
   required_providers {
-    aws  = "~> 3.73.0"
+    aws = "~> 3.73.0"
   }
 
   backend "s3" {

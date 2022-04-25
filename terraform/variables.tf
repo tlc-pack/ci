@@ -18,7 +18,7 @@ variable "vpc_id" {
 }
 
 variable "account_role_arn" {
-  type = string
+  type        = string
   description = "The role ARN which terraform will assume to deploy resources"
 }
 
@@ -44,11 +44,11 @@ variable "ebs_vol_size" {
 
 variable "autoscaler_types" {
   type = map(object({
-    image_family        = string
-    agent_instance_type = string
-    labels              = string
-    min_size            = number
-    max_size            = number
+    image_family                             = string
+    agent_instance_type                      = string
+    labels                                   = string
+    min_size                                 = number
+    max_size                                 = number
     on_demand_percentage_above_base_capacity = number
     on_demand_base_capacity                  = number
   }))
