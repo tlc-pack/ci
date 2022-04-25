@@ -28,12 +28,6 @@ jobs:
           var_file: |
             vars/tvm-ci-prod.auto.tfvars
           workspace: tvm-ci-prod
-      - name: Terraform Apply
-        uses: dflook/terraform-apply@v1
-        with:
-          var_file: |
-            vars/tvm-ci-prod.auto.tfvars
-          workspace: tvm-ci-prod
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
         env:
@@ -70,3 +64,11 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        uses: dflook/terraform-apply@v1
+        with:
+          var_file: |
+            vars/tvm-ci-prod.auto.tfvars
+          workspace: tvm-ci-prod
+          auto_approve: true

@@ -39,11 +39,13 @@ autoscaler_types = {
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
-    image_family        = "jenkins-stock-agent"
-    agent_instance_type = "r5.large"
-    labels              = "CPU-SMALL"
-    min_size            = 0
-    max_size            = 45
+    image_family                             = "jenkins-stock-agent"
+    agent_instance_type                      = "r5.large"
+    labels                                   = "CPU-SMALL"
+    min_size                                 = 0
+    max_size                                 = 45
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family                             = "jenkins-gpu-agent"
@@ -55,11 +57,13 @@ autoscaler_types = {
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU-4x" = {
-    image_family        = "jenkins-gpu-agent"
-    agent_instance_type = "g4dn.4xlarge"
-    labels              = "GPU"
-    min_size            = 2
-    max_size            = 2
+    image_family                             = "jenkins-gpu-agent"
+    agent_instance_type                      = "g4dn.4xlarge"
+    labels                                   = "GPU"
+    min_size                                 = 2
+    max_size                                 = 2
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"
