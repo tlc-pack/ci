@@ -14,13 +14,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Terraform fmt
         id: fmt
-        uses: dflook/terraform-fmt@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        uses: dflook/terraform-fmt@976b15307d109bc95a5c0518fd79b9182c17e095 #v1.22.2
         continue-on-error: true
       - name: Terraform Validate
         id: validate
-        uses: dflook/terraform-validate@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        uses: dflook/terraform-validate@004cb11294aa51f17cddfeda079592a1ae621dc8 #v1.22.2
       - name: Terraform Plan
-        uses: dflook/terraform-plan@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        uses: dflook/terraform-plan@1547271e3127df7ad5b667eeed17e8e3a77a76a0 #v1.22.2
         id: plan
         with:
           var_file: |

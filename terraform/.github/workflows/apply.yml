@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        uses: dflook/terraform-apply@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        uses: dflook/terraform-apply@ce70027700f2c6b17bcaf421b6e4e9b5e62b7bff #v1.22.2
         with:
           var_file: |
             vars/tvm-ci-prod.auto.tfvars
