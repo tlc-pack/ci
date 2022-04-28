@@ -1,0 +1,28 @@
+name: terraform
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Terraform fmt
+        id: fmt
+        uses: dflook/terraform-fmt@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        continue-on-error: true
+      - name: Terraform Validate
+        id: validate
+        uses: dflook/terraform-validate@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+      - name: Terraform Plan
+        uses: dflook/terraform-plan@1842b14da5fa3f42aefbe2c13ce82418c78b01b0
+        id: plan
+        with:
+          var_file: |
+            vars/tvm-ci-prod.auto.tfvars
+          workspace: tvm-ci-prod

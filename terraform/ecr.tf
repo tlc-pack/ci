@@ -1,11 +1,11 @@
 resource "aws_ecr_repository" "ci_ecr" {
-  for_each                = toset(var.ecr_repositories)
+  for_each             = toset(var.ecr_repositories)
   name                 = each.value
   image_tag_mutability = "IMMUTABLE"
 }
 
 resource "aws_ecr_lifecycle_policy" "untagged_removal_policy" {
-  for_each      = toset(var.ecr_repositories)
+  for_each   = toset(var.ecr_repositories)
   repository = aws_ecr_repository.ci_ecr[each.value].name
 
   policy = <<EOF

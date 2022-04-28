@@ -1,16 +1,16 @@
-environment              = "prod"
-account_role_arn         = "arn:aws:iam::477529581014:role/Administrator"
+environment      = "prod"
+account_role_arn = "arn:aws:iam::477529581014:role/Administrator"
 public_subnet_ids = {
-  "frontend-us-west-2a": "subnet-0548976da0eb119b8",
-  "frontend-us-west-2b": "subnet-0fa03daf38e6b72a8",
-  "frontend-us-west-2c": "subnet-0ab37ff3dbeb0e52b"
+  "frontend-us-west-2a" : "subnet-0548976da0eb119b8",
+  "frontend-us-west-2b" : "subnet-0fa03daf38e6b72a8",
+  "frontend-us-west-2c" : "subnet-0ab37ff3dbeb0e52b"
 }
 private_subnet_ids = {
-  "agents-us-west-2a": "subnet-0dc8224b6f17d99a0",
-  "agents-us-west-2b": "subnet-030ff1184253eb3dd",
-  "agents-us-west-2c": "subnet-0700df0147c72cc6e"
+  "agents-us-west-2a" : "subnet-0dc8224b6f17d99a0",
+  "agents-us-west-2b" : "subnet-030ff1184253eb3dd",
+  "agents-us-west-2c" : "subnet-0700df0147c72cc6e"
 }
-vpc_id = "vpc-02d62f26d69ff4936"
+vpc_id                   = "vpc-02d62f26d69ff4936"
 executor_access_pub_keys = <<EOT
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAsAaXCDJBISOQh8vdrUXyOSoQ2pfQuL57974OkuGbW
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFZtISQW2MSKVj6wibk8nB4RBf4ZuoluJtBWmeWPoee
@@ -30,45 +30,49 @@ jenkins_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZvGmyspz5yaZ2n0H2U2XG8x
 # time by always keeping at least the reserved instance capacity around
 autoscaler_types = {
   "Prod-Autoscaler-Jenkins-CPU" = {
-    image_family        = "jenkins-stock-agent"
-    agent_instance_type = "c4.4xlarge"
-    labels              = "CPU"
-    min_size            = 6
-    max_size            = 90
+    image_family                             = "jenkins-stock-agent"
+    agent_instance_type                      = "c4.4xlarge"
+    labels                                   = "CPU"
+    min_size                                 = 6
+    max_size                                 = 90
     on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity = 0
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
-    image_family        = "jenkins-stock-agent"
-    agent_instance_type = "r5.large"
-    labels              = "CPU-SMALL"
-    min_size            = 0
-    max_size            = 45
+    image_family                             = "jenkins-stock-agent"
+    agent_instance_type                      = "r5.large"
+    labels                                   = "CPU-SMALL"
+    min_size                                 = 0
+    max_size                                 = 45
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
-    image_family        = "jenkins-gpu-agent"
-    agent_instance_type = "g4dn.xlarge"
-    labels              = "GPU"
-    min_size            = 8
-    max_size            = 90
+    image_family                             = "jenkins-gpu-agent"
+    agent_instance_type                      = "g4dn.xlarge"
+    labels                                   = "GPU"
+    min_size                                 = 8
+    max_size                                 = 90
     on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity = 0
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU-4x" = {
-    image_family        = "jenkins-gpu-agent"
-    agent_instance_type = "g4dn.4xlarge"
-    labels              = "GPU"
-    min_size            = 2
-    max_size            = 2
+    image_family                             = "jenkins-gpu-agent"
+    agent_instance_type                      = "g4dn.4xlarge"
+    labels                                   = "GPU"
+    min_size                                 = 2
+    max_size                                 = 2
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-ARM" = {
-    image_family        = "jenkins-stock-agent-arm"
-    agent_instance_type = "m6g.4xlarge"
-    labels              = "ARM"
-    min_size            = 2
-    max_size            = 90
+    image_family                             = "jenkins-stock-agent-arm"
+    agent_instance_type                      = "m6g.4xlarge"
+    labels                                   = "ARM"
+    min_size                                 = 2
+    max_size                                 = 90
     on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity = 0
+    on_demand_base_capacity                  = 0
   }
 }
 

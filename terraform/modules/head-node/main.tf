@@ -94,8 +94,8 @@ resource "aws_iam_instance_profile" "jenkins_fleet" {
 }
 
 resource "aws_eip" "static" {
-  vpc = true
-  instance                  = aws_instance.jenkins_head_node.id
+  vpc      = true
+  instance = aws_instance.jenkins_head_node.id
   tags = {
     Name = "eip-jenkins-server-${var.environment}"
   }
