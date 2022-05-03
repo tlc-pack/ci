@@ -6,31 +6,41 @@ on:
     branches: [main]
 
 jobs:
+  validate:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      EMAIL: ${{ github.event.pusher.email }}
+      PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name }}
+    runs-on: ubuntu-latest
+    outputs:
+      valid_workflow: ${{ steps.validate_workflow.outputs.valid_workflow }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: validate_workflow
+        run: |
+          output=$(python3 scripts/validate.py)
+          echo "::set-output name=valid_workflow::$output"
+      - run: echo ${{ steps.validate_workflow.outputs.valid_workflow }}
+
   plan:
     env:
-      DEPLOYERS: |
-          [
-            "konturn@wustl.edu"
-          ]
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.valid_workflow == 'True'
     #These steps run if either the PR is within the same repo or if the PR is on a fork and the committer has deployer access
     steps:
       - uses: actions/checkout@v2
-        if: ${{ ((github.event.pull_request.head.repo.full_name != github.repository) && contains( env.DEPLOYERS, github.event.pusher.email ) && github.event_name == 'pull_request_target') || (github.event.pull_request.head.repo.full_name == github.repository && github.event_name == 'pull_request') }}
       - name: Terraform fmt
-        if: ${{ ((github.event.pull_request.head.repo.full_name != github.repository) && contains( env.DEPLOYERS, github.event.pusher.email ) && github.event_name == 'pull_request_target') || (github.event.pull_request.head.repo.full_name == github.repository && github.event_name == 'pull_request') }}
         id: fmt
         uses: dflook/terraform-fmt@976b15307d109bc95a5c0518fd79b9182c17e095 #v1.22.2
         continue-on-error: true
       - name: Terraform Validate
-        if: ${{ ((github.event.pull_request.head.repo.full_name != github.repository) && contains( env.DEPLOYERS, github.event.pusher.email ) && github.event_name == 'pull_request_target') || (github.event.pull_request.head.repo.full_name == github.repository && github.event_name == 'pull_request') }}
         id: validate
         uses: dflook/terraform-validate@004cb11294aa51f17cddfeda079592a1ae621dc8 #v1.22.2
       - name: Terraform Plan
-        if: ${{ ((github.event.pull_request.head.repo.full_name != github.repository) && contains( env.DEPLOYERS, github.event.pusher.email ) && github.event_name == 'pull_request_target') || (github.event.pull_request.head.repo.full_name == github.repository && github.event_name == 'pull_request') }}
         uses: dflook/terraform-plan@1547271e3127df7ad5b667eeed17e8e3a77a76a0 #v1.22.2
         id: plan
         with:
