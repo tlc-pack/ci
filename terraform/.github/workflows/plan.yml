@@ -21,7 +21,6 @@ jobs:
           pip install PyGithub
           output=$(python3 scripts/validate.py)
           echo "::set-output name=valid_workflow::$output"
-      - run: echo ${{ steps.validate_workflow.outputs.valid_workflow }}
 
   plan:
     env:
