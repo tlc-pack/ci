@@ -9,7 +9,8 @@ def check_is_verified(token, repository, ref):
   return latest_commit.commit.raw_data["verification"]["verified"]
   
 if __name__ == '__main__' :
-  with open('DEPLOYERS.md') as file:
+  deployer_path = os.environ['GITHUB_WORKSPACE'] + '/DEPLOYERS.md'
+  with open(deployer_path) as file:
     deployers = [i.strip() for i in file]
 
   token = os.environ['GITHUB_TOKEN']

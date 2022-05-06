@@ -16,10 +16,17 @@ jobs:
       valid_workflow: ${{ steps.validate_workflow.outputs.valid_workflow }}
     steps:
       - uses: actions/checkout@v2
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.1.13
+          virtualenvs-create: true
+          virtualenvs-in-project: true
       - id: validate_workflow
         run: |
-          pip install PyGithub
-          output=$(python3 scripts/validate.py)
+          cd scripts
+          poetry install
+          output=$(poetry run python validate.py)
           echo "::set-output name=valid_workflow::$output"
 
   plan:
