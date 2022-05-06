@@ -20,14 +20,23 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@2bf112a0f6979928eb6b011f39700db589c5961e #v1
         with:
-          version: 1.1.13
           virtualenvs-create: true
           virtualenvs-in-project: true
+          version: 1.1.13
+      - name: Install library
+        run: |
+          cd scripts
+          poetry install
+      - name: Run tests
+        run: |
+          cd scripts
+          source .venv/bin/activate
+          poetry run pytest --cov validate .
       - name: validate_workflow
         id: validate_workflow
         run: |
           cd scripts
-          poetry install
+          source .venv/bin/activate
           output=$(poetry run python validate.py)
           echo "::set-output name=valid_workflow::$output"
 
