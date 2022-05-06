@@ -1,5 +1,10 @@
 repos:
 - repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: b4d8fd9752605956ae40ab72c7572d97b41fc3c7  # frozen: v1.69.0
+  rev: 74a2e54f236a84754449045e0cf5e12f66c68c4d  # frozen: v1.71.0
   hooks:
     - id: terraform_fmt
+- repo: https://github.com/psf/black
+  rev: ae2c0758c9e61a385df9700dc9c231bf54887041 # frozen: v22.3.0
+  hooks:
+  - id: black
+    language_version: python3.8

@@ -16,13 +16,15 @@ jobs:
       valid_workflow: ${{ steps.validate_workflow.outputs.valid_workflow }}
     steps:
       - uses: actions/checkout@v2
+      - uses: psf/black@ae2c0758c9e61a385df9700dc9c231bf54887041 #v22.3.0
       - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
+        uses: snok/install-poetry@2bf112a0f6979928eb6b011f39700db589c5961e #v1
         with:
           version: 1.1.13
           virtualenvs-create: true
           virtualenvs-in-project: true
-      - id: validate_workflow
+      - name: validate_workflow
+        id: validate_workflow
         run: |
           cd scripts
           poetry install
