@@ -30,13 +30,11 @@ jobs:
       - name: Run tests
         run: |
           cd scripts
-          source .venv/bin/activate
           poetry run pytest --cov validate .
       - name: validate_workflow
         id: validate_workflow
         run: |
           cd scripts
-          source .venv/bin/activate
           output=$(poetry run python validate.py)
           echo "::set-output name=valid_workflow::$output"
 
