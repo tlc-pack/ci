@@ -1,1 +1,1 @@
-konturn@wustl.edu
+konturn

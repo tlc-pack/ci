@@ -9,7 +9,7 @@ jobs:
   validate:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      EMAIL: ${{ github.event.pusher.email }}
+      LOGIN: ${{ github.event.actor.login }}
       PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name }}
     runs-on: ubuntu-latest
     outputs:
