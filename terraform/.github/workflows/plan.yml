@@ -49,15 +49,17 @@ jobs:
     #These steps run if either the PR is within the same repo or if the PR is on a fork and the committer has deployer access
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Terraform fmt
         id: fmt
-        uses: dflook/terraform-fmt@976b15307d109bc95a5c0518fd79b9182c17e095 #v1.22.2
+        uses: dflook/terraform-fmt@f0d4aaacfe91d9319a40cbb2bfeb5bd0ee2f2739 #v1.25.1
         continue-on-error: true
       - name: Terraform Validate
         id: validate
-        uses: dflook/terraform-validate@004cb11294aa51f17cddfeda079592a1ae621dc8 #v1.22.2
+        uses: dflook/terraform-validate@85bc5b5cab93240dc66bf7b9e744570f12ace9d6 #v1.25.1
       - name: Terraform Plan
-        uses: dflook/terraform-plan@1547271e3127df7ad5b667eeed17e8e3a77a76a0 #v1.22.2
+        uses: dflook/terraform-plan@7196a67f47a16ef4f7e12ff0b55205e5eb2cee55 #v1.25.1
         id: plan
         with:
           var_file: |
