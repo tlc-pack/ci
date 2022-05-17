@@ -11,7 +11,7 @@ jobs:
   validate:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      LOGIN: ${{ github.event.actor.login }}
+      LOGIN: ${{ github.actor }}
       PR_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name }}
     runs-on: ubuntu-latest
     outputs:
