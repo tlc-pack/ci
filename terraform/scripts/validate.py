@@ -14,12 +14,12 @@ def validate(
     github_repository,
     working_repository,
     github_event_name,
-    committer_email,
+    committer_login,
     deployers,
     is_verified,
 ):
     is_fork = not github_repository == working_repository
-    is_deployer = committer_email in deployers
+    is_deployer = committer_login in deployers
     is_pull_request_event = github_event_name == "pull_request"
     is_pull_request_target_event = github_event_name == "pull_request_target"
 
@@ -40,14 +40,14 @@ if __name__ == "__main__":
     working_repository = os.environ["PR_REPO_FULL_NAME"]
     pr_branch_name = os.environ["GITHUB_HEAD_REF"]
     github_event_name = os.environ["GITHUB_EVENT_NAME"]
-    committer_email = os.environ["EMAIL"]
+    committer_login = os.environ["LOGIN"]
 
     is_verified = check_is_verified(token, working_repository, pr_branch_name)
     valid_workflow = validate(
         github_repository,
         working_repository,
         github_event_name,
-        committer_email,
+        committer_login,
         deployers,
         is_verified,
     )
