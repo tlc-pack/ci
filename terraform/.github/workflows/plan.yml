@@ -2,10 +2,8 @@ name: terraform
 on:
   pull_request:
     branches: [main]
-    types: [synchronize]
   pull_request_target:
     branches: [main]
-    types: [synchronize]
 
 jobs:
   validate:
