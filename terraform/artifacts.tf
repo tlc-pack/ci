@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "artifacts-bucket" {
-  bucket = "jenkins-artifacts-${var.environment}"
+  bucket = "tvm-jenkins-artifacts-${var.environment}"
   acl    = "private"
 
   tags = {
-    Name = "jenkins-artifacts-${var.environment}"
+    Name = "tvm-jenkins-artifacts-${var.environment}"
   }
 
   lifecycle_rule {
