@@ -46,6 +46,17 @@ resource "aws_iam_role_policy" "autoscalers" {
         "Resource": "arn:aws:s3:::tvm-sccache-${var.environment}/*"
       },
       {
+        "Sid": "ArtifactsAccess",
+        "Effect": "Allow",
+        "Action": [
+         "s3:DeleteObject",
+         "s3:GetObject",
+         "s3:ListBucket",
+         "s3:PutObject"
+        ],
+        "Resource": "arn:aws:s3:::jenkins-artifacts-${var.environment}/*"
+      },
+      {
           "Sid": "ECRAccess1",
           "Effect": "Allow",
           "Action": [
