@@ -16,7 +16,7 @@ jenkins:
           sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
       disableTaskResubmit: false
       fleet: ${name}
-      idleMinutes: 5
+      idleMinutes: 1
       initOnlineCheckIntervalSec: 15
       initOnlineTimeoutSec: 180
       labelString: "${attributes.labels}"
