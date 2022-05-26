@@ -18,7 +18,7 @@ apt install -y openjdk-8-jre-headless
 pip install docker
 
 #echo new cron into cron file
-echo '0 * * * * docker system prune --volumes --force --filter "until=1h"' | crontab
+echo '0 * * * * docker system prune --all --force --filter "until=1h"' | crontab
 
 docker network create jenkin
 
