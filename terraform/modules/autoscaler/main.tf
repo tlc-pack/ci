@@ -33,7 +33,7 @@ resource "aws_launch_template" "autoscaler" {
   block_device_mappings {
     device_name = "/dev/sda1"
     ebs {
-      volume_size = 80
+      volume_size = 150
     }
   }
   iam_instance_profile {
