@@ -35,7 +35,7 @@ variable "jenkins_pub_key" {
 }
 
 variable "head_node_instance_type" {
-  default = "t3.xlarge"
+  default = "c4.4xlarge"
 }
 
 variable "ebs_vol_size" {
