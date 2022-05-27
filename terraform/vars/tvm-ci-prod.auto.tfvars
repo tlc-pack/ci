@@ -43,7 +43,7 @@ autoscaler_types = {
     agent_instance_type                      = "r5.large"
     labels                                   = "CPU-SMALL"
     min_size                                 = 0
-    max_size                                 = 200
+    max_size                                 = 400
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
@@ -52,7 +52,7 @@ autoscaler_types = {
     agent_instance_type                      = "g4dn.xlarge"
     labels                                   = "GPU"
     min_size                                 = 8
-    max_size                                 = 90
+    max_size                                 = 150
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
@@ -79,7 +79,7 @@ autoscaler_types = {
     agent_instance_type                      = "r6g.large"
     labels                                   = "ARM-SMALL"
     min_size                                 = 0
-    max_size                                 = 90
+    max_size                                 = 150
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
