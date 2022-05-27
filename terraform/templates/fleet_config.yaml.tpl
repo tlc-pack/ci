@@ -21,7 +21,7 @@ jenkins:
       initOnlineTimeoutSec: 180
       labelString: "${attributes.labels}"
       maxSize: ${attributes.max_size}
-      maxTotalUses: -1
+      maxTotalUses: 10
       minSize: ${attributes.min_size}
       name: "${name}"
       noDelayProvision: true
