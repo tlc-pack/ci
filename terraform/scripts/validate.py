@@ -1,5 +1,5 @@
-import sys
 import os
+
 from github import Github
 
 
@@ -31,7 +31,7 @@ def validate(
 
 
 if __name__ == "__main__":
-    deployer_path = os.environ["GITHUB_WORKSPACE"] + "/DEPLOYERS.md"
+    deployer_path = os.environ["GITHUB_WORKSPACE"] + "/terraform/DEPLOYERS.md"
     with open(deployer_path) as file:
         deployers = [i.strip() for i in file]
 

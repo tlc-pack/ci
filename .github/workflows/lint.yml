@@ -54,3 +54,5 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_ANSIBLE: false
           VALIDATE_BASH: false
+          VALIDATE_TERRAFORM_TERRASCAN: false
+          VALIDATE_MARKDOWN: false

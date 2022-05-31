@@ -34,7 +34,7 @@ autoscaler_types = {
     agent_instance_type                      = "c4.4xlarge"
     labels                                   = "CPU"
     min_size                                 = 5
-    max_size                                 = 90
+    max_size                                 = 80
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
