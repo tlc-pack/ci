@@ -1,20 +1,25 @@
 name: deploy_jenkins
 on: 
   workflow_dispatch:
+
 concurrency:
   group: deploy_jenkins
   cancel-in-progress: true
+
 jobs: 
   deploy_docker:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.JENKINS_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.JENKINS_AWS_SECRET_ACCESS_KEY }}
       JENKINS_PRIV_KEY_PROD: "${{ secrets.JENKINS_PRIV_KEY_PROD }}"
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       DOCKERHUB_TOKEN_TLCPACKSTAGING: ${{ secrets.DOCKERHUB_TOKEN_TLCPACKSTAGING }}
+    defaults:
+      run:
+        working-directory: ./jenkins
     steps:
       -
         name: Pull repository

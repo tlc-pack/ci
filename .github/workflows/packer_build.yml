@@ -1,17 +1,27 @@
 name: packer
 on:
   push:
+    paths:
+      - packer/**
     branches:
-      - 'main'
+      - main
   schedule:
   - cron: "0 0 * * 0"
+
+
+concurrency:
+  group: packer_build
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packer
     env:
-      PKR_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      PKR_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      PKR_VAR_aws_access_key: ${{ secrets.PACKER_AWS_ACCESS_KEY_ID }}
+      PKR_VAR_aws_secret_key: ${{ secrets.PACKER_AWS_SECRET_ACCESS_KEY }}
     steps:
       -
         name: Pull repository
@@ -24,7 +34,7 @@ jobs:
           PKR_VAR_image_prefix: ci-base
         with:
           command: build
-          target: base-images/aws
+          target: packer/base-images/aws
       - 
         name: Build stock Jenkins agent
         uses: hashicorp/packer-github-actions@master
@@ -34,7 +44,7 @@ jobs:
           PKR_VAR_image_prefix: jenkins-stock-agent
         with:
           command: build
-          target: jenkins-agents/stock
+          target: packer/jenkins-agents/stock
       - 
         name: Build GPU Jenkins agent
         uses: hashicorp/packer-github-actions@master
@@ -47,4 +57,4 @@ jobs:
           PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
         with:
           command: build
-          target: jenkins-agents/gpu
+          target: packer/jenkins-agents/gpu

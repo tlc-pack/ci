@@ -5,7 +5,7 @@
 
 - name: Populate JJB Directory
   ansible.builtin.copy:
-    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/jenkins-jobs' }}"
+    src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/jenkins/jenkins-jobs' }}"
     dest: "/home/ubuntu"
     owner: 1000
     group: 1000
