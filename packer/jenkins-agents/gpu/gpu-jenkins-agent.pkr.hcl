@@ -8,14 +8,14 @@ source "amazon-ebs" "jenkins_gpu_image" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_groups = ["all"]
-  ami_name          = "${var.image_prefix}-v${var.buildtime}"
+  ami_name          = "${var.image_prefix}-x64-v${var.buildtime}"
   tags = {
-    image_family = "${var.image_prefix}"
+    image_family = "${var.image_prefix}-x64"
   }
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    "tag:image_family" = "${var.source_image_family}"
+    "tag:image_family" = "${var.source_image_family}-x64"
     root-device-type = "ebs"
     }
     owners = ["self"]
