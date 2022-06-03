@@ -6,16 +6,16 @@ source "amazon-ebs" "jenkins_stock_image" {
   access_key = var.aws_access_key  
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
-  ami_name          = "${var.image_prefix}-v${var.buildtime}"
+  ami_name          = "${var.image_prefix}-x64-v${var.buildtime}"
   ami_groups = ["all"]
   tags = {
-    image_family = "${var.image_prefix}"
+    image_family = "${var.image_prefix}-x64"
   }
   instance_type        = "t2.micro"
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    "tag:image_family" = "${var.source_image_family}"
+    "tag:image_family" = "${var.source_image_family}-x64"
     root-device-type = "ebs"
     }
     owners = ["self"]
