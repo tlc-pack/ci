@@ -30,7 +30,7 @@ jenkins_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZvGmyspz5yaZ2n0H2U2XG8x
 # time by always keeping at least the reserved instance capacity around
 autoscaler_types = {
   "Prod-Autoscaler-Jenkins-CPU" = {
-    image_family                             = "jenkins-stock-agent"
+    image_family                             = "jenkins-stock-agent-x64"
     agent_instance_type                      = "c4.4xlarge"
     labels                                   = "CPU"
     min_size                                 = 0
@@ -39,7 +39,7 @@ autoscaler_types = {
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
-    image_family                             = "jenkins-stock-agent"
+    image_family                             = "jenkins-stock-agent-x64"
     agent_instance_type                      = "r5.large"
     labels                                   = "CPU-SMALL"
     min_size                                 = 0
@@ -48,7 +48,7 @@ autoscaler_types = {
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
-    image_family                             = "jenkins-gpu-agent"
+    image_family                             = "jenkins-gpu-agent-x64"
     agent_instance_type                      = "g4dn.xlarge"
     labels                                   = "GPU"
     min_size                                 = 8
