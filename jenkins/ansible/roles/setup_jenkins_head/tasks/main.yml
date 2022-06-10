@@ -51,6 +51,14 @@
     group: 1000
     mode: 0600
 
+- name: Dockerhub tlcpack Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'DOCKERHUB_TOKEN_TLCPACK') }}"
+    dest: "/var/jenkins/keys/dockerhub-tlcpack-key"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
 - name: Dockerhub tlcpackstagingoctoml Key
   ansible.builtin.copy:
     content: "{{ lookup('env', 'DOCKERHUB_TOKEN') }}"
