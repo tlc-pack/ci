@@ -1,0 +1,58 @@
+---
+- name: Setup Docker
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  gather_facts: false
+  tasks:
+    - name: Install packages
+      shell: |
+        apt update
+        apt install -y docker.io
+        apt install -y unzip
+    - name: Set up Docker Swarm
+      # Note: The IP CIDR should be chosen carefully! Collisions with the host
+      # network will make everything not work.
+      shell: |
+        docker swarm init --default-addr-pool 10.0.0.0/8 || echo done
+        docker stack rm monitoring || echo done
+    - name: Create folders
+      shell: |
+        # rm -rf /etc/tvm
+        mkdir -p \
+          /etc/tvm/grafana-provisioning/datasources \
+          /etc/tvm/grafana-provisioning/notifiers \
+          /etc/tvm/grafana-provisioning/dashboards \
+          /etc/tvm/dashboards/ \
+          /etc/tvm/loki_data \
+          /etc/tvm/postgres_data \
+          /etc/tvm/fetcher_data \
+          /etc/tvm/prometheus \
+          /etc/tvm/clickhouse \
+          /etc/tvm/prometheus_data \
+          /etc/tvm/grafana
+
+        find /etc/tvm -type d | xargs chmod 777
+    - name: Copy files
+      template:
+        src: "{{ item.src }}"
+        dest: "/etc/tvm/{{ item.path }}"
+      with_filetree: files/
+      when: item.state == 'file'
+    - name: Copy fetcher image
+      copy:
+        src: jenkins_fetcher.tar.gz
+        dest: /etc/tvm/jenkins_fetcher.tar.gz
+    - name: Copy test fetcher image
+      copy:
+        src: jenkins_testfetcher.tar.gz
+        dest: /etc/tvm/jenkins_testfetcher.tar.gz
+    - name: Unpack fetcher
+      shell: |
+        docker load --input /etc/tvm/jenkins_testfetcher.tar.gz
+        docker load --input /etc/tvm/jenkins_fetcher.tar.gz
+    - name: Run compose
+      shell: |
+        docker stack rm monitoring || echo done
+        docker stack deploy -c /etc/tvm/docker-compose.yml monitoring
