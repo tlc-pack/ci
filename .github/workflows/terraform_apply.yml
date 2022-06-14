@@ -1,11 +1,11 @@
-name: terraform
+name: terraform apply
 on:
   push:
     branches:
       - main
     paths:
       - terraform/**
-
+  workflow_dispatch:
 
 concurrency:
   group: terraform_apply
@@ -25,10 +25,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'workflow_dispatch' }}
         uses: dflook/terraform-apply@e1c1b7e1d0eed8bda30338e54ff3cd6790a6f35b #v1.25.1
         with:
           var_file: |
             terraform/vars/tvm-ci-prod.auto.tfvars
           workspace: tvm-ci-prod
           path: ./terraform
+      - name: Terraform Apply (workflow dispatch)
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' }}
+        uses: dflook/terraform-apply@e1c1b7e1d0eed8bda30338e54ff3cd6790a6f35b #v1.25.1
+        with:
+          var_file: |
+            terraform/vars/tvm-ci-prod.auto.tfvars
+          workspace: tvm-ci-prod
+          path: ./terraform
+          auto_approve: true
