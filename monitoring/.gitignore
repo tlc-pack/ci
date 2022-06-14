@@ -1,0 +1,7 @@
+vars.yml
+*.tar.gz
+*.pem
+__pycache__/
+*.env
+*.log
+*.json
