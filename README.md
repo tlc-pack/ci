@@ -49,4 +49,16 @@ Restarting Jenkins is an occasional but necessary service interruption. To minim
         console.log(b);
     }
     ```
-5. Monitor CI for the next day to ensure that autoscaled nodes are being allocated / deallocated as necessary
+5. Check the in-flight PRs from the saved list of jobs and restart the builds for those that didn't automatically restart. Some PRs may have also been submitted while Jenkins was down in which case there will be no Jenkins status reported to the PR. These PRs will need to be re-pushed by the author.
+6. Monitor CI for the next day to ensure that autoscaled nodes are being allocated / deallocated as necessary
+
+## Troubleshooting Jenkins
+
+- If the `Build Queue` section on https://ci.tlcpack.ai/ is filled with jobs, hover over them to see their time in queue. If it is longer than a few minutes, it is likely that the CI autoscalers are at capacity. Verify this by comparing the fleet size under `EC2 Fleet Status` at the bottom and the limits set in https://ci.tlcpack.ai/configureClouds/.
+
+- If Jenkins is slow or unresponsive, SSH into the head node and restart Jenkins manually via:
+
+    ```bash
+    sudo systemctl restart jenkins
+    ```
+- If Jenkins nodes are running out of disk, SSH into the node and check what is taking up disk space. The limits in Terraform may need to be changed but should be kept as low as possible.
