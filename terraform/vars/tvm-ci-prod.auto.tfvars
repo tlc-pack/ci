@@ -90,3 +90,4 @@ ecr_repositories = [
 domain_name               = "ci.tlcpack.ai"
 subject_alternative_names = ["docs.staging.tlcpack.ai"]
 ebs_vol_size              = 500
+ebs_jobs_vol_size         = 1000

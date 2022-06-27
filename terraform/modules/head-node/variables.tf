@@ -5,6 +5,10 @@ variable "instance_type" {
 }
 
 variable "ebs_vol_size" {
+  description = "The size of the persistent volume which stores runtime data"
+}
+
+variable "ebs_jobs_vol_size" {
   description = "The size of the persistent volume which stores job histories"
 }
 

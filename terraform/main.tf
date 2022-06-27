@@ -34,6 +34,7 @@ module "head_node" {
   environment               = var.environment
   instance_type             = var.head_node_instance_type
   ebs_vol_size              = var.ebs_vol_size
+  ebs_jobs_vol_size         = var.ebs_jobs_vol_size
   vpc_id                    = var.vpc_id
   subnet_ids                = local.frontend_subnet_ids
   global_access_key_name    = aws_key_pair.tvm_ci_global_access_key.key_name

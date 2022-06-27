@@ -42,6 +42,10 @@ variable "ebs_vol_size" {
   default = "500"
 }
 
+variable "ebs_jobs_vol_size" {
+  default = "1000"
+}
+
 variable "autoscaler_types" {
   type = map(object({
     image_family                             = string
