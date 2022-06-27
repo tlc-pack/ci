@@ -67,6 +67,10 @@ jenkins:
         value: "asf-site"
       - key: "DOCS_DEPLOY_ENABLED"
         value: "yes"
+      - key: "DETERMINE_DOCKER_IMAGES"
+        value: "yes"
+      - key: "RETAG_STAGING_IMAGES"
+        value: "yes"
 security:
   apiToken:
     creationOfLegacyTokenEnabled: false
