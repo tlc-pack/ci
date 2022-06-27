@@ -24,6 +24,5 @@
                 - named-branches:
                     regex-name:
                         regex: "^(?!.*last-successful).*$"
-    days-to-keep: 10
-    number-to-keep: 10
+    days-to-keep: 90
     script-path: Jenkinsfile
