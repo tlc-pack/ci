@@ -74,7 +74,7 @@ data "aws_subnet" "head_node" {
 
 resource "aws_ebs_volume" "jobs_storage" {
   availability_zone = data.aws_subnet.head_node.availability_zone
-  size              = var.ebs_vol_size
+  size              = var.ebs_jobs_vol_size
 
   tags = {
     Name = "${title(var.environment)}-Jenkins-Persistent-Storage"
