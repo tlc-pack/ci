@@ -2,9 +2,84 @@
 
 This repository holds the configuration as code for the CI of the upstream TVM project hosted on [GitHub](https://github.com/apache/tvm). Specifically, this repository currently handles configuration of a public Jenkins instance, as well as a dedicated set of worker nodes--this Jenkins instance is located at [https://ci.tlcpack.ai](https://ci.tlcpack.ai)
 
+## CI Diagram
+
+This details the individual parts that interact in TVM's CI. For details on operations, see https://github.com/tlc-pack/ci.
+
+```mermaid
+graph TD
+    Commit --> GitHub
+    GitHub --> |`push` webhook| WebhookServer(Webhook Server)
+    JobExecutor(Job Executor)
+    WebhookServer --> JobExecutor
+    JobExecutor -->  EC2Fleet(EC2 Fleet Plugin)
+    EC2Fleet --> |capacity request| EC2(EC2 Autoscaler)
+    JobExecutor --> WorkerEC2Instance
+    Docker --> |build cache, artifacts| S3
+    WorkerEC2Instance --> Docker
+    Docker --> |docker pull| G(Docker Hub)
+    Docker --> |docker push / pull| ECR
+    Docker --> |Execute jobs| CIScripts(CI Scripts)
+    RepoCITerraform(ci-terraform repo) --> |terraform| ECR
+    RepoCITerraform(ci-terraform repo) --> |terraform| EC2
+    RepoCITerraform(ci-terraform repo) --> |terraform| S3
+    RepoCI(ci repo) --> |configuration via Ansible| WorkerEC2Instance
+    RepoCIPacker(ci-packer) --> |AMIs| EC2
+    Monitoring_Scrapers(Jenkins Scraper) --> Monitoring_DB(Postrgres)
+    Grafana --> Monitoring_DB
+    GitHub --> Windows
+    GitHub --> MacOS
+
+    Developers --> |check PR status|JenkinsUI(Jenkins Web UI)
+    Monitoring_Scrapers --> |fetch job data| JenkinsUI
+    Developers --> |git push| Commit
+    Developers --> |create PR| GitHub
+
+    subgraph Jenkins Head Node
+        WebhookServer
+        JobExecutor
+        EC2Fleet
+        JenkinsUI
+    end
+
+    subgraph GitHub Actions
+        Windows
+        MacOS
+    end
+
+    subgraph Configuration / Terraform
+        RepoCITerraform
+        RepoCI
+        RepoCIPacker
+    end
+
+    subgraph Monitoring
+        Monitoring_DB
+        Grafana
+        Monitoring_Scrapers
+    end
+
+    subgraph AWS
+        subgraph Jenkins Workers
+            WorkerEC2Instance(Worker EC2 Instance)
+            subgraph "Worker EC2 Instance"
+                Docker
+                CIScripts
+            end
+        end
+        EC2
+        ECR
+        S3
+    end
+
+```
+
+## Repository Layout
+
 * [`jenkins`](./jenkins) - configuration for the Jenkins head node
 * [`terraform`](./terraform) - Terraform code to provision CI resources in AWS
 * [`packer`](./packer) - Packer configurations for AWS AMIs
+
 
 ## Deploying Jenkins
 
@@ -16,7 +91,7 @@ Restarting Jenkins is an occasional but necessary service interruption. To minim
     PSA that we'll be restarting Jenkins soon to <insert reason> -- we will need to retrigger in-flight builds as part of this process, so expect CI slowdowns for the next few hours.
     ```
    2. In Jenkins under Manage Jenkins > Configure System > System Message set it to something like
-   
+
    ```
    <p style="text-align: center; padding: 10px; background-color: #dc5f5f; font-weight: bold; color: white; border-radius: 8px;">Jenkins will restart on 3/22/22 at 10 AM PDT (<a style="color: #c4e9ff" href="https://discuss.tvm.apache.org/t/ci-jenkins-restart-tuesday-3-21-22/12366/2">details</a>)</p>
    ````
@@ -51,6 +126,12 @@ Restarting Jenkins is an occasional but necessary service interruption. To minim
     ```
 5. Check the in-flight PRs from the saved list of jobs and restart the builds for those that didn't automatically restart. Some PRs may have also been submitted while Jenkins was down in which case there will be no Jenkins status reported to the PR. These PRs will need to be re-pushed by the author.
 6. Monitor CI for the next day to ensure that autoscaled nodes are being allocated / deallocated as necessary
+
+## Monitoring
+
+Dashboards of CI data can be found:
+* within Jenkins at https://ci.tlcpack.ai/monitoring (HTTP / JVM stats)
+* at https://monitoring.tlcpack.ai (job status, worker status)
 
 ## Troubleshooting Jenkins
 
