@@ -79,6 +79,7 @@ autoscaler_types = {
 ecr_repositories = [
   "ci_arm",
   "ci_cpu",
+  "ci_minimal",
   "ci_gpu",
   "ci_hexagon",
   "ci_i386",
