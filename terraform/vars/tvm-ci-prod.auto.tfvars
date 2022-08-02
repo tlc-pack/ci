@@ -84,7 +84,7 @@ ecr_repositories = [
   "ci_hexagon",
   "ci_i386",
   "ci_lint",
-  "ci_qemu",
+  "ci_cortexm",
   "ci_wasm"
 ]
 
