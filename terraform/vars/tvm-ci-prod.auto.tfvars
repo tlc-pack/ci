@@ -86,6 +86,7 @@ ecr_repositories = [
   "ci_lint",
   "ci_cortexm",
   "ci_qemu",
+  "ci_riscv",
   "ci_wasm"
 ]
 
