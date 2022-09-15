@@ -1,14 +1,17 @@
 import argparse
 import asyncio
+import math
 import re
 import statistics
-import math
-import rich
-
 from typing import *
+
+import rich
 
 from utils import forward
 from utils.forward import *
+from utils.net import init
+from utils.schema import Build, Stage
+from utils.utils import init_log
 
 
 def is_parallelizable(name: str, desc: str) -> bool:
@@ -31,7 +34,21 @@ def is_parallelizable(name: str, desc: str) -> bool:
     return False
 
 
-def analyze_stages(stage_name: str, stages: List[Stage], goal_runtime_m: float):
+def find_existing_shards(stage_name: str, template: str):
+    with open(template) as f:
+        content = f.read()
+    
+    m = re.search(f'name="{stage_name}"(.*\n)+?.*num_shards=(\d+)', content, flags=re.MULTILINE)
+    if m is None:
+        print(f"Could not find {stage_name} in {template}, is that the right file?")
+        exit(1)
+    # print("match", m)
+    start, end = m.span()
+    # print(content[start:end])
+    return int(m.groups()[1])
+
+
+def analyze_stages(stage_name: str, stages: List[Stage], goal_runtime_m: float, jenkins_dir: str):
     steps_across_shards = {}
     for stage in stages:
         for step in stage.steps:
@@ -63,9 +80,14 @@ def analyze_stages(stage_name: str, stages: List[Stage], goal_runtime_m: float):
     num_shards = parallelizable_runtime_m / parallel_part
     num_shards = math.ceil(num_shards)
 
+    existing_shards = find_existing_shards(stage_name, jenkins_dir)
+
     print(f"       fixed runtime (m): {round(fixed_runtime_m, 2)}")
     print(f"    parallel runtime (m): {round(parallelizable_runtime_m, 2)}")
-    print(f"         required shards: {num_shards}")
+    if existing_shards == num_shards:
+        print(f"         required shards: {num_shards} (no action required)")
+    else:
+        print(f"         required shards: change from {existing_shards} to {num_shards} in {jenkins_dir}")
 
 
 def list_steps(build: Build):
@@ -101,7 +123,7 @@ def list_steps(build: Build):
                 )
 
 
-def analyze(build: Build, goal_runtime_m: float):
+def analyze(build: Build, goal_runtime_m: float, jenkins_template):
     test_stages: List[Stage] = []
     should_add = False
     for stage in build.stages:
@@ -128,13 +150,13 @@ def analyze(build: Build, goal_runtime_m: float):
             merged_shards[stage.name] = [stage]
 
     for name, stages in merged_shards.items():
-        analyze_stages(name, stages, goal_runtime_m)
+        analyze_stages(name, stages, goal_runtime_m, jenkins_template)
 
 
 async def main(args):
     async with aiohttp.ClientSession() as s:
         forward.SESSION = s
-        data = await fetch_branch(name=args.branch)
+        data = await fetch_branch(job_name=args.job, name=args.branch)
         return data
 
 
@@ -144,8 +166,10 @@ if __name__ == "__main__":
     )
     parser.add_argument("--runtime-goal-m", required=True)
     parser.add_argument("--list-steps", action="store_true")
+    parser.add_argument("--job")
     parser.add_argument("--branch", default="main")
     parser.add_argument("--build", default="4082")
+    parser.add_argument("--jenkins-template")
     args = parser.parse_args()
     init(dir=".httpcache")
     init_log()
@@ -157,4 +181,4 @@ if __name__ == "__main__":
         list_steps(build)
     else:
         print(f"To reach goal runtime of {args.runtime_goal_m} for tests:")
-        analyze(build, goal_runtime_m=float(args.runtime_goal_m))
+        analyze(build, goal_runtime_m=float(args.runtime_goal_m), jenkins_template=args.jenkins_template)

@@ -56,4 +56,4 @@ jobs:
           VALIDATE_BASH: false
           VALIDATE_TERRAFORM_TERRASCAN: false
           VALIDATE_MARKDOWN: false
-          FILTER_REGEX_EXCLUDE: monitoring/.*
+          FILTER_REGEX_EXCLUDE: (monitoring/.*)|(dev/.*)

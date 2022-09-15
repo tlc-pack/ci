@@ -1,9 +1,8 @@
-import json
-import sys
 import asyncio
+import json
 import logging
+import sys
 from pathlib import Path
-
 
 REPO_ROOT = Path(__file__).resolve().parent
 

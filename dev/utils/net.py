@@ -1,9 +1,9 @@
-import requests
-import subprocess
-import os
 import logging
+import os
+import subprocess
 from pathlib import Path
 
+import requests
 
 CACHE_DIR = None
 DEBUG = os.getenv("DEBUG", "0") == "1"

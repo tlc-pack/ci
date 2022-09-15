@@ -1,20 +1,21 @@
+from typing import Any, Dict
+
 import sqlalchemy
-from sqlalchemy.orm import declarative_base
 from sqlalchemy import (
+    JSON,
+    Boolean,
     Column,
+    DateTime,
     Integer,
     String,
-    Boolean,
-    DateTime,
-    JSON,
     Text,
+    column,
+    table,
 )
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql.sqltypes import Float
-from sqlalchemy import table, column
 
 from . import db
-from typing import Dict, Any
-
 
 Base = declarative_base()
 
