@@ -87,3 +87,27 @@ variable "additional_agents" {
   }))
   default = {}
 }
+
+variable "tvm_bot_webhook_secret" {
+  description = "The GitHub webhook secret for the tvm_bot webhook"
+  type        = string
+  sensitive   = true
+}
+
+variable "tvm_bot_github_token" {
+  description = "The GitHub personal access token for tvm-bot"
+  type        = string
+  sensitive   = true
+}
+
+variable "tvm_bot_repo" {
+  description = "The GitHub repository name to comment on"
+  type        = string
+  default     = "tvm"
+}
+
+variable "tvm_bot_user" {
+  description = "The GitHub username for tvm_bot_repo"
+  default     = "apache"
+  type        = string
+}

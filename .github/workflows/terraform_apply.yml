@@ -18,6 +18,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_tvm_bot_webhook_secret: ${{ secrets.TVM_BOT_WEBHOOK_SECRET }}
     defaults:
       run:
         working-directory: ./terraform

@@ -52,13 +52,15 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_tvm_bot_webhook_secret: ${{ secrets.TVM_BOT_WEBHOOK_SECRET }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./terraform
     needs: validate
     if: needs.validate.outputs.valid_workflow == 'True'
-    #These steps run if either the PR is within the same repo or if the PR is on a fork and the committer has deployer access
+    # These steps run if either the PR is within the same repo or if the PR is
+    # on a fork and the committer has deployer access
     steps:
       - uses: actions/checkout@v2
         with:
