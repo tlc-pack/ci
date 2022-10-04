@@ -1,12 +1,12 @@
 name: deploy_jenkins
-on: 
+on:
   workflow_dispatch:
 
 concurrency:
   group: deploy_jenkins
   cancel-in-progress: true
 
-jobs: 
+jobs:
   deploy_docker:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -37,6 +37,6 @@ jobs:
       -
         name: Set permissions on key file
         run: chmod 600 global_node_access_private_key
-      - 
+      -
         name: Deploy docker images to head node
         run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/deploy_docker.yaml

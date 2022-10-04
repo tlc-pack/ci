@@ -12,11 +12,11 @@ from utils import parameterize_named, assert_in, patch_github
 
 # pylint: disable=line-too-long
 @parameterize_named(
-    author_gate=dict(
-        pr_author="abc",
-        comments=[],
-        expected="Skipping comment for author abc",
-    ),
+    # author_gate=dict(
+    #     pr_author="abc",
+    #     comments=[],
+    #     expected="Skipping comment for author abc",
+    # ),
     new_comment=dict(
         pr_author="driazati",
         comments=[],
@@ -108,17 +108,11 @@ def test_pr_comment(caplog, monkeypatch, pr_author, comments, expected):
         }
     }
 
-    bot_comment_sections = {
-        "ccs": "the cc",
-        "docs": "the docs",
-        "skipped-tests": "the skipped tests",
-    }
     if "bot-comment-ccs-start" in expected:
         pytest.skip("Comment sections not yet implemented")
 
     data = {
-        "[1] POST - https://api.github.com/graphql": {},
-        "[2] POST - https://api.github.com/graphql": {
+        "[1] POST - https://api.github.com/graphql": {
             "data": {
                 "repository": {
                     "pullRequest": {
@@ -148,6 +142,7 @@ def test_pr_comment(caplog, monkeypatch, pr_author, comments, expected):
             user="apache",
             repo="tvm",
             dry_run=True,
+            commenters=[],
         )
 
     assert_in(expected, caplog.text)

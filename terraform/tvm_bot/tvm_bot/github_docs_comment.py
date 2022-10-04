@@ -16,14 +16,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 
 
-def build_docs_url(base_url_docs, pr_number, build_number):
+def build_docs_url(base_url_docs: str, pr_number: int, build_number: int) -> str:
     return f"{base_url_docs}/PR-{str(pr_number)}/{str(build_number)}/docs/index.html"
 
 
-def find_target_url(pr_head: Dict[str, Any]):
+def find_target_url(pr_head: Dict[str, Any]) -> str:
     for status in pr_head["statusCheckRollup"]["contexts"]["nodes"]:
         if status.get("context", "") == "tvm-ci/pr-head":
             return status["targetUrl"]
@@ -31,12 +31,12 @@ def find_target_url(pr_head: Dict[str, Any]):
     raise RuntimeError(f"Unable to find tvm-ci/pr-head status in {pr_head}")
 
 
-def get_pr_and_build_numbers(target_url):
+def get_pr_and_build_numbers(target_url: str) -> Tuple[str, str]:
     target_url = target_url[target_url.find("PR-") : len(target_url)]
     split = target_url.split("/")
     pr_number = split[0].strip("PR-")
     build_number = split[1]
-    return {"pr_number": pr_number, "build_number": build_number}
+    return pr_number, build_number
 
 
 def get_doc_url(
@@ -44,12 +44,10 @@ def get_doc_url(
 ) -> str:
     pr_head = pr["commits"]["nodes"][0]["commit"]
     target_url = find_target_url(pr_head)
-    pr_and_build = get_pr_and_build_numbers(target_url)
+    pr_number, build_number = get_pr_and_build_numbers(target_url)
 
     commit_sha = pr_head["oid"]
 
-    docs_url = build_docs_url(
-        base_docs_url, pr_and_build["pr_number"], pr_and_build["build_number"]
-    )
+    docs_url = build_docs_url(base_docs_url, pr_number, build_number)
 
     return True, f"Built docs for commit {commit_sha} can be found [here]({docs_url})."

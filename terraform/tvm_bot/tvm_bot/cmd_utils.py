@@ -27,25 +27,6 @@ from typing import List
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 
-class RelativePathFilter(logging.Filter):
-    def filter(self, record):
-        path = Path(record.pathname).resolve()
-        record.relativepath = str(path.relative_to(REPO_ROOT))
-        return True
-
-
-def init_log():
-    logging.basicConfig(
-        format="[%(relativepath)s:%(lineno)d %(levelname)-1s] %(message)s",
-        level=logging.INFO,
-    )
-
-    # Flush on every log call (logging and then calling subprocess.run can make
-    # the output look confusing)
-    logging.root.handlers[0].addFilter(RelativePathFilter())
-    logging.root.handlers[0].flush = sys.stderr.flush
-
-
 class Sh:
     def __init__(self, env=None, cwd=None):
         self.env = os.environ.copy()
@@ -54,7 +35,7 @@ class Sh:
         self.cwd = cwd
 
     def run(self, cmd: str, **kwargs):
-        logging.info(f"+ {cmd}")
+        logging.getLogger("py-github").info(f"+ {cmd}")
         defaults = {
             "check": True,
             "shell": True,
@@ -70,4 +51,8 @@ class Sh:
 def tags_from_title(title: str) -> List[str]:
     tags = re.findall(r"\[(.*?)\]", title)
     tags = [t.strip() for t in tags]
-    return tags
+    final_tags = []
+    for tag in tags:
+        comment_tags = [t.strip() for t in tag.split(",")]
+        final_tags.extend([t for t in comment_tags if t != ""])
+    return final_tags

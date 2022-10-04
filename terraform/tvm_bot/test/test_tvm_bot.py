@@ -1,8 +1,10 @@
 import hashlib
 import hmac
 import json
+import logging
 
 from typing import Dict, Any
+from utils import assert_in
 
 import lambda_function
 
@@ -43,4 +45,21 @@ def test_invalid_event() -> None:
     """
     result = invoke_lambda("something", {})
     assert result["statusCode"] == 400
-    assert result["body"] == "Not processing event"
+    assert result["body"] == "no handlers found: something"
+
+
+def test_old_pr(caplog) -> None:
+    """
+    Ensure that old PRs are not commented
+    """
+    with caplog.at_level(logging.INFO):
+        result = invoke_lambda(
+            "pull_request",
+            {
+                "number": 13041,
+            },
+        )
+
+    assert result["statusCode"] == 200
+    assert result["body"] == "ok: pull_request"
+    assert_in("Skipping old PR 13041", caplog.text)

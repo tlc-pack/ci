@@ -35,7 +35,8 @@ def compress_query(query: str) -> str:
 
 
 def post(url: str, body: Optional[Any] = None, auth: Optional[Tuple[str, str]] = None):
-    logging.info(f"Requesting POST to", url, "with", body)
+    logger = logging.getLogger("py-github")
+    logger.info(f"Requesting POST to {url} with {body}")
     headers = {}
     req = request.Request(url, headers=headers, method="POST")
     if auth is not None:
@@ -70,6 +71,7 @@ class GitHubRepo:
         self.test_data = test_data
         self.num_calls = 0
         self.base = f"https://api.github.com/repos/{user}/{repo}/"
+        self.log = logging.getLogger("py-github")
 
     def headers(self):
         return {
@@ -91,8 +93,6 @@ class GitHubRepo:
             {"query": query, "variables": variables},
             method="POST",
         )
-        if self.dry_run():
-            return self.testing_response("POST", self.GRAPHQL_URL)
 
         if "data" not in response:
             msg = f"Error fetching data with query:\n{query}\n\nvariables:\n{variables}\n\nerror:\n{json.dumps(response, indent=2)}"
@@ -103,20 +103,21 @@ class GitHubRepo:
         self.num_calls += 1
         key = f"[{self.num_calls}] {method} - {url}"
         if self.test_data is not None and key in self.test_data:
+            self.log.info(f"Caught request: {key}")
             return self.test_data[key]
-        logging.info(f"Unknown URL in dry run: {key}")
+        self.log.info(f"Unknown URL in dry run: {key}")
         return {}
 
     def _request(
         self, full_url: str, body: Dict[str, Any], method: str
     ) -> Dict[str, Any]:
         if self.dry_run():
-            logging.info(
-                f"Dry run, would have requested a {method} to {full_url} with {body}"
+            self.log.info(
+                f"Dry run, would have requested a [{self.num_calls + 1}] {method} to {full_url} with {body}"
             )
             return self.testing_response(method, full_url)
 
-        logging.info(f"Requesting {method} to {full_url} with {body}")
+        self.log.info(f"Requesting {method} to {full_url} with {body}")
         req = request.Request(full_url, headers=self.headers(), method=method.upper())
         req.add_header("Content-Type", "application/json; charset=utf-8")
         data = json.dumps(body)
@@ -131,7 +132,7 @@ class GitHubRepo:
             error_data = e.read().decode()
             raise RuntimeError(f"Error response: {msg}\n{error_data}")
 
-        logging.info(f"Got response from {full_url}: {content}")
+        self.log.info(f"Got response from {full_url}: {content}")
         try:
             response = json.loads(content)
         except json.decoder.JSONDecodeError as e:
@@ -148,12 +149,13 @@ class GitHubRepo:
     def post(self, url: str, data: Dict[str, Any]) -> Dict[str, Any]:
         return self._request(self.base + url, data, method="POST")
 
-    def get(self, url: str) -> Dict[str, Any]:
+    def get(self, url: str, add_base: bool = True) -> Dict[str, Any]:
         if self.dry_run():
-            logging.info(f"Dry run, would have requested a GET to {url}")
+            self.log.info(f"Dry run, would have requested a GET to {url}")
             return self.testing_response("GET", url)
-        url = self.base + url
-        logging.info(f"Requesting GET to {url}")
+        if add_base:
+            url = self.base + url
+        self.log.info(f"Requesting GET to {url}")
         req = request.Request(url, headers=self.headers())
         with request.urlopen(req) as response:
             response = json.loads(response.read())
@@ -161,10 +163,10 @@ class GitHubRepo:
 
     def delete(self, url: str) -> Dict[str, Any]:
         if self.dry_run():
-            logging.info(f"Dry run, would have requested a DELETE to {url}")
+            self.log.info(f"Dry run, would have requested a DELETE to {url}")
             return self.testing_response("DELETE", url)
         url = self.base + url
-        logging.info(f"Requesting DELETE to {url}")
+        self.log.info(f"Requesting DELETE to {url}")
         req = request.Request(url, headers=self.headers(), method="DELETE")
         with request.urlopen(req) as response:
             response = json.loads(response.read())
@@ -194,8 +196,9 @@ def parse_remote(remote: str) -> Tuple[str, str]:
 
 
 def git(command, **kwargs):
+    logger = logging.getLogger("py-github")
     command = ["git"] + command
-    logging.info(f"Running {command}")
+    logger.info(f"Running {command}")
     proc = subprocess.run(command, stdout=subprocess.PIPE, encoding="utf-8", **kwargs)
     if proc.returncode != 0:
         raise RuntimeError(f"Command failed {command}:\nstdout:\n{proc.stdout}")

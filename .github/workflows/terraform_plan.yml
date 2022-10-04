@@ -53,6 +53,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       TF_VAR_tvm_bot_webhook_secret: ${{ secrets.TVM_BOT_WEBHOOK_SECRET }}
+      TF_VAR_tvm_bot_github_token: ${{ secrets.TVM_BOT_GITHUB_TOKEN }}
+      TF_VAR_tvm_bot_repo: tvm
+      TF_VAR_tvm_bot_owner: apache
     runs-on: ubuntu-latest
     defaults:
       run:

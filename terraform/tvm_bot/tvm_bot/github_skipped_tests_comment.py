@@ -17,6 +17,7 @@
 # under the License.
 import os
 import logging
+from re import I
 import subprocess
 from xml.etree import ElementTree
 from pathlib import Path
@@ -24,7 +25,8 @@ from typing import Dict, Any, Optional
 
 
 def run_subprocess(command):
-    logging.info(f"Running command {command}")
+    logger = logging.getLogger("py-github")
+    logger.info(f"Running command {command}")
     proc = subprocess.run(command, shell=True, stdout=subprocess.PIPE, encoding="utf-8")
     if proc.returncode != 0:
         raise RuntimeError(f"Command failed {command}:\nstdout:\n{proc.stdout}")
@@ -34,12 +36,6 @@ def run_subprocess(command):
 def retrieve_test_report(s3_url, target_dir):
     command = f"aws --region us-west-2 s3 cp {s3_url} {target_dir} --recursive --no-sign-request"
     run_subprocess(command)
-
-
-def get_common_commit_sha():
-    command = "git merge-base origin/main HEAD"
-    proc = run_subprocess(command)
-    return proc.stdout.strip()
 
 
 def get_main_jenkins_build_number(github, common_commit):
@@ -136,12 +132,12 @@ def build_comment(
     text = (
         f"The list below shows some tests that ran in main {common_commit_sha} but were "
         f"skipped in the CI build of {commit_sha}:\n"
-        f"```\n"
+        f"    ```\n"
     )
     for skip in skipped_list:
-        text += skip + "\n"
+        text += "    " + skip + "\n"
     text += (
-        f"```\nA detailed report of ran tests is [here](https://{jenkins_prefix}/job/tvm/job/PR-{str(pr_number)}"
+        f"    ```\n    A detailed report of ran tests is [here](https://{jenkins_prefix}/job/tvm/job/PR-{str(pr_number)}"
         f"/{str(build_number)}/testReport/)."
     )
     return True, text
@@ -165,18 +161,24 @@ def get_skipped_tests_comment(
     common_commit_sha: Optional[str] = None,
     common_main_build: Optional[Dict[str, Any]] = None,
 ) -> str:
+
+    if pr["author"]["login"] not in {"gigiblender", "driazati", "areusch"}:
+        # Gate this feature until it's better tested
+        return False, None
+
+    logger = logging.getLogger("py-github")
     pr_head = pr["commits"]["nodes"][0]["commit"]
     target_url = find_target_url(pr_head)
     pr_and_build = get_pr_and_build_numbers(target_url)
-    logging.info(f"Getting comment for {pr_head} with target {target_url}")
+    logger.info(f"Getting comment for {pr_head} with target {target_url}")
 
     commit_sha = pr_head["oid"]
 
     is_dry_run = common_commit_sha is not None
 
     if not is_dry_run:
-        logging.info("Fetching common commit sha and build info")
-        common_commit_sha = get_common_commit_sha()
+        logger.info("Fetching common commit sha and build info")
+        common_commit_sha = pr["baseRefOid"]
         common_main_build = get_main_jenkins_build_number(github, common_commit_sha)
 
         retrieve_test_reports(
@@ -188,7 +190,7 @@ def get_skipped_tests_comment(
             pr_test_report_dir=pr_test_report_dir,
         )
     else:
-        logging.info("Dry run, expecting PR and main reports on disk")
+        logger.info("Dry run, expecting PR and main reports on disk")
 
     main_tests = build_test_set(main_test_report_dir)
     build_tests = build_test_set(pr_test_report_dir)
@@ -197,7 +199,7 @@ def get_skipped_tests_comment(
     for subdir, skipped_set in build_tests.items():
         skipped_main = main_tests[subdir]
         if skipped_main is None:
-            logging.warning(f"Could not find directory {subdir} in main.")
+            logger.warning(f"Could not find directory {subdir} in main.")
             continue
 
         diff_set = skipped_set - skipped_main
@@ -209,7 +211,7 @@ def get_skipped_tests_comment(
     skipped_list.sort()
 
     if len(skipped_list) == 0:
-        logging.info("No skipped tests found.")
+        logger.info("No skipped tests found.")
 
     body = build_comment(
         common_commit_sha,
