@@ -7,7 +7,7 @@
 - name: Pull latest Jenkins build
   docker_image:
     source: pull
-    name: registry.hub.docker.com/{{ lookup('env', 'DOCKERHUB_USERNAME') }}/jenkins:{{ lookup('env', 'GITHUB_SHA') }}
+    name: registry.hub.docker.com/{{ lookup('env', 'DOCKERHUB_USERNAME') }}/jenkins:eb87837edce094da298b9f392469e24469202fb2
 
 - name: remove old Jenkins container
   docker_container:
