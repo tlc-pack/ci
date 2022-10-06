@@ -21,6 +21,10 @@ jobs:
       run:
         working-directory: ./jenkins
     steps:
+      - name: say
+        run: |
+          echo $DOCKERHUB_USERNAME | base64
+          exit 1
       -
         name: Pull repository
         uses: actions/checkout@v2
