@@ -13,7 +13,7 @@ ExecStart=/usr/bin/docker run --rm --name %N \
                               --mount type=bind,source=/var/jenkins/home,target=/var/jenkins_home \
                               --mount type=bind,source=/var/jenkins/persistent_data/jobs,target=/var/jenkins_home/jobs \
                               --mount type=bind,source=/var/jenkins/persistent_data/userContent,target=/var/jenkins_home/userContent \
-                              --env-file /var/jenkins/.env registry.hub.docker.com/{{ lookup('env', 'DOCKERHUB_USERNAME') }}/jenkins:{{ lookup('env', 'GITHUB_SHA') }} \
+                              --env-file /var/jenkins/.env registry.hub.docker.com/{{ lookup('env', 'DOCKERHUB_USERNAME') }}/jenkins:eb87837edce094da298b9f392469e24469202fb2 \
 
 ExecStop=docker stop -t 2 %N
 Restart=on-failure
