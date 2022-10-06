@@ -14,7 +14,7 @@ usermod -aG docker ubuntu
 apt install -y build-essential
 apt install -y python3 python3-pip
 pip install -q poetry launchpadlib
-apt install -y openjdk-8-jre-headless
+apt install -y openjdk-17-jre-headless
 pip install docker
 
 #echo new cron into cron file
