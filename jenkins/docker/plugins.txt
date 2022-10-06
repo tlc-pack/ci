@@ -15,7 +15,7 @@ github-pullrequest
 github-branch-source
 matrix-auth
 sshd
-ssh-slaves
+ssh-slaves:1.814.vc82988f54b_10
 strict-crumb-issuer
 timestamper
 workflow-aggregator
