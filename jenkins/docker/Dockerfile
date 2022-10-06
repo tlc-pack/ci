@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:2.361.2-lts-jdk17
 ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 ENV JENKINS_OPTS=--sessionTimeout=10080
 ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc
