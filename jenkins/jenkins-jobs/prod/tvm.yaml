@@ -26,3 +26,322 @@
                         regex: "^(?!.*last-successful).*$"
     days-to-keep: 90
     script-path: Jenkinsfile
+
+- job:
+    name: tvm-arm
+    project-type: multibranch
+    description: 'ARM build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-arm
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/arm_jenkinsfile.groovy
+
+- job:
+    name: tvm-cortexm
+    project-type: multibranch
+    description: 'Cortex-M build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-cortexm
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/cortexm_jenkinsfile.groovy
+
+- job:
+    name: tvm-cpu
+    project-type: multibranch
+    description: 'CPU build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-cpu
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/cpu_jenkinsfile.groovy
+
+- job:
+    name: tvm-docker
+    project-type: multibranch
+    description: 'XXX build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-docker
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/docker_jenkinsfile.groovy
+
+- job:
+    name: tvm-gpu
+    project-type: multibranch
+    description: 'GPU build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-gpu
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/gpu_jenkinsfile.groovy
+
+- job:
+    name: tvm-hexagon
+    project-type: multibranch
+    description: 'Hexagon build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-hexagon
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/hexagon_jenkinsfile.groovy
+
+- job:
+    name: tvm-i386
+    project-type: multibranch
+    description: 'i386 build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-i386
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/i386_jenkinsfile.groovy
+
+- job:
+    name: tvm-lint
+    project-type: multibranch
+    description: 'Lint for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-lint
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/lint_jenkinsfile.groovy
+
+- job:
+    name: tvm-minimal
+    project-type: multibranch
+    description: 'Minimal CPU build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-minimal
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/minimal_jenkinsfile.groovy
+
+- job:
+    name: tvm-riscv
+    project-type: multibranch
+    description: 'RISC-V build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-riscv
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/riscv_jenkinsfile.groovy
+
+- job:
+    name: tvm-wasm
+    project-type: multibranch
+    description: 'WASM build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: driazati
+            credentials-id: 'driazati-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: tvm-wasm
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    regex-name:
+                        regex: "^(?!.*last-successful).*$"
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/wasm_jenkinsfile.groovy
