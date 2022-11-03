@@ -22,4 +22,4 @@
       - /home/ubuntu/jenkins-jobs/update.sh
       - "{{ lookup('env', 'JENKINS_TOKEN') }}"
       - "{{ lookup('env', 'ENVIRONMENT') }}"
-  ignore_errors: yes
+  ignore_errors: no
