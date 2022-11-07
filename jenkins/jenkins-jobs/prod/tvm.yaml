@@ -37,13 +37,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-arm
+            notification-context: arm
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -67,13 +67,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-cortexm
+            notification-context: cortexm
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -97,13 +97,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-cpu
+            notification-context: cpu
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -127,13 +127,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-docker
+            notification-context: docker
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -157,13 +157,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-gpu
+            notification-context: gpu
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -187,13 +187,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-hexagon
+            notification-context: hexagon
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -217,13 +217,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-i386
+            notification-context: i386
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -247,13 +247,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-lint
+            notification-context: lint
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -277,13 +277,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-minimal
+            notification-context: minimal
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -307,13 +307,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-riscv
+            notification-context: riscv
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
@@ -337,13 +337,13 @@
     scm:
         - github:
             repo: tvm
-            repo-owner: driazati
-            credentials-id: 'driazati-ci'
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
             branch-discovery: all
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
-            notification-context: tvm-wasm
+            notification-context: wasm
             refspecs:
               - +refs/heads/main:refs/remotes/@{remote}/main
             build-strategies:
