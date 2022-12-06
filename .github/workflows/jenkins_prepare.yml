@@ -41,7 +41,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/jenkins:${{ github.sha }}
           context: jenkins/docker
   prepare_head_node:
-    needs: build_docker
+    # needs: build_docker
     runs-on: ubuntu-latest
     defaults:
       run:
