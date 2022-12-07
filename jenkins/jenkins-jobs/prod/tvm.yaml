@@ -2,7 +2,7 @@
     name: tvm
     project-type: multibranch
     description: 'Apache TVM'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
