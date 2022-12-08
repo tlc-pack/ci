@@ -82,5 +82,3 @@ jobs:
       -
         name: Run Ansible playbook
         run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible_inventory.txt -u ubuntu -b --private-key=global_node_access_private_key ansible/playbooks/jenkins.yaml
-
-

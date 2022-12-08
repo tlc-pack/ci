@@ -27,7 +27,7 @@ jobs:
       -
         name: Pull repository
         uses: actions/checkout@v2
-      - 
+      -
         name: Build AWS base AMI
         uses: hashicorp/packer-github-actions@master
         env:
@@ -36,7 +36,7 @@ jobs:
         with:
           command: build
           target: packer/base-images/aws
-      - 
+      -
         name: Build stock Jenkins agent
         uses: hashicorp/packer-github-actions@master
         env:
@@ -46,7 +46,7 @@ jobs:
         with:
           command: build
           target: packer/jenkins-agents/stock
-      - 
+      -
         name: Build GPU Jenkins agent
         uses: hashicorp/packer-github-actions@master
         env:

@@ -1,0 +1,33 @@
+name: test tvm_bot
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - terraform/tvm_bot/**
+  pull_request_target:
+    branches:
+      - main
+    paths:
+      - terraform/tvm_bot/**
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform/tvm_bot
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          set -eux
+          pip install -r requirements.txt
+      - name: Run unit tests
+        run: |
+          set -eux
+          PYTHONPATH=$(pwd) pytest --tb=native
