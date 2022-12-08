@@ -23,7 +23,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: Jenkinsfile
@@ -53,7 +53,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/arm_jenkinsfile.groovy
@@ -83,7 +83,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/cortexm_jenkinsfile.groovy
@@ -113,7 +113,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/cpu_jenkinsfile.groovy
@@ -143,7 +143,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/docker_jenkinsfile.groovy
@@ -173,7 +173,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/gpu_jenkinsfile.groovy
@@ -203,7 +203,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/hexagon_jenkinsfile.groovy
@@ -233,7 +233,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/i386_jenkinsfile.groovy
@@ -263,7 +263,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/lint_jenkinsfile.groovy
@@ -293,7 +293,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/minimal_jenkinsfile.groovy
@@ -323,7 +323,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/riscv_jenkinsfile.groovy
@@ -353,7 +353,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '^(?!.*last-successful).*$'
+                        regex: '^(?!(last-successful|nightly)$).*'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/wasm_jenkinsfile.groovy
