@@ -299,6 +299,36 @@
     script-path: ci/jenkins/generated/minimal_jenkinsfile.groovy
 
 - job:
+    name: tvm-minimal-cross-isa
+    project-type: multibranch
+    description: 'Minimal cross ISA CPU build for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: cross-isa-minimal
+            refspecs:
+              - +refs/heads/main:refs/remotes/@{remote}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    - regex-name:
+                        regex: '.*PR-13714.*$'
+                        case-sensitive: true
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/minimal_cross_isa_jenkinsfile.groovy
+
+- job:
     name: tvm-riscv
     project-type: multibranch
     description: 'RISC-V build for apache/tvm'

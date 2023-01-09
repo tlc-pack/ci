@@ -5,4 +5,8 @@ resource "aws_s3_bucket" "bucket" {
   tags = {
     Name = "tvm-sccache-${var.environment}"
   }
+  logging {
+    target_bucket = var.access_logs_target_bucket
+    target_prefix = "log/"
+  }
 }
