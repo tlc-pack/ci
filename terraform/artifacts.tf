@@ -14,4 +14,8 @@ resource "aws_s3_bucket" "artifacts-bucket" {
       days = 7
     }
   }
+  logging {
+    target_bucket = var.access_logs_target_bucket
+    target_prefix = "log/"
+  }
 }
