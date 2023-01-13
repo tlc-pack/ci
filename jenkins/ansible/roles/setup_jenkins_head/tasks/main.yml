@@ -35,6 +35,14 @@
     group: 1000
     mode: 0600
 
+- name: octoml-relax-ci Github App Key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'OCTOML_RELAX_CI_GITHUB_APP_KEY') }}"
+    dest: "/var/jenkins/keys/octoml_relax_ci_github_app_key"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
 - name: Discord Webhook URL
   ansible.builtin.copy:
     content: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
