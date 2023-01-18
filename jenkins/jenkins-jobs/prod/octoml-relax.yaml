@@ -15,7 +15,7 @@
             discover-pr-forks-trust: nobody
             notification-context: cpu
             refspecs:
-              - +refs/heads/main:refs/remotes/@{remote}/main
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
@@ -45,7 +45,7 @@
             discover-pr-forks-trust: nobody
             notification-context: docker
             refspecs:
-              - +refs/heads/main:refs/remotes/@{remote}/main
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
@@ -75,7 +75,7 @@
             discover-pr-forks-trust: nobody
             notification-context: gpu
             refspecs:
-              - +refs/heads/main:refs/remotes/@{remote}/main
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
@@ -105,7 +105,7 @@
             discover-pr-forks-trust: nobody
             notification-context: lint
             refspecs:
-              - +refs/heads/main:refs/remotes/@{remote}/main
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
@@ -135,7 +135,7 @@
             discover-pr-forks-trust: nobody
             notification-context: minimal
             refspecs:
-              - +refs/heads/main:refs/remotes/@{remote}/main
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
             build-strategies:
                 - change-request:
                     ignore-target-only-changes: true
