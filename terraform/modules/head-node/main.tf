@@ -5,7 +5,7 @@ locals {
 
 resource "aws_iam_role" "jenkins_fleet" {
   name = "jenkins_fleet_role"
-
+  description = "gives jenkins head node EC2 access"
   # Terraform's "jsonencode" function converts a
   assume_role_policy = <<EOF
 {
