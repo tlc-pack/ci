@@ -43,6 +43,14 @@
     group: 1000
     mode: 0600
 
+- name: octoml-relax-site-ci Github token
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'TVM_BOT_DOCS_GITHUB_TOKEN') }}"
+    dest: "/var/jenkins/keys/tvm_bot_docs_github_token"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
 - name: Discord Webhook URL
   ansible.builtin.copy:
     content: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"

@@ -178,6 +178,10 @@ credentials:
               id: "dockerhub-tlcpack-key"
               description: "aws account id"
               secret: "${readFile:/key/dockerhub-tlcpack-key}"
+          - string:
+              id: "octoml-relax-docs-push-token"
+              description: "key for pushing docs to octoml/relax-site"
+              secret: "${readFile:/key/tvm_bot_docs_github_token}"
           - gitHubApp:
               appID: "281513"
               id: "octoml-relax-ci"

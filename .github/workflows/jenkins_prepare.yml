@@ -64,6 +64,7 @@ jobs:
       SCCACHE_BUCKET: ${{ secrets.SCCACHE_BUCKET }}
       DOCS_PUSH_TOKEN: ${{ secrets.DOCS_PUSH_TOKEN }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      TVM_BOT_DOCS_GITHUB_TOKEN: ${{ secrets.TVM_BOT_GITHUB_TOKEN }}
     steps:
       -
         name: Pull repository
