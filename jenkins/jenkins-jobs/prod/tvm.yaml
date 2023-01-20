@@ -323,7 +323,7 @@
                 - skip-initial-build: true
                 - named-branches:
                     - regex-name:
-                        regex: '.*PR-13714.*$'
+                        regex: '^(?!.*last-successful).*$'
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/minimal_cross_isa_jenkinsfile.groovy
