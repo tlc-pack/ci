@@ -6,7 +6,7 @@ locals {
 
 resource "aws_iam_role" "autoscalers" {
   name = "autoscalers_role"
-
+  description = "gives jenkins nodes ecr and s3 permissions"
   # Terraform's "jsonencode" function converts a
   assume_role_policy = <<EOF
 {
