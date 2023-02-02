@@ -387,3 +387,33 @@
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/wasm_jenkinsfile.groovy
+
+- job:
+    name: tvm-unity
+    project-type: multibranch
+    description: 'Unity specific ci for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
+            branch-discovery: all
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: unity
+            refspecs:
+              - +refs/heads/unity:refs/remotes/@{remote}/unity
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    - regex-name:
+                        regex: '^(?!.*last-successful).*$'
+                        case-sensitive: true
+    days-to-keep: 90
+    script-path: ci/jenkins/unity_jenkinsfile.groovy
