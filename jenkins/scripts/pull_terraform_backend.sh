@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euxo pipefail
 
 export AWS_DEFAULT_REGION=us-west-2
 aws s3 cp s3://tvm-ci-terraform-state/env:/tvm-ci-prod/tfstate .

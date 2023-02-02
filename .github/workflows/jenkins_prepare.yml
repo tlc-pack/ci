@@ -58,8 +58,8 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       DOCKERHUB_TOKEN_TLCPACKSTAGING: ${{ secrets.DOCKERHUB_TOKEN_TLCPACKSTAGING }}
       DOCKERHUB_TOKEN_TLCPACK: ${{ secrets.DOCKERHUB_TOKEN_TLCPACK }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.JENKINS_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.JENKINS_AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       TQCHEN_CI_PAT: ${{ secrets.TQCHEN_CI_PAT }}
       SCCACHE_BUCKET: ${{ secrets.SCCACHE_BUCKET }}
       DOCS_PUSH_TOKEN: ${{ secrets.DOCS_PUSH_TOKEN }}
@@ -70,11 +70,11 @@ jobs:
         name: Pull repository
         uses: actions/checkout@v2
       -
-        name: Source common environment variables to be used in ansible playbook
-        run: source ./scripts/common.sh
-      -
         name: Pull Terraform state
         run: ./scripts/pull_terraform_backend.sh
+      -
+        name: Source common environment variables to be used in ansible playbook
+        run: source ./scripts/common.sh
       -
         name: Write ansible key to file
         run: echo "${{ secrets.GLOBAL_NODE_ACCESS_PRIVATE_KEY }}" > global_node_access_private_key
