@@ -9,7 +9,7 @@
             repo: relax
             repo-owner: octoml
             credentials-id: 'octoml-relax-ci'
-            branch-discovery: all
+            branch-discovery: no-pr
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
@@ -39,7 +39,7 @@
             repo: relax
             repo-owner: octoml
             credentials-id: 'octoml-relax-ci'
-            branch-discovery: all
+            branch-discovery: no-pr
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
@@ -69,7 +69,7 @@
             repo: relax
             repo-owner: octoml
             credentials-id: 'octoml-relax-ci'
-            branch-discovery: all
+            branch-discovery: no-pr
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
@@ -99,7 +99,7 @@
             repo: relax
             repo-owner: octoml
             credentials-id: 'octoml-relax-ci'
-            branch-discovery: all
+            branch-discovery: no-pr
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
@@ -129,7 +129,7 @@
             repo: relax
             repo-owner: octoml
             credentials-id: 'octoml-relax-ci'
-            branch-discovery: all
+            branch-discovery: no-pr
             discover-pr-origin: current
             discover-pr-forks-strategy: current
             discover-pr-forks-trust: nobody
