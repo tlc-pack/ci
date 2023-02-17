@@ -147,3 +147,33 @@
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/minimal_jenkinsfile.groovy
+
+- job:
+    name: octoml-relax-scorecard
+    project-type: multibranch
+    description: 'Scorecard build for octoml/relax'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: relax
+            repo-owner: octoml
+            credentials-id: 'octoml-relax-ci'
+            branch-discovery: no-pr
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: minimal
+            refspecs:
+              - +refs/heads/scorecard:refs/remotes/@{remote}/scorecard
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    - regex-name:
+                        regex: 'scorecard'
+                        case-sensitive: true
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/scorecard_jenkinsfile.groovy
