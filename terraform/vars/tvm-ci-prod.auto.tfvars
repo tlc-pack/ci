@@ -47,6 +47,15 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
+  "Prod-Autoscaler-Jenkins-CPU-Small-Spot" = {
+    image_family                             = "jenkins-stock-agent-x64"
+    agent_instance_type                      = "r5.large"
+    labels                                   = "CPU-SMALL-SPOT"
+    min_size                                 = 0
+    max_size                                 = 100
+    on_demand_percentage_above_base_capacity = 50
+    on_demand_base_capacity                  = 0
+  }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family                             = "jenkins-gpu-agent-x64"
     agent_instance_type                      = "g4dn.xlarge"
@@ -90,6 +99,6 @@ ecr_repositories = [
   "ci_wasm"
 ]
 
-domain_name               = "ci.tlcpack.ai"
-ebs_vol_size              = 500
-ebs_jobs_vol_size         = 1000
+domain_name       = "ci.tlcpack.ai"
+ebs_vol_size      = 500
+ebs_jobs_vol_size = 1000

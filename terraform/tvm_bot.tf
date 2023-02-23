@@ -33,8 +33,8 @@ resource "aws_lambda_function" "tvm_bot_lambda" {
 # IAM role which dictates what other AWS services the Lambda function
 # may access.
 resource "aws_iam_role" "lambda_tvm_bot_exec" {
-  name = "tvm_bot_lambda"
-  description = "gives tvm_bot access to lambda"
+  name               = "tvm_bot_lambda"
+  description        = "gives tvm_bot access to lambda"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",

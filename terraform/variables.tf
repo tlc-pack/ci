@@ -114,6 +114,6 @@ variable "tvm_bot_user" {
 
 variable "access_logs_target_bucket" {
   description = "bucket that stores server side bucket access logs"
-  default = "bucket-access-logs-tvm-ci-prod"
-  type    = string
+  default     = "bucket-access-logs-tvm-ci-prod"
+  type        = string
 }
