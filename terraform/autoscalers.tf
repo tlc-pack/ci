@@ -72,7 +72,7 @@ resource "aws_iam_role_policy" "autoscalers" {
               "ecr:TagResource",
               "ecr:UploadLayerPart"
           ],
-          "Resource": "arn:aws:ecr:us-west-2:*"
+          "Resource": "*"
       },
       {
           "Sid": "ECRAccess2",
