@@ -129,6 +129,15 @@ Restarting Jenkins is an occasional but necessary service interruption. To minim
 5. Check the in-flight PRs from the saved list of jobs and restart the builds for those that didn't automatically restart. Some PRs may have also been submitted while Jenkins was down in which case there will be no Jenkins status reported to the PR. These PRs will need to be re-pushed by the author.
 6. Monitor CI for the next day to ensure that autoscaled nodes are being allocated / deallocated as necessary
 
+## Working on Jenkins
+
+Jenkins is configured to not trust Jenkinsfiles from forks by default, so changes to Jenkinsfiles need to be done from branches in the same repository, not from forks. Certain forks are trusted by a plugin in Jenkins but it is reset every time the Jenkins Job Builder re-runs (i.e. every deploy), so it will probably need to be set again for each job. This can be done via this [helper script](/jenkins/scripts/set_trust_on_jobs.py):
+
+```bash
+python3 -m pip install jenkinsapi==0.3.13
+python3 jenkins/scripts/set_trust_on_jobs.py
+```
+
 ## Monitoring
 
 Dashboards of CI data can be found:
