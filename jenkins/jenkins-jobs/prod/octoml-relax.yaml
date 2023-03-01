@@ -183,7 +183,7 @@
     name: octoml-relax-unity
     project-type: multibranch
     description: 'Unity build for octoml/relax'
-    disabled: true
+    disabled: false
     concurrent: true
     scm:
         - github:
