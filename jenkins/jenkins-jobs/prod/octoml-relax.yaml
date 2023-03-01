@@ -2,7 +2,7 @@
     name: octoml-relax-cpu
     project-type: multibranch
     description: 'CPU build for octoml/relax'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -32,7 +32,7 @@
     name: octoml-relax-docker
     project-type: multibranch
     description: 'Docker build for octoml/relax'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -62,7 +62,7 @@
     name: octoml-relax-gpu
     project-type: multibranch
     description: 'GPU build for octoml/relax'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -92,7 +92,7 @@
     name: octoml-relax-lint
     project-type: multibranch
     description: 'Lint for apache/tvm'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -122,7 +122,7 @@
     name: octoml-relax-minimal
     project-type: multibranch
     description: 'Minimal CPU build for octoml/relax'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -152,7 +152,7 @@
     name: octoml-relax-scorecard
     project-type: multibranch
     description: 'Scorecard build for octoml/relax'
-    disabled: false
+    disabled: true
     concurrent: true
     scm:
         - github:
@@ -177,3 +177,34 @@
                         case-sensitive: true
     days-to-keep: 90
     script-path: ci/jenkins/generated/scorecard_jenkinsfile.groovy
+
+
+- job:
+    name: octoml-relax-unity
+    project-type: multibranch
+    description: 'Unity build for octoml/relax'
+    disabled: true
+    concurrent: true
+    scm:
+        - github:
+            repo: relax
+            repo-owner: octoml
+            credentials-id: 'octoml-relax-ci'
+            branch-discovery: no-pr
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: unity
+            refspecs:
+              - +refs/heads/relax:refs/remotes/@{remote}/relax
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    - regex-name:
+                        regex: '^(?!.*(last-successful)|(staging-backup-)).*$'
+                        case-sensitive: true
+    days-to-keep: 90
+    script-path: ci/jenkins/unity_jenkinsfile.groovy
