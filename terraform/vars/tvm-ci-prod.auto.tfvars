@@ -38,6 +38,15 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
+  "Prod-Autoscaler-Jenkins-CPU-Large" = {
+    image_family                             = "jenkins-stock-agent-x64"
+    agent_instance_type                      = "c4.4xlarge"
+    labels                                   = "CPU-LARGE"
+    min_size                                 = 0
+    max_size                                 = 90
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
     image_family                             = "jenkins-stock-agent-x64"
     agent_instance_type                      = "c4.4xlarge"
@@ -74,19 +83,29 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
-  "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
-    image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g4dn.xlarge"
-    labels                                   = "GPU-SPOT"
-    min_size                                 = 8
-    max_size                                 = 150
-    on_demand_percentage_above_base_capacity = 50
-    on_demand_base_capacity                  = 0
-  }
+  # TODO(driazati) - re-enable once quota is given
+  # "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
+  #   image_family                             = "jenkins-gpu-agent-x64"
+  #   agent_instance_type                      = "g4dn.xlarge"
+  #   labels                                   = "GPU-SPOT"
+  #   min_size                                 = 8
+  #   max_size                                 = 150
+  #   on_demand_percentage_above_base_capacity = 50
+  #   on_demand_base_capacity                  = 0
+  # }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"
     agent_instance_type                      = "m6g.4xlarge"
     labels                                   = "ARM"
+    min_size                                 = 0
+    max_size                                 = 90
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
+  "Prod-Autoscaler-Jenkins-ARM-Large" = {
+    image_family                             = "jenkins-stock-agent-arm"
+    agent_instance_type                      = "m6g.4xlarge"
+    labels                                   = "ARM-LARGE"
     min_size                                 = 0
     max_size                                 = 90
     on_demand_percentage_above_base_capacity = 100
