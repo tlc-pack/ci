@@ -83,16 +83,15 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
-  # TODO(driazati) - re-enable once quota is given
-  # "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
-  #   image_family                             = "jenkins-gpu-agent-x64"
-  #   agent_instance_type                      = "g4dn.xlarge"
-  #   labels                                   = "GPU-SPOT"
-  #   min_size                                 = 8
-  #   max_size                                 = 150
-  #   on_demand_percentage_above_base_capacity = 50
-  #   on_demand_base_capacity                  = 0
-  # }
+   "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
+     image_family                             = "jenkins-gpu-agent-x64"
+     agent_instance_type                      = "g4dn.xlarge"
+     labels                                   = "GPU-SPOT"
+     min_size                                 = 8
+     max_size                                 = 64
+     on_demand_percentage_above_base_capacity = 50
+     on_demand_base_capacity                  = 0
+   }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"
     agent_instance_type                      = "m6g.4xlarge"
