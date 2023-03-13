@@ -53,7 +53,7 @@ autoscaler_types = {
     labels                                   = "CPU-SPOT"
     min_size                                 = 0
     max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 50
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
@@ -71,7 +71,7 @@ autoscaler_types = {
     labels                                   = "CPU-SMALL-SPOT"
     min_size                                 = 0
     max_size                                 = 100
-    on_demand_percentage_above_base_capacity = 50
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
@@ -88,8 +88,8 @@ autoscaler_types = {
      agent_instance_type                      = "g4dn.xlarge"
      labels                                   = "GPU-SPOT"
      min_size                                 = 8
-     max_size                                 = 64
-     on_demand_percentage_above_base_capacity = 50
+     max_size                                 = 32
+     on_demand_percentage_above_base_capacity = 0
      on_demand_base_capacity                  = 0
    }
   "Prod-Autoscaler-Jenkins-ARM" = {
@@ -116,7 +116,7 @@ autoscaler_types = {
     labels                                   = "ARM-SPOT"
     min_size                                 = 0
     max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 50
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-ARM-Small" = {
@@ -134,7 +134,7 @@ autoscaler_types = {
     labels                                   = "ARM-SMALL-SPOT"
     min_size                                 = 0
     max_size                                 = 150
-    on_demand_percentage_above_base_capacity = 50
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
 }
