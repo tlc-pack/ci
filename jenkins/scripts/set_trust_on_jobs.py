@@ -1,6 +1,7 @@
-import os
-import jenkins
 import argparse
+import os
+
+import jenkins
 
 USER = os.environ["JENKINS_USER"]
 PW = os.environ["JENKINS_PW"]
@@ -8,7 +9,10 @@ PW = os.environ["JENKINS_PW"]
 
 def add_fork_trust_plugin(xml: str) -> str:
     nobody = '<trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustNobody"/>'
-    some_people = '<trust class="org.jenkinsci.plugins.githubScmTraitNotificationContext.ForkPullRequestDiscoveryTrait$TrustSomePeople" plugin="github-trust-hardcoded-authors@12.0"/>'
+    some_people = (
+        '<trust class="org.jenkinsci.plugins.githubScmTraitNotificationContext.'
+        'ForkPullRequestDiscoveryTrait$TrustSomePeople" plugin="github-trust-hardcoded-authors@12.0"/>'
+    )
     return xml.replace(nobody, some_people)
 
 
@@ -28,7 +32,7 @@ if __name__ == "__main__":
     )
     parser.parse_args()
 
-    server = jenkins.Jenkins("https://ci.tlcpack.ai", username=USER, password=PW)
+    server = jenkins.Jenkins("https://ci.tlcpack.ai", username=USER, password=PW)  # type: ignore[attr-defined]
     jobs = server.get_jobs()
 
     to_update = []

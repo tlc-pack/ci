@@ -14,6 +14,7 @@ from utils import *
 from net import *
 from typing import *
 from forward import *
+from forward import Branch, blue, init, init_log
 import forward
 from urllib.parse import unquote
 

@@ -101,6 +101,7 @@ resource "aws_eip" "static" {
   }
 }
 
+# tflint-ignore: terraform_required_providers
 resource "aws_instance" "jenkins_head_node" {
   #Older jenkins-stock-agent AMI
   ami           = "ami-056c71c88d13476dd"

@@ -41,13 +41,13 @@ def get_pr_and_build_numbers(target_url: str) -> Tuple[str, str]:
 
 def get_doc_url(
     pr: Dict[str, Any], base_docs_url: str = "https://pr-docs.tlcpack.ai"
-) -> str:
+) -> Tuple[bool, str]:
     pr_head = pr["commits"]["nodes"][0]["commit"]
     target_url = find_target_url(pr_head)
     pr_number, build_number = get_pr_and_build_numbers(target_url)
 
     commit_sha = pr_head["oid"]
 
-    docs_url = build_docs_url(base_docs_url, pr_number, build_number)
+    docs_url = build_docs_url(base_docs_url, int(pr_number), int(build_number))
 
     return True, f"Built docs for commit {commit_sha} can be found [here]({docs_url})."

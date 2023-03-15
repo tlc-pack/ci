@@ -16,15 +16,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import os
 import json
-import argparse
 import logging
-import re
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Optional, Union
 
 
-from .git_utils import git, GitHubRepo, parse_remote, find_ccs, dry_run_token
+from .git_utils import GitHubRepo, find_ccs
 from .cmd_utils import tags_from_title
 
 
@@ -33,12 +30,12 @@ GITHUB_NAME_REGEX = r"@[a-zA-Z0-9-]+"
 
 def parse_line(line: str) -> Tuple[str, List[str]]:
     line = line.lstrip(" -")
-    line = line.split()
+    parts = line.split()
 
     # Parse out the name as anything up until the first tagged person
     tag_items = []
     tag_end = 0
-    for i, piece in enumerate(line):
+    for i, piece in enumerate(parts):
         if piece.startswith("@"):
             tag_end = i
             break
@@ -50,7 +47,7 @@ def parse_line(line: str) -> Tuple[str, List[str]]:
     # From the last word that was part of the tag name, start looking for users
     # tagged with a '@'
     users = []
-    for piece in line[tag_end:]:
+    for piece in parts[tag_end:]:
         if piece.startswith("@"):
             users.append(piece.lstrip("@"))
 
@@ -93,7 +90,7 @@ def parse_teams(r: Dict[str, Any], issue_number: int) -> Dict[str, str]:
             f"Could not find issue #{issue_number}\n\n{json.dumps(r, indent=2)}"
         )
 
-    result = {}
+    result: Dict[str, Any] = {}
 
     def add_tag(tag, users):
         if tag in result:
@@ -132,7 +129,7 @@ def tags_from_labels(labels: List[Dict[str, Any]]) -> List[str]:
     return [label["name"] for label in labels]
 
 
-def add_ccs_to_body(body: str, to_cc: List[str]) -> str:
+def add_ccs_to_body(body: str, to_cc: List[str]) -> Optional[str]:
     lines = body.split("\n")
 
     cc_line_idx = None
@@ -173,14 +170,17 @@ def add_ccs_to_body(body: str, to_cc: List[str]) -> str:
 def determine_users_to_cc(
     issue: Dict[str, Any],
     github: GitHubRepo,
-    team_issue: str,
+    team_issue: Union[int, str],
     issue_data: Optional[Dict[str, Any]],
-) -> List[str]:
+):
     logger = logging.getLogger("py-github")
     if issue_data is None:
         logger.info("No issue data passed in, fetching from GitHub")
 
     issue_data = fetch_issue(github, issue_number=int(team_issue))
+
+    if issue_data is None:
+        raise RuntimeError("No issue data found on GitHub")
 
     # Fetch the list of teams
     teams = parse_teams(issue_data, issue_number=int(team_issue))
@@ -204,7 +204,7 @@ def determine_users_to_cc(
     logger.info(f"Found tags in title: {tags}")
 
     # Update the PR or issue based on tags in the title and GitHub tags
-    to_cc = [teams.get(t, []) for t in tags]
+    to_cc: List[Union[str, List[str]]] = [teams.get(t, []) for t in tags]
     to_cc = list(set(item for sublist in to_cc for item in sublist))
     to_cc = [user for user in to_cc if user != author]
     return tags, sorted(to_cc)
@@ -212,7 +212,7 @@ def determine_users_to_cc(
 
 def get_tags(
     pr_data: Dict[str, Any], github: GitHubRepo, team_issue: int
-) -> Tuple[bool, str]:
+) -> Tuple[bool, Optional[str]]:
     logger = logging.getLogger("py-github")
     tags, to_cc = determine_users_to_cc(
         issue=pr_data, github=github, team_issue=team_issue, issue_data=None

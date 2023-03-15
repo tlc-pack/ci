@@ -16,11 +16,10 @@
 # specific language governing permissions and limitations
 # under the License.
 import os
-import json
 import logging
 from typing import Dict, Any, Optional, List
 
-from .git_utils import git, GitHubRepo, parse_remote, DRY_RUN
+from .git_utils import GitHubRepo, DRY_RUN
 from .github_commenter import BotCommentBuilder, Item
 from .github_skipped_tests_comment import get_skipped_tests_comment
 from .github_tag_teams import get_tags
@@ -140,4 +139,4 @@ def github_pr_comment(
                 logger.exception(e)
 
     logger.info(f"Commenting {len(items)} items: {items}")
-    commenter.post_items(items=items.values())
+    commenter.post_items(items=list(items.values()))

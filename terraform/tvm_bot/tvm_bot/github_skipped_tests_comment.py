@@ -17,11 +17,10 @@
 # under the License.
 import os
 import logging
-from re import I
 import subprocess
 from xml.etree import ElementTree
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Tuple
 
 
 def run_subprocess(command):
@@ -47,8 +46,8 @@ def get_main_jenkins_build_number(github, common_commit):
         target_url = str(status["target_url"])
         build_number = (
             target_url[target_url.find("job/main") : len(target_url)]
-            .strip("job/main/")
-            .strip("/display/redirect")
+            .removesuffix("job/main/")
+            .removesuffix("/display/redirect")
         )
         assert build_number.isdigit()
         return {"build_number": build_number, "state": state}
@@ -137,7 +136,8 @@ def build_comment(
     for skip in skipped_list:
         text += "    " + skip + "\n"
     text += (
-        f"    ```\n    A detailed report of ran tests is [here](https://{jenkins_prefix}/job/tvm/job/PR-{str(pr_number)}"
+        f"    ```\n    A detailed report of ran tests "
+        "is [here](https://{jenkins_prefix}/job/tvm/job/PR-{str(pr_number)}"
         f"/{str(build_number)}/testReport/)."
     )
     return True, text
@@ -160,7 +160,7 @@ def get_skipped_tests_comment(
     main_test_report_dir: str = "main-reports",
     common_commit_sha: Optional[str] = None,
     common_main_build: Optional[Dict[str, Any]] = None,
-) -> str:
+) -> Tuple[bool, Optional[str]]:
 
     if pr["author"]["login"] not in {"gigiblender", "driazati", "areusch"}:
         # Gate this feature until it's better tested
@@ -180,6 +180,9 @@ def get_skipped_tests_comment(
         logger.info("Fetching common commit sha and build info")
         common_commit_sha = pr["baseRefOid"]
         common_main_build = get_main_jenkins_build_number(github, common_commit_sha)
+
+        if common_main_build is None:
+            raise RuntimeError(f"Could not find build for {common_commit_sha}")
 
         retrieve_test_reports(
             common_main_build=common_main_build["build_number"],

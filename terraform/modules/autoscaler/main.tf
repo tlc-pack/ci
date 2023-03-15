@@ -43,6 +43,7 @@ resource "aws_launch_template" "autoscaler" {
   instance_type          = var.agent_instance_type
 }
 
+# tflint-ignore: terraform_required_providers
 resource "aws_autoscaling_group" "agents" {
   name                  = var.autoscaler_name
   min_size              = var.min_size

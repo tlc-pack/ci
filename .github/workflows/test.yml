@@ -6,11 +6,6 @@ on:
       - main
     paths:
       - terraform/tvm_bot/**
-  pull_request_target:
-    branches:
-      - main
-    paths:
-      - terraform/tvm_bot/**
 
 jobs:
   test:

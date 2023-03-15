@@ -1,18 +1,23 @@
 variable "environment" {
+  type = string
 }
 
 variable "instance_type" {
+  type = string
 }
 
 variable "ebs_vol_size" {
   description = "The size of the persistent volume which stores runtime data"
+  type = number
 }
 
 variable "ebs_jobs_vol_size" {
   description = "The size of the persistent volume which stores job histories"
+  type = number
 }
 
 variable "vpc_id" {
+  type = string
 }
 
 variable "subnet_ids" {
@@ -20,6 +25,7 @@ variable "subnet_ids" {
 }
 
 variable "global_access_key_name" {
+  type = string
   description = "The name of the key used to access all executors for SSH authentication"
 }
 
@@ -33,10 +39,10 @@ variable "subject_alternative_names" {
   default     = []
 }
 
-variable "disk_size" {
-  type    = number
-  default = 100
-}
+# variable "disk_size" {
+#   type    = number
+#   default = 100
+# }
 
 variable "internal_load_balancer" {
   type    = bool

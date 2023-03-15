@@ -30,14 +30,13 @@ DRY_RUN = object()
 
 def compress_query(query: str) -> str:
     query = query.replace("\n", "")
-    query = re.sub("\s+", " ", query)
     return query
 
 
 def post(url: str, body: Optional[Any] = None, auth: Optional[Tuple[str, str]] = None):
     logger = logging.getLogger("py-github")
     logger.info(f"Requesting POST to {url} with {body}")
-    headers = {}
+    headers: Dict[str, str] = {}
     req = request.Request(url, headers=headers, method="POST")
     if auth is not None:
         auth_str = base64.b64encode(f"{auth[0]}:{auth[1]}".encode())
@@ -47,9 +46,9 @@ def post(url: str, body: Optional[Any] = None, auth: Optional[Tuple[str, str]] =
         body = ""
 
     req.add_header("Content-Type", "application/json; charset=utf-8")
-    data = json.dumps(body)
-    data = data.encode("utf-8")
-    req.add_header("Content-Length", len(data))
+    raw_data = json.dumps(body)
+    data = raw_data.encode("utf-8")
+    req.add_header("Content-Length", str(len(data)))
 
     with request.urlopen(req, data) as response:
         return response.read()
@@ -82,7 +81,7 @@ class GitHubRepo:
         return self.token == DRY_RUN
 
     def graphql(
-        self, query: str, variables: Optional[Dict[str, str]] = None
+        self, query: str, variables: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         query = compress_query(query)
         if variables is None:
@@ -95,7 +94,10 @@ class GitHubRepo:
         )
 
         if "data" not in response:
-            msg = f"Error fetching data with query:\n{query}\n\nvariables:\n{variables}\n\nerror:\n{json.dumps(response, indent=2)}"
+            msg = (
+                f"Error fetching data with query:\n{query}\n\nvariables"
+                f":\n{variables}\n\nerror:\n{json.dumps(response, indent=2)}"
+            )
             raise RuntimeError(msg)
         return response
 
@@ -120,9 +122,9 @@ class GitHubRepo:
         self.log.info(f"Requesting {method} to {full_url} with {body}")
         req = request.Request(full_url, headers=self.headers(), method=method.upper())
         req.add_header("Content-Type", "application/json; charset=utf-8")
-        data = json.dumps(body)
-        data = data.encode("utf-8")
-        req.add_header("Content-Length", len(data))
+        raw_data = json.dumps(body)
+        data = raw_data.encode("utf-8")
+        req.add_header("Content-Length", str(len(data)))
 
         try:
             with request.urlopen(req, data) as response:
@@ -135,7 +137,7 @@ class GitHubRepo:
         self.log.info(f"Got response from {full_url}: {content}")
         try:
             response = json.loads(content)
-        except json.decoder.JSONDecodeError as e:
+        except json.decoder.JSONDecodeError:
             return content
 
         return response
@@ -149,7 +151,7 @@ class GitHubRepo:
     def post(self, url: str, data: Dict[str, Any]) -> Dict[str, Any]:
         return self._request(self.base + url, data, method="POST")
 
-    def get(self, url: str, add_base: bool = True) -> Dict[str, Any]:
+    def get(self, url: str, add_base: bool = True) -> Any:
         if self.dry_run():
             self.log.info(f"Dry run, would have requested a GET to {url}")
             return self.testing_response("GET", url)
@@ -216,5 +218,5 @@ def find_ccs(body: str) -> List[str]:
         users = [x.strip() for x in match.split("@")]
         reviewers += users
 
-    reviewers = set(x for x in reviewers if x != "")
-    return list(reviewers)
+    reviewers_set = set(x for x in reviewers if x != "")
+    return list(reviewers_set)

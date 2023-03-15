@@ -16,10 +16,7 @@ name: Lint Code Base
 #############################
 on:
   push:
-    branches-ignore: [main]
-    # Remove the line above to run when pushing to master
   pull_request:
-    branches: [main]
 
 ###############
 # Set the Job #
@@ -56,4 +53,7 @@ jobs:
           VALIDATE_BASH: false
           VALIDATE_TERRAFORM_TERRASCAN: false
           VALIDATE_MARKDOWN: false
+          VALIDATE_HTML: false
+          VALIDATE_JSCPD: false
+          VALIDATE_PYTHON_ISORT: false
           FILTER_REGEX_EXCLUDE: monitoring/.*
