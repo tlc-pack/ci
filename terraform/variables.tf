@@ -1,8 +1,10 @@
 variable "environment" {
+  type = string
 }
 
 variable "aws_default_region" {
   default = "us-west-2"
+  type = string
 }
 
 variable "public_subnet_ids" {
@@ -24,26 +26,32 @@ variable "account_role_arn" {
 
 variable "global_access_pub_key" {
   description = "The public key used to access all Jenkins VM's by Ansible. Note that this key is intentionally different than the one used by Jenkins to authenticate to the executors"
+  type = string
 }
 
 variable "executor_access_pub_keys" {
   description = "The public key used to access all Jenkins agents by developers."
+  type = string
 }
 
 variable "jenkins_pub_key" {
   description = "The public key inserted on remoteFS' for the agents so that Jenkins can log in to them to execute jobs"
+  type = string
 }
 
 variable "head_node_instance_type" {
   default = "c4.4xlarge"
+  type = string
 }
 
 variable "ebs_vol_size" {
   default = "500"
+  type = number
 }
 
 variable "ebs_jobs_vol_size" {
   default = "1000"
+  type = number
 }
 
 variable "autoscaler_types" {

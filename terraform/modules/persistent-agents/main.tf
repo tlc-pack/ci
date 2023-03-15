@@ -50,6 +50,7 @@ resource "aws_launch_template" "template" {
   key_name      = "tvm_ci_creds"
 }
 
+# tflint-ignore: terraform_required_providers
 resource "aws_instance" "instances" {
   count = var.replicas
   tags = {

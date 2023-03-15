@@ -1,11 +1,9 @@
+# flake8: noqa
 import textwrap
 import pytest
-import unittest
 import logging
 
 from tvm_bot import github_pr_comment
-from tvm_bot import git_utils
-import tvm_bot
 
 from utils import parameterize_named, assert_in, patch_github
 

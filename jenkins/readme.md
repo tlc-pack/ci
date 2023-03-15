@@ -1,10 +1,10 @@
-## Components
+# Components
 
-### Docker
+## Docker
 
 The 'jenkins' docker image contains the build tooling for the docker image that runs the head node. There is also a container for a Jenkins agent (for the documentation stage of the TVM pipeline)
 
-### Glossary of terms
+## Glossary of terms
 | Term | Meaning | Notes |
 --- | --- | ---
 | Head (node) | This is the primary Jenkins server/process, it schedules jobs | |

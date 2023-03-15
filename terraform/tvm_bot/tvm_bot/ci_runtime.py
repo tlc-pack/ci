@@ -1,6 +1,5 @@
-import json
 import statistics
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional, Tuple
 
 # import scipy.stats
 import re
@@ -51,23 +50,28 @@ def fetch_build_time_s(branch: str, build: str, github: GitHubRepo) -> float:
     """
     Get the runtime in seconds of the branch/build combo specified
     """
-    build = int(build)
-    info_url = f"https://ci.tlcpack.ai/blue/rest/organizations/jenkins/pipelines/tvm/runs/?branch={branch}&start=0&limit=25"
+    build_id = int(build)
+    info_url = (
+        "https://ci.tlcpack.ai/blue/rest/organizations/jenkins/pipelines/"
+        f"tvm/runs/?branch={branch}&start=0&limit=25"
+    )
     data = github.get(info_url, add_base=False)
 
     for item in data:
-        if item["id"] == str(build):
+        if item["id"] == str(build_id):
             if can_use_build(item):
                 return item["durationInMillis"] / 1000.0
             else:
                 raise RuntimeError(
-                    f"Found build for {branch} with {build} but cannot use it: {item}"
+                    f"Found build_id for {branch} with {build_id} but cannot use it: {item}"
                 )
 
-    raise RuntimeError(f"Unable to find branch {branch} with {build} in {data}")
+    raise RuntimeError(f"Unable to find branch {branch} with {build_id} in {data}")
 
 
-def ci_runtime_comment(pr: Dict[str, Any], github: GitHubRepo) -> str:
+def ci_runtime_comment(
+    pr: Dict[str, Any], github: GitHubRepo
+) -> Tuple[bool, Optional[str]]:
     author = pr["author"]["login"]
     if author not in {"driazati", "gigiblender", "areusch"}:
         logging.info(f"Comment author not in allowlist: {author}")
@@ -79,6 +83,9 @@ def ci_runtime_comment(pr: Dict[str, Any], github: GitHubRepo) -> str:
     target_url = find_target_url(pr_head)
     logger.info(f"Got target url {target_url}")
     m = re.search(r"/job/(PR-\d+)/(\d+)", target_url)
+    if m is None:
+        raise RuntimeError(f"No matches found in {target_url}")
+
     branch, build = m.groups()
 
     # Fetch the build times for main
@@ -100,12 +107,16 @@ def ci_runtime_comment(pr: Dict[str, Any], github: GitHubRepo) -> str:
     significant = change > 30.0
     change = round(change, 2)
     if change > 0:
-        change = "+" + str(change)
+        change_desc = "+" + str(change)
+    else:
+        change_desc = str(change)
 
     mean_build_time_main_min = round(x / 60.0, 2)
     pr_build_time_min = round(current_build_time_s / 60.0, 2)
 
-    description = f"{change}% ({mean_build_time_main_min}m -> {pr_build_time_min}m)"
+    description = (
+        f"{change_desc}% ({mean_build_time_main_min}m -> {pr_build_time_min}m)"
+    )
 
     build_url = f"https://ci.tlcpack.ai/blue/organizations/jenkins/tvm/detail/{branch}/{build}/pipeline"
     if significant:

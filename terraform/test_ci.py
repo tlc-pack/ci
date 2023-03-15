@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 """Test various CI scripts and GitHub Actions workflows"""
+# flake8: noqa
 import shutil
 import subprocess
 import json
@@ -25,14 +26,15 @@ from pathlib import Path
 
 import pytest
 import tvm.testing
+import scripts
 
+# pylint: disable=relative-beyond-top-level
 from .test_utils import REPO_ROOT, TempGit, run_script
 
 # pylint: disable=wrong-import-position,wrong-import-order
 sys.path.insert(0, str(REPO_ROOT / "ci"))
 sys.path.insert(0, str(REPO_ROOT / "ci" / "scripts"))
 
-import scripts
 
 # pylint: enable=wrong-import-position,wrong-import-order
 

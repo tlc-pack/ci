@@ -1,24 +1,27 @@
-variable "jenkins_user" {
-  type      = string
-  default   = "octobot2"
-  sensitive = true
-}
+# variable "jenkins_user" {
+#   type      = string
+#   default   = "octobot2"
+#   sensitive = true
+# }
 
 variable "jenkins_instance_profile" {
   type = string
 }
 
 variable "jenkins_pub_key" {
-}
-
-variable "executor_access_pub_keys" {
-}
-
-variable "jenkins_url" {
   type = string
 }
 
+variable "executor_access_pub_keys" {
+  type = list(string)
+}
+
+# variable "jenkins_url" {
+#   type = string
+# }
+
 variable "vm_group_name" {
+  type = string
 }
 
 variable "agent_attributes" {
@@ -32,6 +35,7 @@ variable "agent_attributes" {
 
 variable "agent_instance_type" {
   default     = "c4.2xlarge"
+  type = string
   description = "The instance type runners will be created on."
 }
 

@@ -18,7 +18,6 @@
 import subprocess
 import os
 import logging
-import sys
 import re
 from pathlib import Path
 from typing import List

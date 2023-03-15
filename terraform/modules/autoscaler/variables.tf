@@ -1,7 +1,9 @@
 variable "jenkins_pub_key" {
+  type = string
 }
 
 variable "executor_access_pub_keys" {
+  type = list(string)
 }
 
 variable "global_access_key_name" {
@@ -10,10 +12,12 @@ variable "global_access_key_name" {
 }
 
 variable "autoscaler_name" {
+  type = string
 }
 
 variable "agent_instance_type" {
   default     = "c4.2xlarge"
+  type = string
   description = "The instance type runners will be created on."
 }
 
