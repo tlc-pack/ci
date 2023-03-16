@@ -14,7 +14,7 @@ github-scm-trait-notification-context:1.1
 github-pullrequest:0.4.0
 github-branch-source:1695.v88de84e9f6b_9
 matrix-auth:3.1.5
-script-security:1138.v8e727069a_025
+script-security
 sshd:3.249.v2dc2ea_416e33
 ssh-slaves:2.846.v1b_70190624f5
 strict-crumb-issuer:2.1.0
