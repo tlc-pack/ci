@@ -3,7 +3,7 @@ variable "jenkins_pub_key" {
 }
 
 variable "executor_access_pub_keys" {
-  type = list(string)
+  type = string
 }
 
 variable "global_access_key_name" {
