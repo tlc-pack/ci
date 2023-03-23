@@ -88,7 +88,7 @@ autoscaler_types = {
      agent_instance_type                      = "g4dn.xlarge"
      labels                                   = "GPU-SPOT"
      min_size                                 = 8
-     max_size                                 = 32
+     max_size                                 = 64
      on_demand_percentage_above_base_capacity = 0
      on_demand_base_capacity                  = 0
    }
