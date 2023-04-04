@@ -10,37 +10,37 @@ resource "aws_ecr_lifecycle_policy" "untagged_removal_policy" {
 
   policy = <<EOF
 {
-    "rules": [
-        {
-        "action": {
-            "type": "expire"
-        },
-        "selection": {
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 1,
-            "tagStatus": "tagged",
-            "tagPrefixList": [
-            "PR-"
-            ]
-        },
-        "description": "Remove PR images",
-        "rulePriority": 1
-        },
-        {
-        "action": {
-            "type": "expire"
-        },
-        "selection": {
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 7,
-            "tagStatus": "any",
+  "rules": [
+    {
+      "action": {
+        "type": "expire"
+      },
+      "selection": {
+        "countType": "sinceImagePushed",
+        "countUnit": "days",
+        "countNumber": 1,
+        "tagStatus": "tagged",
+        "tagPrefixList": [
+          "PR-"
+        ]
+      },
+      "description": "Remove PR images",
+      "rulePriority": 1
+    },
+    {
+      "action": {
+        "type": "expire"
+      },
+      "selection": {
+        "countType": "sinceImagePushed",
+        "countUnit": "days",
+        "countNumber": 7,
+        "tagStatus": "any"
         },
         "description": "Remove any images older than 7 days",
         "rulePriority": 2
-        }
-    ]
+    }
+  ]
 }
 EOF
 }
