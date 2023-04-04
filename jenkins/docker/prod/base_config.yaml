@@ -49,6 +49,7 @@ jenkins:
       - "USER:Overall/Administer:konturn"
       - "USER:Overall/Administer:lunderberg"
       - "USER:Overall/Administer:tvm-bot"
+      - "USER:Overall/Administer:liam-sturge"
       - "GROUP:Overall/Administer:octoml"
       - "GROUP:Overall/Administer:tlc-pack"
       - "USER:Overall/Read:anonymous"
