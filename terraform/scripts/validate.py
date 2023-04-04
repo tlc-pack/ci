@@ -1,6 +1,11 @@
 import os
+import sys
 
 from github import Github
+
+
+def sprint(*args):
+    print(*args, file=sys.stderr)
 
 
 def check_is_verified(token, repository, ref):
@@ -23,10 +28,18 @@ def validate(
     is_pull_request_event = github_event_name == "pull_request"
     is_pull_request_target_event = github_event_name == "pull_request_target"
 
-    valid_workflow = is_verified and (
-        (is_fork and is_deployer and is_pull_request_target_event)
-        or (not is_fork and is_pull_request_event)
-    )
+    is_fork_and_is_ok = is_fork and is_deployer and is_pull_request_target_event
+    not_fork_and_is_ok = not is_fork and is_pull_request_event
+    sprint("Validating workflow with:")
+    sprint(f"    is_verified:                  {is_verified}")
+    sprint(f"    is_fork:                      {is_fork}")
+    sprint(f"    is_deployer:                  {is_deployer}")
+    sprint(f"    is_pull_request_event:        {is_pull_request_event}")
+    sprint(f"    is_pull_request_target_event: {is_pull_request_target_event}")
+    sprint(f"    is_fork_and_is_ok:            {is_fork_and_is_ok}")
+    sprint(f"    not_fork_and_is_ok:           {not_fork_and_is_ok}")
+
+    valid_workflow = is_verified and (is_fork_and_is_ok or not_fork_and_is_ok)
     return valid_workflow
 
 
