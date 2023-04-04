@@ -35,10 +35,10 @@ resource "aws_ecr_lifecycle_policy" "untagged_removal_policy" {
         "countType": "sinceImagePushed",
         "countUnit": "days",
         "countNumber": 7,
-        "tagStatus": "any",
+        "tagStatus": "any"
+        },
         "description": "Remove any images older than 7 days",
         "rulePriority": 2
-      }
     }
   ]
 }
