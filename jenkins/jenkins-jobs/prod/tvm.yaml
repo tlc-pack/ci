@@ -329,6 +329,36 @@
     script-path: ci/jenkins/generated/minimal_cross_isa_jenkinsfile.groovy
 
 - job:
+    name: tvm-overall
+    project-type: multibranch
+    description: 'Overall build for CI badge for apache/tvm'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm
+            repo-owner: apache
+            credentials-id: 'tqchen-ci'
+            branch-discovery: no-pr
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: overall
+            refspecs:
+              - +refs/heads/areusch/overall-jenkins:refs/remotes/@{remote}/overall-jenkins
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - regular-branches: true
+                - skip-initial-build: true
+                - named-branches:
+                    - regex-name:
+                        regex: '^.*areusch/overall-jenkins.*$'
+                        case-sensitive: true
+    days-to-keep: 90
+    script-path: ci/jenkins/generated/overall_jenkinsfile.groovy
+
+- job:
     name: tvm-riscv
     project-type: multibranch
     description: 'RISC-V build for apache/tvm'
