@@ -119,6 +119,15 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
+  "Prod-Autoscaler-Jenkins-ARM-Graviton3" = {
+    image_family                             = "jenkins-stock-agent-arm"
+    agent_instance_type                      = "c7g.large"
+    labels                                   = "ARM-GRAVITON3"
+    min_size                                 = 0
+    max_size                                 = 100
+    on_demand_percentage_above_base_capacity = 0
+    on_demand_base_capacity                  = 0
+  }
   "Prod-Autoscaler-Jenkins-ARM-Small" = {
     image_family                             = "jenkins-stock-agent-arm"
     agent_instance_type                      = "r6g.large"
