@@ -189,3 +189,11 @@ credentials:
               owner: "octoml"
               description: "GitHub App for octoml/relax repos"
               privateKey: "${readFile:/key/octoml_relax_ci_github_app_key}"
+          - string:
+              id: "pypi-api-token"
+              description: "key for pushing TLCPack to PyPI"
+              secret: "${readFile:/key/pypi-api-token}"
+          - string:
+              id: "test-pypi-api-token"
+              description: "key for pushing TLCPack to test PyPI"
+              secret: "${readFile:/key/test-pypi-api-token}"

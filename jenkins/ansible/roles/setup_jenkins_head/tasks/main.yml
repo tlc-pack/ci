@@ -123,6 +123,22 @@
     group: 1000
     mode: 0600
 
+- name: PyPI API key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'PYPI_TOKEN') }}"
+    dest: "/var/jenkins/keys/pypi-api-token"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
+- name: test PyPI API key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'TEST_PYPI_TOKEN') }}"
+    dest: "/var/jenkins/keys/test-pypi-api-token"
+    owner: 1000
+    group: 1000
+    mode: 0600
+
 - name: Base configuration for Jenkins
   ansible.builtin.copy:
     src: "{{ lookup('env', 'GITHUB_WORKSPACE') + '/jenkins/docker/' + lookup('env', 'ENVIRONMENT') + '/base_config.yaml' }}"
