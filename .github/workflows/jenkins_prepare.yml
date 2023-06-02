@@ -65,6 +65,8 @@ jobs:
       DOCS_PUSH_TOKEN: ${{ secrets.DOCS_PUSH_TOKEN }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TVM_BOT_DOCS_GITHUB_TOKEN: ${{ secrets.TVM_BOT_GITHUB_TOKEN }}
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
     steps:
       -
         name: Pull repository
