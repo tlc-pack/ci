@@ -12,6 +12,12 @@ source "amazon-ebs" "jenkins_gpu_image" {
   tags = {
     image_family = "${var.image_prefix}-x64"
   }
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"
+    volume_size = 40
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
