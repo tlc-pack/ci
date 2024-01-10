@@ -15,7 +15,6 @@ apt install -y build-essential
 apt install -y python3 python3-pip
 pip install -q poetry launchpadlib
 apt install -y openjdk-17-jre-headless
-pip install docker
 
 #echo new cron into cron file
 echo '0 * * * * docker system prune --all --force --filter "until=1h"' | crontab
