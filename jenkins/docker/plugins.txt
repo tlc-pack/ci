@@ -1,9 +1,9 @@
-authorize-project:1.4.0
-basic-branch-build-strategies:1.3.2
+authorize-project:1.7.2
+basic-branch-build-strategies:81.v05e333931c7d
 block-queued-job:0.2.0
 blueocean:1.25.8
 build-timeout:1.24
-configuration-as-code:1569.vb_72405b_80249
+configuration-as-code:1836.vccda_4a_122a_a_e
 disable-github-multibranch-status:1.2
 discord-notifier:218.ve2b_887e3a_f28
 ec2-fleet:2.5.2
@@ -12,7 +12,7 @@ folder-auth:1.4
 github-oauth:0.39
 github-scm-trait-notification-context:1.1
 github-pullrequest:0.4.0
-github-branch-source:1695.v88de84e9f6b_9
+github-branch-source:1793.v1831e9c68d77
 matrix-auth:3.1.5
 script-security
 sshd:3.249.v2dc2ea_416e33
@@ -20,7 +20,7 @@ ssh-slaves:2.846.v1b_70190624f5
 strict-crumb-issuer:2.1.0
 timestamper:1.20
 workflow-aggregator:590.v6a_d052e5a_a_b_5
-workflow-multibranch:716.vc692a_e52371b_
+workflow-multibranch:795.ve0cb_1f45ca_9a_
 ws-cleanup:0.43
 pipeline-github-lib:38.v445716ea_edda_
 prometheus:2.0.11
