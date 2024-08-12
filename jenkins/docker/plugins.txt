@@ -13,7 +13,7 @@ github-oauth:0.39
 github-scm-trait-notification-context:1.1
 github-pullrequest:0.4.0
 github-branch-source:1793.v1831e9c68d77
-matrix-auth:3.1.5
+matrix-auth:3.2.2
 script-security
 sshd:3.249.v2dc2ea_416e33
 ssh-slaves:2.846.v1b_70190624f5
