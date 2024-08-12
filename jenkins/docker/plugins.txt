@@ -1,7 +1,10 @@
 authorize-project:1.7.2
+aws-java-sdk-ec2:1.12.767-467.vb_e93f0c614b_6
+aws-java-sdk-minimal:1.12.767-467.vb_e93f0c614b_6
 basic-branch-build-strategies:81.v05e333931c7d
 block-queued-job:0.2.0
 blueocean:1.27.14
+branch-api:2.1178.v969d9eb_c728e
 build-timeout:1.24
 configuration-as-code:1836.vccda_4a_122a_a_e
 disable-github-multibranch-status:1.2
@@ -16,10 +19,12 @@ github-pullrequest:0.4.0
 github-branch-source:1793.v1831e9c68d77
 matrix-auth:3.2.2
 script-security
-sshd:3.249.v2dc2ea_416e33
+ssh-credentials:343.v884f71d78167
+sshd:3.330.vc866a_8389b_58
 ssh-slaves:2.846.v1b_70190624f5
 strict-crumb-issuer:2.1.0
 timestamper:1.20
+token-macro:400.v35420b_922dcb_
 workflow-aggregator:590.v6a_d052e5a_a_b_5
 workflow-multibranch:795.ve0cb_1f45ca_9a_
 ws-cleanup:0.43
