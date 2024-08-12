@@ -1,7 +1,7 @@
 authorize-project:1.7.2
 basic-branch-build-strategies:81.v05e333931c7d
 block-queued-job:0.2.0
-blueocean:1.25.8
+blueocean:1.27.14
 build-timeout:1.24
 configuration-as-code:1836.vccda_4a_122a_a_e
 disable-github-multibranch-status:1.2
