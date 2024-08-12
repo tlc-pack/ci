@@ -6,9 +6,10 @@ build-timeout:1.24
 configuration-as-code:1836.vccda_4a_122a_a_e
 disable-github-multibranch-status:1.2
 discord-notifier:218.ve2b_887e3a_f28
-ec2-fleet:2.5.2
+ec2-fleet:3.2.0
 embeddable-build-status:255.va_d2370ee8fde
 folder-auth:1.4
+cloudbees-folder:6.942.vb_43318a_156b_2
 github-oauth:0.39
 github-scm-trait-notification-context:1.1
 github-pullrequest:0.4.0
