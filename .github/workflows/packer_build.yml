@@ -53,8 +53,8 @@ jobs:
           WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_source_image_family: jenkins-stock-agent
           PKR_VAR_image_prefix: jenkins-gpu-agent
-          #This driver version below is the latest recommended given our requirements (T4 GPU, CUDA 12.2, Linux X64). Furthermore, the corresponding run script is compatible with Linux kernel version 5.13.
-          PKR_VAR_nvidia_driver_version: "535.129.03"
+          # This driver version below is the latest recommended given our requirements (T4 GPU, CUDA 12.2, Linux X64). Furthermore, the corresponding run script is compatible with Linux kernel version 5.15.
+          PKR_VAR_nvidia_driver_version: "535.183.01"
           PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
         with:
           command: build
