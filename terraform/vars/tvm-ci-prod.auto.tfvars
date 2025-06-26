@@ -47,6 +47,15 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
+  "Prod-Autoscaler-Jenkins-CPU-Large-SPOT" = {
+    image_family                             = "jenkins-stock-agent-x64"
+    agent_instance_type                      = "c4.4xlarge"
+    labels                                   = "CPU-LARGE-SPOT"
+    min_size                                 = 0
+    max_size                                 = 90
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
     image_family                             = "jenkins-stock-agent-x64"
     agent_instance_type                      = "c4.4xlarge"
@@ -153,6 +162,42 @@ autoscaler_types = {
     min_size                                 = 0
     max_size                                 = 150
     on_demand_percentage_above_base_capacity = 0
+    on_demand_base_capacity                  = 0
+  }
+  "Flashinfer-Autoscaler-Jenkins-GPU-G5" = {
+    image_family                             = "jenkins-gpu-agent-x64"
+    agent_instance_type                      = "g5.xlarge"
+    labels                                   = "GPU-G5"
+    min_size                                 = 0
+    max_size                                 = 64
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
+  "Flashinfer-Autoscaler-Jenkins-GPU-G5-SPOT" = {
+    image_family                             = "jenkins-gpu-agent-x64"
+    agent_instance_type                      = "g5.xlarge"
+    labels                                   = "GPU-G5-SPOT"
+    min_size                                 = 0
+    max_size                                 = 64
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
+  "Flashinfer-Autoscaler-Jenkins-GPU-G6" = {
+    image_family                             = "jenkins-gpu-agent-x64"
+    agent_instance_type                      = "g6.xlarge"
+    labels                                   = "GPU-G6"
+    min_size                                 = 0
+    max_size                                 = 64
+    on_demand_percentage_above_base_capacity = 100
+    on_demand_base_capacity                  = 0
+  }
+  "Flashinfer-Autoscaler-Jenkins-GPU-G6-SPOT" = {
+    image_family                             = "jenkins-gpu-agent-x64"
+    agent_instance_type                      = "g6.xlarge"
+    labels                                   = "GPU-G6-SPOT"
+    min_size                                 = 0
+    max_size                                 = 64
+    on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
 }
