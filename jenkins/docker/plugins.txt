@@ -1,4 +1,4 @@
-authorize-project:1.7.2
+authorize-project:1.7.3
 aws-java-sdk-ec2:1.12.767-467.vb_e93f0c614b_6
 aws-java-sdk-minimal:1.12.767-467.vb_e93f0c614b_6
 basic-branch-build-strategies:81.v05e333931c7d
@@ -23,7 +23,7 @@ ssh-credentials:343.v884f71d78167
 sshd:3.330.vc866a_8389b_58
 ssh-slaves:2.846.v1b_70190624f5
 strict-crumb-issuer:2.1.0
-timestamper:1.20
+timestamper:1.29
 token-macro:400.v35420b_922dcb_
 workflow-aggregator:590.v6a_d052e5a_a_b_5
 workflow-multibranch:795.ve0cb_1f45ca_9a_

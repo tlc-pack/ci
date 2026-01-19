@@ -12,7 +12,7 @@ ExecStart=/usr/bin/docker run --rm --name %N \
                               --mount type=bind,source=/var/jenkins/persistent_data/userContent/relay-docs,target=/var/relay-docs \
                               --mount type=bind,source=/var/jenkins/persistent_data/userContent/vta-docs,target=/var/vta-docs \
                               --network=jenkins \
-                              jenkins/ssh-agent \
+                              jenkins/ssh-agent:jdk17 \
 "{{ lookup('env', 'JENKINS_PUB_KEY') }}"
 
 ExecStop=docker stop -t 2 %N
