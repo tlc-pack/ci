@@ -1,4 +1,4 @@
-authorize-project:1.7.3
+authorize-project:1.8.1
 aws-java-sdk-ec2:1.12.767-467.vb_e93f0c614b_6
 aws-java-sdk-minimal:1.12.767-467.vb_e93f0c614b_6
 basic-branch-build-strategies:81.v05e333931c7d
