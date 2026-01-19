@@ -1,14 +1,10 @@
 jenkins:
-  agentProtocols:
-  - "JNLP4-connect"
-  - "Ping"
   crumbIssuer:
     strict:
       checkSessionMatch: false
   disableRememberMe: false
   markupFormatter: "plainText"
   mode: EXCLUSIVE
-  myViewsTabBar: "standard"
   nodes:
   - permanent:
       labelString: "doc"
@@ -99,7 +95,7 @@ unclassified:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
     hookUrl: "https://ci.tlcpack.ai/github-webhook/"
-  gitSCM:
+  scmGit:
     createAccountBasedOnEmail: false
     showEntireCommitSummaryInChanges: false
     useExistingAccountWithSameEmail: false
