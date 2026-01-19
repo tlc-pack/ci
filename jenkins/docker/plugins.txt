@@ -1,5 +1,6 @@
 authorize-project:1.8.1
 aws-java-sdk-ec2:1.12.780-480.v4a_0819121a_9e
+eddsa-api:0.3.0.1-19.vc432d923e5ee
 aws-java-sdk-minimal:1.12.780-480.v4a_0819121a_9e
 basic-branch-build-strategies:81.v05e333931c7d
 block-queued-job:0.2.0
