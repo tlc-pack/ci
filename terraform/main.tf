@@ -15,7 +15,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "tvm-ci-terraform-state"
+    bucket = "tvm-ci-terraform-state-new"
     key    = "tfstate"
     region = "us-west-2"
   }
