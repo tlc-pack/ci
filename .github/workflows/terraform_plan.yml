@@ -24,7 +24,7 @@ jobs:
     outputs:
       valid_workflow: ${{ steps.validate_workflow.outputs.valid_workflow }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install and configure Poetry
         uses: snok/install-poetry@2bf112a0f6979928eb6b011f39700db589c5961e #v1
         with:
@@ -64,7 +64,7 @@ jobs:
     # These steps run if either the PR is within the same repo or if the PR is
     # on a fork and the committer has deployer access
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Terraform fmt

@@ -28,7 +28,7 @@ def test():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Set the job config XML for octoml- and tvm- jobs in Jenkins"
+        description="Set the job config XML for tvm- jobs in Jenkins"
     )
     parser.parse_args()
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     to_update = []
     for job in jobs:
         name = job["fullname"]
-        if name.startswith("tvm-") or name.startswith("octoml-"):
+        if name.startswith("tvm-"):
             to_update.append(name)
 
     for name in to_update:
