@@ -207,8 +207,6 @@ ecr_repositories = [
   "ci_cpu",
   "ci_minimal",
   "ci_gpu",
-  "ci_hexagon",
-  "ci_i386",
   "ci_lint",
   "ci_cortexm",
   "ci_qemu",
