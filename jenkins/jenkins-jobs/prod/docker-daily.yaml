@@ -67,8 +67,6 @@
       - string:
           name: ci_wasm_param
       - string:
-          name: ci_i386_param
-      - string:
           name: ci_cortexm_param
       - string:
           name: ci_arm_param

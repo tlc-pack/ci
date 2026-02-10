@@ -1172,8 +1172,6 @@ def test_open_docker_update_pr(
         "ci_cortexm",
         "ci_cpu",
         "ci_gpu",
-        "ci_hexagon",
-        "ci_i386",
         "ci_lint",
         "ci_minimal",
         "ci_riscv",
