@@ -19,29 +19,29 @@ jobs:
         working-directory: ./jenkins
     steps:
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Pull repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/jenkins:${{ github.sha }}
           context: jenkins/docker
   prepare_head_node:
-    # needs: build_docker
+    needs: build_docker
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -50,7 +50,6 @@ jobs:
       OAUTH_CLIENT_ID_PROD: ${{ secrets.OAUTH_CLIENT_ID_PROD }}
       OAUTH_CLIENT_SECRET_PROD: ${{ secrets.OAUTH_CLIENT_SECRET_PROD }}
       JENKINS_READER_APP_KEY: ${{ secrets.JENKINS_READER_APP_KEY }}
-      OCTOML_RELAX_CI_GITHUB_APP_KEY: ${{ secrets.OCTOML_RELAX_CI_GITHUB_APP_KEY }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       JENKINS_PRIV_KEY_PROD: ${{ secrets.JENKINS_PRIV_KEY_PROD }}
       JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
@@ -64,13 +63,12 @@ jobs:
       SCCACHE_BUCKET: ${{ secrets.SCCACHE_BUCKET }}
       DOCS_PUSH_TOKEN: ${{ secrets.DOCS_PUSH_TOKEN }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      TVM_BOT_DOCS_GITHUB_TOKEN: ${{ secrets.TVM_BOT_GITHUB_TOKEN }}
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
     steps:
       -
         name: Pull repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: Pull Terraform state
         run: ./scripts/pull_terraform_backend.sh

@@ -1,13 +1,13 @@
 authorize-project:1.8.1
 aws-java-sdk-ec2:1.12.780-480.v4a_0819121a_9e
-eddsa-api:0.3.0.1-19.vc432d923e5ee
+eddsa-api
 aws-java-sdk-minimal:1.12.780-480.v4a_0819121a_9e
 basic-branch-build-strategies:81.v05e333931c7d
 block-queued-job:0.2.0
 blueocean:1.27.14
 branch-api:2.1255.v2f5fe203584a_
 build-timeout:1.24
-configuration-as-code:2006.v001a_2ca_6b_574
+configuration-as-code:2031.veb_a_fdda_b_3ffd
 disable-github-multibranch-status:1.2
 discord-notifier:218.ve2b_887e3a_f28
 ec2-fleet:3.2.0

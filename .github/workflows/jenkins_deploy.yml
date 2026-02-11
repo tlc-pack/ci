@@ -24,7 +24,7 @@ jobs:
 
       -
         name: Pull repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: Source common environment variables to be used in ansible playbook
         run: source ./scripts/common.sh

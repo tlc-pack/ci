@@ -26,36 +26,36 @@ jobs:
     steps:
       -
         name: Pull repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      -
+        name: Set up Packer
+        uses: hashicorp/setup-packer@v3
       -
         name: Build AWS base AMI
-        uses: hashicorp/packer-github-actions@master
+        run: |
+          set -euxo pipefail
+          packer init base-images/aws
+          packer build base-images/aws
         env:
-          WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_image_prefix: ci-base
-        with:
-          command: build
-          target: packer/base-images/aws
       -
         name: Build stock Jenkins agent
-        uses: hashicorp/packer-github-actions@master
+        run: |
+          set -euxo pipefail
+          packer init jenkins-agents/stock
+          packer build jenkins-agents/stock
         env:
-          WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_source_image_family: ci-base
           PKR_VAR_image_prefix: jenkins-stock-agent
-        with:
-          command: build
-          target: packer/jenkins-agents/stock
       -
         name: Build GPU Jenkins agent
-        uses: hashicorp/packer-github-actions@master
+        run: |
+          set -euxo pipefail
+          packer init jenkins-agents/gpu
+          packer build jenkins-agents/gpu
         env:
-          WORKSPACE_DIR: jenkins-agents/stock
           PKR_VAR_source_image_family: jenkins-stock-agent
           PKR_VAR_image_prefix: jenkins-gpu-agent
           # This driver version below is the latest recommended given our requirements (T4 GPU, CUDA 12.2, Linux X64). Furthermore, the corresponding run script is compatible with Linux kernel version 5.15.
           PKR_VAR_nvidia_driver_version: "535.183.01"
           PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
-        with:
-          command: build
-          target: packer/jenkins-agents/gpu
