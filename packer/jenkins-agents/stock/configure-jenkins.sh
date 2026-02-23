@@ -12,8 +12,7 @@ usermod -aG docker ubuntu
 
 #Build essentials like make and gcc
 apt install -y build-essential
-apt install -y python3 python3-pip
-pip install -q poetry launchpadlib
+apt install -y python3 python3-pip python3-poetry python3-launchpadlib
 apt install -y openjdk-17-jre-headless
 apt-mark hold openjdk-17-jre-headless
 #echo new cron into cron file
