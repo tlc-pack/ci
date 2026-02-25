@@ -28,6 +28,47 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Terraform Import
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          set -euxo pipefail
+          terraform init
+          terraform workspace select tvm-ci-prod
+
+          ASGS=(
+            "Prod-Autoscaler-Jenkins-CPU-Large-SPOT"
+            "Flashinfer-Autoscaler-Jenkins-GPU-G5"
+            "Flashinfer-Autoscaler-Jenkins-GPU-G5-SPOT"
+            "Flashinfer-Autoscaler-Jenkins-GPU-G6"
+            "Flashinfer-Autoscaler-Jenkins-GPU-G6-SPOT"
+          )
+
+          for name in "${ASGS[@]}"; do
+            # Import ASG
+            terraform import \
+              -var-file=vars/tvm-ci-prod.auto.tfvars \
+              "module.Jenkins-Autoscalers[\"${name}\"].aws_autoscaling_group.agents" \
+              "${name}" || true
+
+            # Get launch template ID from the ASG
+            LT_ID=$(aws autoscaling describe-auto-scaling-groups \
+              --auto-scaling-group-names "${name}" \
+              --query 'AutoScalingGroups[0].MixedInstancesPolicy.LaunchTemplate.LaunchTemplateSpecification.LaunchTemplateId' \
+              --output text --region us-west-2 2>/dev/null) || true
+
+            if [ -n "$LT_ID" ] && [ "$LT_ID" != "None" ]; then
+              terraform import \
+                -var-file=vars/tvm-ci-prod.auto.tfvars \
+                "module.Jenkins-Autoscalers[\"${name}\"].aws_launch_template.autoscaler" \
+                "${LT_ID}" || true
+            fi
+          done
+      - name: Terraform Plan (verify imports)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          terraform plan -var-file=vars/tvm-ci-prod.auto.tfvars -no-color
       - name: Terraform Apply
         if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'workflow_dispatch' }}
         uses: dflook/terraform-apply@e1c1b7e1d0eed8bda30338e54ff3cd6790a6f35b #v1.25.1
@@ -36,12 +77,3 @@ jobs:
             terraform/vars/tvm-ci-prod.auto.tfvars
           workspace: tvm-ci-prod
           path: ./terraform
-      - name: Terraform Apply (workflow dispatch)
-        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' }}
-        uses: dflook/terraform-apply@e1c1b7e1d0eed8bda30338e54ff3cd6790a6f35b #v1.25.1
-        with:
-          var_file: |
-            terraform/vars/tvm-ci-prod.auto.tfvars
-          workspace: tvm-ci-prod
-          path: ./terraform
-          auto_approve: true

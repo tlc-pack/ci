@@ -1,10 +1,14 @@
+data "aws_vpc" "main" {
+  id = var.vpc_id
+}
+
 resource "aws_security_group" "ssh_inbound" {
   vpc_id = var.vpc_id
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [data.aws_vpc.main.cidr_block]
   }
   tags = {
     Name = "ssh_inbound"
