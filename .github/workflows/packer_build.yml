@@ -56,5 +56,5 @@ jobs:
         env:
           PKR_VAR_source_image_family: jenkins-stock-agent
           PKR_VAR_image_prefix: jenkins-gpu-agent
-          PKR_VAR_nvidia_driver_version: "550.163.01"
+          PKR_VAR_nvidia_driver_version: "570.124.06"
           PKR_VAR_nvidia_driver_base_url: "https://us.download.nvidia.com/tesla"
