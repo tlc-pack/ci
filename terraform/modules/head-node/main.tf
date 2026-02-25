@@ -42,7 +42,11 @@ resource "aws_iam_role_policy" "jenkins_fleet" {
             "ec2:DescribeInstances",
             "ec2:TerminateInstances",
             "ec2:DescribeInstanceStatus",
-            "ec2:DescribeSpotFleetRequests"
+            "ec2:DescribeSpotFleetRequests",
+            "ec2:DescribeFleets",
+            "ec2:DescribeFleetInstances",
+            "ec2:ModifyFleet",
+            "ec2:DescribeInstanceTypes"
          ],
          "Resource":"*"
       },

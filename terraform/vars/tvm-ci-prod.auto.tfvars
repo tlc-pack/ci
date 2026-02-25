@@ -53,7 +53,7 @@ autoscaler_types = {
     labels                                   = "CPU-LARGE-SPOT"
     min_size                                 = 0
     max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 100
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
@@ -179,7 +179,7 @@ autoscaler_types = {
     labels                                   = "GPU-G5-SPOT"
     min_size                                 = 0
     max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 100
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
   "Flashinfer-Autoscaler-Jenkins-GPU-G6" = {
@@ -197,7 +197,7 @@ autoscaler_types = {
     labels                                   = "GPU-G6-SPOT"
     min_size                                 = 0
     max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 100
+    on_demand_percentage_above_base_capacity = 0
     on_demand_base_capacity                  = 0
   }
 }
