@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.0"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
 variable "buildtime" {
     default = "{{isotime \"200601021504\"}}"
 }
@@ -7,7 +16,6 @@ source "amazon-ebs" "aws_base_image" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-x64-v${var.buildtime}"
-  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-x64"
   }
@@ -15,7 +23,7 @@ source "amazon-ebs" "aws_base_image" {
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    name = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
+    name = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
     root-device-type = "ebs"
     }
     owners = ["099720109477"]
@@ -30,7 +38,6 @@ source "amazon-ebs" "aws_base_image_arm" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-arm-v${var.buildtime}"
-  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-arm"
   }
@@ -38,7 +45,7 @@ source "amazon-ebs" "aws_base_image_arm" {
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    name = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-arm64-server-*"
+    name = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"
     root-device-type = "ebs"
     }
     owners = ["099720109477"]

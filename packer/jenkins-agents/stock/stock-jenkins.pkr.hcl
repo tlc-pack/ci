@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.0"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
 variable "buildtime" {
     default = "{{isotime \"200601021504\"}}"
 }
@@ -7,7 +16,6 @@ source "amazon-ebs" "jenkins_stock_image" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-x64-v${var.buildtime}"
-  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-x64"
   }
@@ -30,7 +38,6 @@ source "amazon-ebs" "jenkins_stock_image_arm" {
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
   ami_name          = "${var.image_prefix}-arm-v${var.buildtime}"
-  ami_groups = ["all"]
   tags = {
     image_family = "${var.image_prefix}-arm"
   }
