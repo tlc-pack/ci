@@ -16,7 +16,6 @@ source "amazon-ebs" "jenkins_gpu_image" {
   access_key = var.aws_access_key  
   secret_key =  var.aws_secret_key
   communicator        = "ssh"
-  ami_groups = ["all"]
   ami_name          = "${var.image_prefix}-x64-v${var.buildtime}"
   tags = {
     image_family = "${var.image_prefix}-x64"
