@@ -1,8 +1,8 @@
 set -eux
-# install Nvidia drivers and dependencies
+
+# Install NVIDIA driver via apt (pre-built kernel modules, compatible with HWE kernels)
 apt install -y linux-headers-$(uname -r)
-curl -fSsl -O $BASE_URL/$NVIDIA_DRIVER_VERSION/NVIDIA-Linux-x86_64-$NVIDIA_DRIVER_VERSION.run
-sh NVIDIA-Linux-x86_64-$NVIDIA_DRIVER_VERSION.run -s
+apt install -y nvidia-driver-${NVIDIA_DRIVER_VERSION}-server
 
 # install nvidia-container-toolkit (replaces deprecated nvidia-container-runtime)
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | \

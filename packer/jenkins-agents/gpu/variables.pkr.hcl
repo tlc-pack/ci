@@ -14,6 +14,3 @@ variable "source_image_family" {
 
 variable "nvidia_driver_version" {
 }
-
-variable "nvidia_driver_base_url"{
-}

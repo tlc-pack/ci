@@ -51,8 +51,7 @@ build {
 
   provisioner "shell" {
     environment_vars = [
-      "NVIDIA_DRIVER_VERSION=${var.nvidia_driver_version}",
-      "BASE_URL=${var.nvidia_driver_base_url}"
+      "NVIDIA_DRIVER_VERSION=${var.nvidia_driver_version}"
     ]
     execute_command = "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
     scripts = ["${path.root}/../../scripts/nvidia-drivers.sh", "${path.root}/vulkan-setup.sh"]
