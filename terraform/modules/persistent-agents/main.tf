@@ -13,8 +13,7 @@ locals {
 
 data "aws_ami" "agent-image" {
   most_recent = true
-  #'terraform-tvm' aws account
-  owners = ["649843420731"]
+  owners = ["self"]
 
   filter {
     name   = "name"
