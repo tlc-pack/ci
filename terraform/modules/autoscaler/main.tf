@@ -62,6 +62,13 @@ resource "aws_autoscaling_group" "agents" {
         launch_template_id = aws_launch_template.autoscaler.id
         version            = aws_launch_template.autoscaler.latest_version
       }
+
+      dynamic "override" {
+        for_each = var.additional_instance_types
+        content {
+          instance_type = override.value
+        }
+      }
     }
   }
   lifecycle {

@@ -63,6 +63,7 @@ variable "autoscaler_types" {
     max_size                                 = number
     on_demand_percentage_above_base_capacity = number
     on_demand_base_capacity                  = number
+    additional_instance_types                = optional(list(string), [])
   }))
   default = {}
 }
