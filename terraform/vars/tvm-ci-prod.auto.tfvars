@@ -31,7 +31,7 @@ jenkins_pub_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZvGmyspz5yaZ2n0H2U2XG8x
 autoscaler_types = {
   "Prod-Autoscaler-Jenkins-CPU" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c4.4xlarge"
+    agent_instance_type                      = "c6a.8xlarge"
     labels                                   = "CPU"
     min_size                                 = 0
     max_size                                 = 90
@@ -40,7 +40,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-CPU-Large" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c4.4xlarge"
+    agent_instance_type                      = "c6a.8xlarge"
     labels                                   = "CPU-LARGE"
     min_size                                 = 0
     max_size                                 = 90
@@ -49,7 +49,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-CPU-Large-SPOT" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c4.4xlarge"
+    agent_instance_type                      = "c6a.8xlarge"
     labels                                   = "CPU-LARGE-SPOT"
     min_size                                 = 0
     max_size                                 = 90
@@ -58,7 +58,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c4.4xlarge"
+    agent_instance_type                      = "c6a.8xlarge"
     labels                                   = "CPU-SPOT"
     min_size                                 = 0
     max_size                                 = 90
@@ -67,7 +67,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "r5.large"
+    agent_instance_type                      = "r6a.xlarge"
     labels                                   = "CPU-SMALL"
     min_size                                 = 0
     max_size                                 = 400
@@ -76,7 +76,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-CPU-Small-Spot" = {
     image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "r5.large"
+    agent_instance_type                      = "r6a.xlarge"
     labels                                   = "CPU-SMALL-SPOT"
     min_size                                 = 0
     max_size                                 = 100
@@ -91,6 +91,7 @@ autoscaler_types = {
     max_size                                 = 150
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
+    additional_instance_types                = ["g4dn.2xlarge", "g4dn.4xlarge", "g5.xlarge", "g5.2xlarge", "g5.4xlarge"]
   }
    "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
      image_family                             = "jenkins-gpu-agent-x64"
@@ -100,6 +101,7 @@ autoscaler_types = {
      max_size                                 = 64
      on_demand_percentage_above_base_capacity = 0
      on_demand_base_capacity                  = 0
+     additional_instance_types                = ["g4dn.2xlarge", "g4dn.4xlarge", "g5.xlarge", "g5.2xlarge", "g5.4xlarge"]
    }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"

@@ -108,4 +108,5 @@ module "Jenkins-Autoscalers" {
   max_size                                 = each.value.max_size
   on_demand_base_capacity                  = each.value.on_demand_base_capacity
   on_demand_percentage_above_base_capacity = each.value.on_demand_percentage_above_base_capacity
+  additional_instance_types                = lookup(each.value, "additional_instance_types", [])
 }

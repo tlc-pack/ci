@@ -53,3 +53,8 @@ variable "on_demand_base_capacity" {
 variable "on_demand_percentage_above_base_capacity" {
   type = number
 }
+
+variable "additional_instance_types" {
+  type    = list(string)
+  default = []
+}
