@@ -14,7 +14,7 @@ jenkins:
             port: 22
             retryWaitTime: 15
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
-        disableTaskResubmit: false
+        disableTaskResubmit: ${length(regexall("(?i)spot", name)) > 0 ? "true" : "false"}
         fleet: ${name}
         idleMinutes: 1
         initOnlineCheckIntervalSec: 15
