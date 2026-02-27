@@ -85,23 +85,23 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
     image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g4dn.xlarge"
+    agent_instance_type                      = "g5.xlarge"
     labels                                   = "GPU"
     min_size                                 = 0
     max_size                                 = 150
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
-    additional_instance_types                = ["g4dn.2xlarge", "g4dn.4xlarge", "g5.xlarge", "g5.2xlarge", "g5.4xlarge"]
+    additional_instance_types                = ["g5.2xlarge", "g5.4xlarge", "g6.xlarge", "g6.2xlarge", "g6.4xlarge"]
   }
    "Prod-Autoscaler-Jenkins-GPU-SPOT" = {
      image_family                             = "jenkins-gpu-agent-x64"
-     agent_instance_type                      = "g4dn.xlarge"
+     agent_instance_type                      = "g5.xlarge"
      labels                                   = "GPU-SPOT"
      min_size                                 = 8
      max_size                                 = 64
      on_demand_percentage_above_base_capacity = 0
      on_demand_base_capacity                  = 0
-     additional_instance_types                = ["g4dn.2xlarge", "g4dn.4xlarge", "g5.xlarge", "g5.2xlarge", "g5.4xlarge"]
+     additional_instance_types                = ["g5.2xlarge", "g5.4xlarge", "g6.xlarge", "g6.2xlarge", "g6.4xlarge"]
    }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"
