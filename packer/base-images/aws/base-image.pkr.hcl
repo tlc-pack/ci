@@ -23,7 +23,7 @@ source "amazon-ebs" "aws_base_image" {
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    name = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+    name = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
     root-device-type = "ebs"
     }
     owners = ["099720109477"]
@@ -45,7 +45,7 @@ source "amazon-ebs" "aws_base_image_arm" {
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
-    name = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"
+    name = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-arm64-server-*"
     root-device-type = "ebs"
     }
     owners = ["099720109477"]
