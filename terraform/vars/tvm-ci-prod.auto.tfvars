@@ -38,24 +38,6 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
-  "Prod-Autoscaler-Jenkins-CPU-Large" = {
-    image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c6a.8xlarge"
-    labels                                   = "CPU-LARGE"
-    min_size                                 = 0
-    max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity                  = 0
-  }
-  "Prod-Autoscaler-Jenkins-CPU-Large-SPOT" = {
-    image_family                             = "jenkins-stock-agent-x64"
-    agent_instance_type                      = "c6a.8xlarge"
-    labels                                   = "CPU-LARGE-SPOT"
-    min_size                                 = 0
-    max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 0
-    on_demand_base_capacity                  = 0
-  }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
     image_family                             = "jenkins-stock-agent-x64"
     agent_instance_type                      = "c6a.8xlarge"
@@ -112,24 +94,6 @@ autoscaler_types = {
     on_demand_percentage_above_base_capacity = 100
     on_demand_base_capacity                  = 0
   }
-  "Prod-Autoscaler-Jenkins-ARM-Large" = {
-    image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r7g.8xlarge"
-    labels                                   = "ARM-LARGE"
-    min_size                                 = 0
-    max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity                  = 0
-  }
-  "Prod-Autoscaler-Jenkins-ARM-SPOT" = {
-    image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r7g.8xlarge"
-    labels                                   = "ARM-SPOT"
-    min_size                                 = 0
-    max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 0
-    on_demand_base_capacity                  = 0
-  }
   "Prod-Autoscaler-Jenkins-ARM-Graviton3" = {
     image_family                             = "jenkins-stock-agent-arm"
     agent_instance_type                      = "r7g.8xlarge"
@@ -147,60 +111,6 @@ autoscaler_types = {
     max_size                                   = 90
     on_demand_percentage_above_base_capacity   = 0
     on_demand_base_capacity                    = 0
-  }
-  "Prod-Autoscaler-Jenkins-ARM-Small" = {
-    image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r7g.large"
-    labels                                   = "ARM-SMALL"
-    min_size                                 = 0
-    max_size                                 = 150
-    on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity                  = 0
-  }
-  "Prod-Autoscaler-Jenkins-ARM-Small-SPOT" = {
-    image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r7g.large"
-    labels                                   = "ARM-SMALL-SPOT"
-    min_size                                 = 0
-    max_size                                 = 150
-    on_demand_percentage_above_base_capacity = 0
-    on_demand_base_capacity                  = 0
-  }
-  "Flashinfer-Autoscaler-Jenkins-GPU-G5" = {
-    image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g5.xlarge"
-    labels                                   = "GPU-G5"
-    min_size                                 = 0
-    max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity                  = 0
-  }
-  "Flashinfer-Autoscaler-Jenkins-GPU-G5-SPOT" = {
-    image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g5.xlarge"
-    labels                                   = "GPU-G5-SPOT"
-    min_size                                 = 0
-    max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 0
-    on_demand_base_capacity                  = 0
-  }
-  "Flashinfer-Autoscaler-Jenkins-GPU-G6" = {
-    image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g6.xlarge"
-    labels                                   = "GPU-G6"
-    min_size                                 = 0
-    max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 100
-    on_demand_base_capacity                  = 0
-  }
-  "Flashinfer-Autoscaler-Jenkins-GPU-G6-SPOT" = {
-    image_family                             = "jenkins-gpu-agent-x64"
-    agent_instance_type                      = "g6.xlarge"
-    labels                                   = "GPU-G6-SPOT"
-    min_size                                 = 0
-    max_size                                 = 64
-    on_demand_percentage_above_base_capacity = 0
-    on_demand_base_capacity                  = 0
   }
 }
 
