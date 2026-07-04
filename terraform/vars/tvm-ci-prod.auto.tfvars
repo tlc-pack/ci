@@ -105,7 +105,7 @@ autoscaler_types = {
    }
   "Prod-Autoscaler-Jenkins-ARM" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "m6g.4xlarge"
+    agent_instance_type                      = "r7g.8xlarge"
     labels                                   = "ARM"
     min_size                                 = 0
     max_size                                 = 90
@@ -114,7 +114,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-Large" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "m6g.4xlarge"
+    agent_instance_type                      = "r7g.8xlarge"
     labels                                   = "ARM-LARGE"
     min_size                                 = 0
     max_size                                 = 90
@@ -123,7 +123,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-SPOT" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "m6g.4xlarge"
+    agent_instance_type                      = "r7g.8xlarge"
     labels                                   = "ARM-SPOT"
     min_size                                 = 0
     max_size                                 = 90
@@ -132,7 +132,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-Graviton3" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r7g.large"
+    agent_instance_type                      = "r7g.8xlarge"
     labels                                   = "ARM-GRAVITON3"
     min_size                                 = 0
     max_size                                 = 90
@@ -141,7 +141,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-Graviton3-SPOT" = {
     image_family                               = "jenkins-stock-agent-arm"
-    agent_instance_type                        = "r7g.large"
+    agent_instance_type                        = "r7g.8xlarge"
     labels                                     = "ARM-GRAVITON3-SPOT"
     min_size                                   = 0
     max_size                                   = 90
@@ -150,7 +150,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-Small" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r6g.large"
+    agent_instance_type                      = "r7g.large"
     labels                                   = "ARM-SMALL"
     min_size                                 = 0
     max_size                                 = 150
@@ -159,7 +159,7 @@ autoscaler_types = {
   }
   "Prod-Autoscaler-Jenkins-ARM-Small-SPOT" = {
     image_family                             = "jenkins-stock-agent-arm"
-    agent_instance_type                      = "r6g.large"
+    agent_instance_type                      = "r7g.large"
     labels                                   = "ARM-SMALL-SPOT"
     min_size                                 = 0
     max_size                                 = 150
