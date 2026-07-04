@@ -54,7 +54,7 @@ resource "aws_autoscaling_group" "agents" {
     instances_distribution {
       on_demand_base_capacity                  = var.on_demand_base_capacity
       on_demand_percentage_above_base_capacity = var.on_demand_percentage_above_base_capacity
-      spot_allocation_strategy                 = "capacity-optimized"
+      spot_allocation_strategy                 = "price-capacity-optimized"
     }
 
     launch_template {
