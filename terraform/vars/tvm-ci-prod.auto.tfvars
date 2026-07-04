@@ -35,7 +35,7 @@ autoscaler_types = {
     labels                                   = "CPU"
     min_size                                 = 0
     max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 100
+    on_demand_percentage_above_base_capacity = 30
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-SPOT" = {
@@ -44,7 +44,7 @@ autoscaler_types = {
     labels                                   = "CPU-SPOT"
     min_size                                 = 0
     max_size                                 = 90
-    on_demand_percentage_above_base_capacity = 0
+    on_demand_percentage_above_base_capacity = 30
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-CPU-Small" = {
@@ -62,7 +62,7 @@ autoscaler_types = {
     labels                                   = "CPU-SMALL-SPOT"
     min_size                                 = 0
     max_size                                 = 100
-    on_demand_percentage_above_base_capacity = 0
+    on_demand_percentage_above_base_capacity = 30
     on_demand_base_capacity                  = 0
   }
   "Prod-Autoscaler-Jenkins-GPU" = {
@@ -81,7 +81,7 @@ autoscaler_types = {
      labels                                   = "GPU-SPOT"
      min_size                                 = 8
      max_size                                 = 64
-     on_demand_percentage_above_base_capacity = 0
+     on_demand_percentage_above_base_capacity = 30
      on_demand_base_capacity                  = 0
      additional_instance_types                = ["g5.2xlarge", "g5.4xlarge", "g6.xlarge", "g6.2xlarge", "g6.4xlarge"]
    }
@@ -109,7 +109,7 @@ autoscaler_types = {
     labels                                     = "ARM-GRAVITON3-SPOT"
     min_size                                   = 0
     max_size                                   = 90
-    on_demand_percentage_above_base_capacity   = 0
+    on_demand_percentage_above_base_capacity   = 30
     on_demand_base_capacity                    = 0
   }
 }
