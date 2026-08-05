@@ -54,7 +54,10 @@ resource "aws_iam_role_policy" "jenkins_fleet" {
          "Effect":"Allow",
          "Action":[
             "autoscaling:DescribeAutoScalingGroups",
-            "autoscaling:UpdateAutoScalingGroup"
+            "autoscaling:DescribeWarmPool",
+            "autoscaling:UpdateAutoScalingGroup",
+            "autoscaling:SetInstanceProtection",
+            "autoscaling:TerminateInstanceInAutoScalingGroup"
          ],
          "Resource":"*"
       },
