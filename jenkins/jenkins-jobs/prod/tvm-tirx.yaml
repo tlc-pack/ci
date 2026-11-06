@@ -1,0 +1,30 @@
+- job:
+    name: tvm-tirx
+    project-type: multibranch
+    description: 'Open ML Compiler Foundation'
+    disabled: false
+    concurrent: true
+    scm:
+        - github:
+            repo: tvm-tirx
+            repo-owner: apache
+            api-uri: https://api.github.com
+            credentials-id: 'tqchen-ci'
+            branch-discovery: no-pr
+            discover-pr-origin: current
+            discover-pr-forks-strategy: current
+            discover-pr-forks-trust: nobody
+            notification-context: all
+            wipe-workspace: false
+            refspecs:
+              # Escape braces for JJB; Jenkins receives the literal @{remote}.
+              - +refs/heads/main:refs/remotes/@{{remote}}/main
+            build-strategies:
+                - change-request:
+                    ignore-target-only-changes: true
+                - named-branches:
+                    - regex-name:
+                        regex: '^(?!.*last-successful).*$'
+                        case-sensitive: true
+    days-to-keep: 1
+    script-path: ci/jenkins/jenkinsfile.groovy
