@@ -26,7 +26,7 @@
             credentials-id: 'jenkins-reader-tlcpack'
             branches:
               - main
-            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+            refspec: +refs/heads/*:refs/remotes/@{{remote}}/*
       script-path: jenkins/JenkinsFile-rebuild-docker-images
     days-to-keep: 10
     number-to-keep: 100
@@ -47,7 +47,7 @@
             credentials-id: 'jenkins-reader-tlcpack'
             branches:
               - main
-            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+            refspec: +refs/heads/*:refs/remotes/@{{remote}}/*
       script-path: jenkins/JenkinsFile-validate-docker-images
     days-to-keep: 10
     number-to-keep: 100
@@ -77,7 +77,7 @@
             credentials-id: 'jenkins-reader-apache'
             branches:
               - "*/main"
-            refspec: +refs/heads/*:refs/remotes/@{remote}/*
+            refspec: +refs/heads/*:refs/remotes/@{{remote}}/*
       script-path: Jenkinsfile
     days-to-keep: 10
     number-to-keep: 100
