@@ -31,10 +31,17 @@ jobs:
         name: Set up Packer
         uses: hashicorp/setup-packer@v3
       -
+        name: Check Docker cache provisioning
+        run: |
+          bash -n scripts/preload-docker-images.sh
+          bash -n scripts/jenkins-docker-cleanup.sh
+          python3 -m unittest discover -s tests -v
+      -
         name: Build AWS base AMI
         run: |
           set -euxo pipefail
           packer init base-images/aws
+          packer validate base-images/aws
           packer build base-images/aws
         env:
           PKR_VAR_image_prefix: ci-base
@@ -43,6 +50,7 @@ jobs:
         run: |
           set -euxo pipefail
           packer init jenkins-agents/stock
+          packer validate jenkins-agents/stock
           packer build jenkins-agents/stock
         env:
           PKR_VAR_source_image_family: ci-base
@@ -52,6 +60,7 @@ jobs:
         run: |
           set -euxo pipefail
           packer init jenkins-agents/gpu
+          packer validate jenkins-agents/gpu
           packer build jenkins-agents/gpu
         env:
           PKR_VAR_source_image_family: jenkins-stock-agent

@@ -15,8 +15,10 @@ apt install -y build-essential
 apt install -y python3 python3-pip python3-poetry python3-launchpadlib
 apt install -y openjdk-21-jre-headless
 apt-mark hold openjdk-21-jre-headless
-#echo new cron into cron file
-echo '0 * * * * docker system prune --all --force --filter "until=1h"' | crontab
+# Install cache-aware cleanup.
+install -m 0755 /tmp/jenkins-docker-cleanup.sh /usr/local/sbin/jenkins-docker-cleanup
+rm /tmp/jenkins-docker-cleanup.sh
+echo '0 * * * * /usr/local/sbin/jenkins-docker-cleanup' | crontab
 
 docker network create jenkin
 

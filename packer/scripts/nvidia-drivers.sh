@@ -19,7 +19,10 @@ cat << EOF > /etc/docker/daemon.json
     "max-size": "100m",
     "max-file": "2"
   },
-  "storage-driver": "overlay2"
+  "storage-driver": "overlay2",
+  "features": {
+    "containerd-snapshotter": false
+  }
 }
 EOF
 
