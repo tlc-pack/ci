@@ -19,7 +19,14 @@ source "amazon-ebs" "jenkins_stock_image" {
   tags = {
     image_family = "${var.image_prefix}-x64"
   }
-  instance_type        = "t2.micro"
+  # Allow room for CUDA image extraction.
+  instance_type        = "t3.large"
+  launch_block_device_mappings {
+    device_name           = "/dev/sda1"
+    volume_size           = 100
+    volume_type           = "gp3"
+    delete_on_termination = true
+  }
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
@@ -42,6 +49,12 @@ source "amazon-ebs" "jenkins_stock_image_arm" {
     image_family = "${var.image_prefix}-arm"
   }
   instance_type        = "m6g.medium"
+  launch_block_device_mappings {
+    device_name           = "/dev/sda1"
+    volume_size           = 100
+    volume_type           = "gp3"
+    delete_on_termination = true
+  }
   source_ami_filter {
     filters = {
     virtualization-type = "hvm"
@@ -57,6 +70,11 @@ source "amazon-ebs" "jenkins_stock_image_arm" {
 
 build {
   sources = ["source.amazon-ebs.jenkins_stock_image", "source.amazon-ebs.jenkins_stock_image_arm"]
+
+  provisioner "file" {
+    source      = "${path.root}/../../scripts/jenkins-docker-cleanup.sh"
+    destination = "/tmp/jenkins-docker-cleanup.sh"
+  }
 
   provisioner "shell" {
     execute_command = "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
@@ -101,5 +119,13 @@ build {
     scripts = [
       "${path.root}/configure-jenkins.sh",
     ]
+  }
+
+  provisioner "shell" {
+    execute_command = "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+    environment_vars = [
+      "DOCKER_CACHE_IMAGES=${join(" ", var.docker_cache_images)}"
+    ]
+    scripts = ["${path.root}/../../scripts/preload-docker-images.sh"]
   }
 }

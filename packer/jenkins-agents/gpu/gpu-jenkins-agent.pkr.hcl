@@ -22,8 +22,9 @@ source "amazon-ebs" "jenkins_gpu_image" {
   }
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 40
-    volume_type = "gp2"
+    # Match the stock AMI root volume.
+    volume_size = 100
+    volume_type = "gp3"
     delete_on_termination = true
   }
   source_ami_filter {
@@ -55,5 +56,15 @@ build {
     ]
     execute_command = "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
     scripts = ["${path.root}/../../scripts/nvidia-drivers.sh", "${path.root}/vulkan-setup.sh"]
+  }
+
+  provisioner "shell" {
+    execute_command = "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+    inline = [
+      "set -eu",
+      "systemctl restart docker",
+      "test -s /etc/jenkins/docker-cache-images",
+      "while IFS= read -r image; do docker image inspect \"$image\"; done < /etc/jenkins/docker-cache-images"
+    ]
   }
 }
